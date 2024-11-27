@@ -1,0 +1,52 @@
+.verify_phone_email_container {
+  width: 593px;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+
+.confirm_phone_number {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.code_sent_text {
+  text-align: center;
+  font-size: 16px;
+  color: #8e8e8e;
+  margin-top: -15px;
+}
+
+.verify_code_container {
+  margin-top: 40px;
+  padding-bottom: 30px;
+}
+
+.verify_code_text {
+  color: #084c3f;
+  font-size: 17px;
+}
+
+.invalid_otp {
+  font-size: 12px;
+  color: red;
+}
+
+.receive_verification_text {
+  text-align: center;
+  font-size: 12px;
+  color: #8e8e8e;
+}
+
+.receive_verification_text_second {
+  text-align: center;
+  font-size: 12px;
+  color: #8e8e8e;
+  margin-top: -5px;
+}
+
+@media (max-width: 600px) {
+  .verify_phone_email_container {
+    width: 382px;
+  }
+}

@@ -1,0 +1,23 @@
+.login_right_container {
+  width: 50vw;
+  padding: 30px;
+  display: flex; /* Make it a flex container */
+  flex-direction: column; /* Arrange children vertically */
+  align-items: flex-start; /* Align children to the start horizontally */
+  overflow-y: auto; /* Enable vertical scrolling for the right container */
+
+  /* Hide scrollbar for modern browsers */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.login_right_container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+@media (max-width: 600px) {
+  .login_right_container {
+    width: 100vw;
+    padding: 20px;
+  }
+}

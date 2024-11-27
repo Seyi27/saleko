@@ -1,25 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import SignUp from "./pages/sign-up/SignUp";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Login from "./pages/login/Login";
+import ForgotPassword from "./pages/forgot-password/ForgotPassword";
+import CreateAccount from "./components/create-account/CreateAccount";
+import ConfirmPhoneEmail from "./components/confirm-phone-email/ConfirmPhoneEmail";
+import ProfileSetup from "./components/profile-setup/ProfileSetup";
+import ForgotPasswordRequest from "./components/forgot-password-request/ForgotPasswordRequest";
+import ForgotPasswordVerification from "./components/forgot-password-verification/ForgotPasswordVerification";
+import ForgotPasswordReset from "./components/forgot-password-reset/ForgotPasswordReset";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<SignUp />}>
+          <Route index element={<CreateAccount />} />
+          <Route path="/verification" element={<ConfirmPhoneEmail />} />
+          <Route path="/setup-profile" element={<ProfileSetup />} />
+        </Route>
+
+        <Route path="/login" element={<Login />} />
+
+        <Route path="/forgot-password" element={<ForgotPassword />}>
+          <Route index element={<ForgotPasswordRequest />} />
+          <Route path="verification" element={<ForgotPasswordVerification />} />
+          <Route path="reset" element={<ForgotPasswordReset />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

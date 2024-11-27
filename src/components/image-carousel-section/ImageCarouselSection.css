@@ -1,0 +1,34 @@
+.left_container {
+    position: relative;
+    width: 50vw;
+    padding: 10px;
+    overflow: hidden; /* Prevent scrolling for the left container */
+}
+
+.background_image_green {
+  background-color: black; /* #084c3f */
+  border-radius: 15px;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.logo_container {
+    position: absolute;
+    top: 30px;
+    left: 50px;
+}
+
+.carousel_container{
+    position: absolute; /* Position relative to .left_container */
+    top: 50%; /* Move to the vertical center */
+    left: 50%; /* Move to the horizontal center */
+    transform: translate(-50%, -50%); /* Offset to center */
+    z-index: 1; /* Ensure it overlaps */
+}  
+
+@media (max-width: 600px) { 
+    .left_container{
+       display: none;
+    }
+  }

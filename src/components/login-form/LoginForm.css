@@ -1,0 +1,236 @@
+.login_form_container {
+  width: 593px;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+
+.login_text {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+label {
+  position: absolute;
+  top: 17px;
+  left: 10px;
+  font-size: 15px;
+  color: #8e8e8e;
+  padding: 0 5px;
+  transition: 0.3s;
+}
+
+form {
+  margin-top: 40px;
+}
+
+.forgot_password{
+  font-size: 12px;
+  color: #084C3F;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* ******************************** */
+
+/* For Email Address Input Field */
+.email_input_box {
+  position: relative;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.email_textinput {
+  height: 50px;
+  width: 100%;
+  font-size: 15px;
+  border-radius: 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ced3dd;
+  padding-left: 10px;
+  outline: none;
+  transition: border-color 0.3s, border-width 0.3s;
+  box-sizing: border-box; /* Ensure padding and borders are included in the width */
+}
+
+/* To be able to render the condition 
+  for if the input field is not empty so that label can stay up*/
+.email_label {
+  top: -8px;
+  color: #084c3f;
+  font-size: 12px;
+  background-color: #ffffff;
+}
+
+/* For label to move up when the input field
+   is clicked or focused */
+.email_textinput:focus + label {
+  top: -8px;
+  color: #084c3f;
+  font-size: 12px;
+  background-color: #ffffff;
+}
+
+/* For border to change color and width
+   when the input field is clicked 
+   or focused */
+.email_textinput:focus {
+  border-width: 2px;
+  border-color: #084c3f;
+}
+
+/* ******************************** */
+
+/* For Password Input Field */
+.password_input_box {
+  position: relative;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.password_textinput_container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+  font-size: 15px;
+  border-radius: 10px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ced3dd;
+  padding-left: 10px;
+  padding-right: 10px;
+  outline: none;
+  transition: border-color 0.3s, border-width 0.3s;
+  box-sizing: border-box; /* Ensure padding and borders are included in the width */
+}
+
+.password_textinput {
+  flex: 1;
+  font-size: 15px;
+  border-width: 0px;
+  border: none;
+  outline: none;
+  box-sizing: border-box; /* Ensure padding and borders are included in the width */
+}
+
+/* To be able to render the condition 
+  for if the input field is not empty so that label can stay up*/
+.password_label {
+  top: -8px;
+  color: #084c3f;
+  font-size: 12px;
+  background-color: #ffffff;
+}
+
+/* :focus-within used to focus/target the textinput 
+  that is within the container */
+.password_textinput_container:focus-within + label {
+  top: -8px;
+  color: #084c3f;
+  font-size: 12px;
+  background-color: #ffffff;
+}
+
+/* Change border color when input is focused */
+.password_textinput_container:focus-within {
+  border-color: #084c3f;
+  border-width: 2px;
+}
+
+/******************************/
+
+/* Form Divider */
+.form_divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.divider {
+  background-color: #8e8e8e;
+  width: 200px;
+  height: 1px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+/******************************/
+
+/* Error message */
+.error_message {
+  font-size: 10px;
+  color: red;
+}
+
+.error_textInput {
+  border-color: red !important;
+}
+
+.error_label {
+  color: red !important;
+}
+
+.no_error_label {
+  color: #8e8e8e;
+}
+
+/****************************************/
+
+/* password checklist */
+.password_checklist_container {
+  margin-top: 10px;
+}
+
+/* Style for Password checklist */
+.password_checklist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* Style for valid rules */
+.password_checklist .valid {
+  background-color: #084c3f;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 10px;
+  text-align: center;
+  white-space: nowrap; /* Prevent breaking onto multiple lines */
+  font-size: 12px;
+}
+
+/* Style for invalid rules */
+.password_checklist .invalid {
+  background-color: #8e8e8e;
+  color: white;
+  padding: 3px 10px;
+  border-radius: 10px;
+  text-align: center;
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+/* Ensure the icon is at the end both valid and invalid */
+.password_checklist .valid::after,
+.password_checklist .invalid::after {
+  content: "✔"; /* Example: Add a checkmark for valid, customize as needed */
+  font-size: 10px;
+  margin-left: 5px;
+  color: inherit; /* Use the same color as the text */
+}
+
+.password_checklist .invalid::after {
+  content: "✖"; /* Example: Add a cross for invalid */
+  /* color: inherit; */
+}
+
+
+@media (max-width: 600px) {
+  .login_form_container {
+    width: 382px;
+  }
+}
