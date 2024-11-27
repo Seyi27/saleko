@@ -1,16 +1,16 @@
-.forgot_password_request_container {
+.create_form_container {
   width: 593px;
   margin: 0 auto;
   margin-top: 40px;
 }
 
-.forgot_password_request_text {
+.create_account_text {
   text-align: center;
   font-size: 24px;
   font-weight: 600;
 }
 
-.forgot_password_request_instructions {
+.otp_verify_text {
   text-align: center;
   font-size: 16px;
   color: #8e8e8e;
@@ -33,16 +33,15 @@ form {
 
 /* ******************************** */
 
-/* For Email or Phone Number Input Field */
-.email_phone_input_box {
+/* For Dropdown */
+.dropdown {
   position: relative;
   width: 100%;
-  margin-top: 20px;
 }
 
-.email_phone_textinput {
-  height: 50px;
+.signup_dropdown {
   width: 100%;
+  height: 50px;
   font-size: 15px;
   border-radius: 10px;
   border-width: 1px;
@@ -51,12 +50,12 @@ form {
   padding-left: 10px;
   outline: none;
   transition: border-color 0.3s, border-width 0.3s;
-  box-sizing: border-box; /* Ensure padding and borders are included in the width */
+  box-sizing: border-box; /* Ensure consistent padding and border rendering */
 }
 
 /* To be able to render the condition 
-  for if the input field is not empty so that label can stay up*/
-.email_phone_label {
+for if the input field is not empty so that label can stay up*/
+.dropdown_label {
   top: -8px;
   color: #084c3f;
   font-size: 12px;
@@ -64,8 +63,8 @@ form {
 }
 
 /* For label to move up when the input field
-   is clicked or focused */
-.email_phone_textinput:focus + label {
+ is clicked or focused */
+.signup_dropdown:focus + .label {
   top: -8px;
   color: #084c3f;
   font-size: 12px;
@@ -73,34 +72,35 @@ form {
 }
 
 /* For border to change color and width
-   when the input field is clicked 
-   or focused */
-.email_phone_textinput:focus {
+ when the input field is clicked 
+ or focused */
+.signup_dropdown:focus {
   border-width: 2px;
   border-color: #084c3f;
 }
 
 /******************************/
 
-.error_message {
-  font-size: 10px;
-  color: red;
+/* Form Divider */
+.form_divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-.error_textInput {
-  border-color: red !important;
+.divider {
+  background-color: #8e8e8e;
+  width: 200px;
+  height: 1px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
-.error_label {
-  color: red !important;
-}
-
-.no_error_label {
-  color: #8e8e8e;
-}
+/******************************/
 
 @media (max-width: 600px) {
-  .forgot_password_request_container {
+  .create_form_container {
     width: 382px;
   }
 }

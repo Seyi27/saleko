@@ -1,0 +1,30 @@
+.profile_setup_form_container {
+  width: 593px;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+
+.setup_profile_text {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+form {
+  margin-top: 40px;
+}
+
+/****************************************/
+
+/* terms and condition */
+.terms_conditions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (max-width: 600px) {
+  .profile_setup_form_container {
+    width: 382px;
+  }
+}

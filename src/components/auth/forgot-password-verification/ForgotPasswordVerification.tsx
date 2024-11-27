@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./ForgotPasswordVerification.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import PinInput from "react-pin-input";
-import CustomButton from "../custom-button/CustomButton";
+import CustomButton from "../../custom-button/CustomButton";
 
 const ForgotPasswordVerification = () => {
   const [pin, setPin] = useState("");

@@ -1,10 +1,11 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "./CreateAccount.css";
-import CustomButton from "../custom-button/CustomButton";
+import CustomButton from "../../custom-button/CustomButton";
 import { FaApple } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
-import { countryCallingCodes } from "../../helpers/CountryCallingCodes";
+import { countryCallingCodes } from "../../../helpers/CountryCallingCodes";
 import { useNavigate } from "react-router-dom";
+import CustomTextInput from "../../custom-textInput/CustomTextInput";
 
 const CreateAccount = () => {
   const [email, setEmail] = useState("");
@@ -12,16 +13,11 @@ const CreateAccount = () => {
   const [emailError, setEmailError] = useState("");
   const [phoneNoError, setPhoneNoError] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const [selectedCode, setSelectedCode] = useState("+234");
 
   const [selectedValue, setSelectedValue] = useState("");
   const [emailPhoneText, setEmailPhoneText] = useState("");
 
   const navigate = useNavigate();
-
-  const handleSelectionChange = (e: any) => {
-    setSelectedCode(e.target.value);
-  };
 
   const handleDropdown = (e: any) => {
     setSelectedValue(e.target.value);
@@ -103,48 +99,25 @@ const CreateAccount = () => {
 
         {selectedValue ? (
           selectedValue == "phone" ? (
-            <div className="phone_input_box">
-              <input
-                type="text"
-                value={phoneNo}
-                onChange={(e) => handleTextInput("phone", e.target.value)}
-                className={`phone_textinput ${
-                  phoneNoError && "error_textInput"
-                }`}
-                maxLength={11}
-              />
-              <label
-                className={`${phoneNo.length == 0 ? "" : "phone_label"} ${
-                  phoneNoError && "error_label"
-                }`}
-              >
-                Phone Number
-              </label>
-              {phoneNoError && (
-                <span className="error_message">{phoneNoError}</span>
-              )}
-            </div>
+            <CustomTextInput
+              type={"phoneNo"}
+              name={"phone"}
+              value={phoneNo}
+              label={"Phone Number*"}
+              errorMessage={phoneNoError}
+              idAndHtmlFor={"phone_input"}
+              handleTextInput={handleTextInput}
+            />
           ) : (
-            <div className="email_input_box">
-              <input
-                type="text"
-                value={email}
-                onChange={(e) => handleTextInput("email", e.target.value)}
-                className={`email_textinput ${emailError && "error_textInput"}`}
-              />
-              <label
-                className={`${email.length > 0 ? "email_label" : ""}  ${
-                  emailError ? "error_label" : ""
-                }`}
-              >
-                {" "}
-                {/* ${emailError ? (email ? 'error_label' : '') : ''} */}
-                Enter your email
-              </label>
-              {emailError && (
-                <span className="error_message">{emailError}</span>
-              )}
-            </div>
+            <CustomTextInput
+              type={"normal"}
+              name={"email"}
+              value={email}
+              label={"Enter your email"}
+              errorMessage={emailError}
+              idAndHtmlFor={"email_input"}
+              handleTextInput={handleTextInput}
+            />
           )
         ) : null}
 

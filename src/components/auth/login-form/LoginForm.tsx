@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./LoginForm.css";
-import CustomButton from "../custom-button/CustomButton";
-import PasswordChecklist from "react-password-checklist";
-import { FiEye, FiEyeOff } from "react-icons/fi"; // Import eye icons from react-icons
-import CustomModal from "../custom-modal/CustomModal";
+import CustomButton from "../../custom-button/CustomButton";
 import { FaApple } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
-import CustomTextInput from "../custom-textInput/CustomTextInput";
+import CustomTextInput from "../../custom-textInput/CustomTextInput";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -16,14 +13,9 @@ const LoginForm = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-  const [toggleVisibility, setToggleVisibility] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
   const navigate = useNavigate();
-
-  const handleToggle = () => {
-    setToggleVisibility(!toggleVisibility);
-  };
 
   const handleTextInput = (key: string, e: string) => {
     switch (key) {
@@ -75,94 +67,26 @@ const LoginForm = () => {
 
       <form onSubmit={handleSubmit}>
         {/* Email */}
-        <div className="email_input_box">
-          <input
-            id="emailInput"
-            type="text"
-            value={email}
-            onChange={(e) => handleTextInput("email", e.target.value)}
-            className={`email_textinput ${emailError && "error_textInput"}`}
-          />
-          <label
-            htmlFor="emailInput"
-            className={`${email.length > 0 ? "email_label" : ""}  ${
-              emailError ? "error_label" : ""
-            }`}
-          >
-            Enter your email
-          </label>
-          {emailError && <span className="error_message">{emailError}</span>}
-        </div>
-
-        {/* <CustomTextInput
-          type={"password"}
-          name={'password'}
-          value={password}
-          label={'Enter pass'}
-          errorMessage={passwordError}
-          idAndHtmlFor={password}
+        <CustomTextInput
+          type={"normal"}
+          name={"email"}
+          value={email}
+          label={"Enter your email"}
+          errorMessage={emailError}
+          idAndHtmlFor={"emailInput"}
           handleTextInput={handleTextInput}
-          /> */}
+        />
 
         {/* Password */}
-        <div className="password_input_box">
-          <div
-            className={`password_textinput_container ${
-              passwordError && "error_textInput"
-            }`}
-          >
-            <input
-              id="passwordInput"
-              type={toggleVisibility ? "text" : "password"}
-              value={password}
-              onChange={(e) => handleTextInput("password", e.target.value)}
-              className="password_textinput"
-            />
-            <span onClick={handleToggle}>
-              {toggleVisibility ? <FiEye /> : <FiEyeOff />}
-            </span>
-          </div>
-          <label
-            htmlFor="passwordInput"
-            className={`${password.length > 0 ? "password_label" : ""}  ${
-              passwordError ? "error_label" : ""
-            }`}
-          >
-            Enter Password*
-          </label>
-          {passwordError && (
-            <span className="error_message">{passwordError}</span>
-          )}
-        </div>
-
-        {/* Password Checklist */}
-        {password && (
-          <div className="password_checklist_container">
-            <PasswordChecklist
-              rules={[
-                "minLength",
-                "capital",
-                "lowercase",
-                "number",
-                "specialChar",
-              ]}
-              minLength={8}
-              value={password}
-              onChange={(isValid) => {}}
-              messages={{
-                minLength: "8 characters",
-                number: "Number",
-                capital: "Uppercase",
-                specialChar: "Special Characters",
-                lowercase: "Lowercase",
-              }}
-              className="password_checklist"
-              hideIcon={true}
-              validTextColor="white"
-              invalidTextColor="white"
-            />
-          </div>
-        )}
+        <CustomTextInput
+          type={"password"}
+          name={"password"}
+          value={password}
+          label={"Enter password*"}
+          errorMessage={passwordError}
+          idAndHtmlFor={"passwordInput"}
+          handleTextInput={handleTextInput}
+        />
 
         <div style={{ margin: "20px" }} />
 

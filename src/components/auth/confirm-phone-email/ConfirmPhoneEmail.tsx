@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./ConfirmPhoneEmail.css";
-import CustomButton from "../custom-button/CustomButton";
+import CustomButton from "../../custom-button/CustomButton";
 import PinInput from "react-pin-input";
 import { useLocation, useNavigate } from "react-router-dom";
 

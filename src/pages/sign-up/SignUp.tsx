@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import "./SignUp.css";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import SignupCarousel from "../../components/carousel-component/CarouselComponent";
-import ImageCarouselSection from "../../components/image-carousel-section/ImageCarouselSection";
+import SignupCarousel from "../../components/auth/carousel-component/CarouselComponent";
+import ImageCarouselSection from "../../components/auth/image-carousel-section/ImageCarouselSection";
 import { palette } from "../../theme/palette";
 import CustomButton from "../../components/custom-button/CustomButton";
-import LoginForm from "../../components/login-form/LoginForm";
+import LoginForm from "../../components/auth/login-form/LoginForm";
 import { Outlet, useNavigate } from "react-router-dom";
-import AuthNavHeader from "../../components/auth-nav-header/AuthNavHeader";
+import AuthNavHeader from "../../components/auth/auth-nav-header/AuthNavHeader";
 
 const SignUp = () => {
   return (

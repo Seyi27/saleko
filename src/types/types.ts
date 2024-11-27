@@ -25,3 +25,13 @@ export type AuthNavHeaderProps={
     noLogoDisplay?: boolean;
     auth?: string
 }
+
+export type CustomTextInputProps={
+    type: string,
+    name: string,
+    value: string,
+    label: string,
+    errorMessage: string,
+    idAndHtmlFor: string,
+    handleTextInput:(key: string, e: string)=> void,
+}

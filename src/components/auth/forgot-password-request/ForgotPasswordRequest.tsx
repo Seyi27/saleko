@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./ForgotPasswordRequest.css";
-import CustomButton from "../custom-button/CustomButton";
+import CustomButton from "../../custom-button/CustomButton";
 import { useNavigate } from "react-router-dom";
+import CustomTextInput from "../../custom-textInput/CustomTextInput";
 
 const ForgotPasswordRequest = () => {
   const [emailOrPhoneText, setEmailOrPhoneText] = useState("");
@@ -11,13 +12,18 @@ const ForgotPasswordRequest = () => {
 
   const navigate = useNavigate();
 
-  const handleTextInput = (e: string) => {
+  const handleTextInput = (key:string, e: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^\d{1,11}$/;
+
     setEmailOrPhoneText(e.trim());
     setSubmittedValue(e.trim());
     if (!e.trim()) {
       setEmailOrPhoneTextError("Field cannot be empty");
+    } else if(!emailRegex.test(e.trim()) && !phoneRegex.test(e.trim())) {
+      setEmailOrPhoneTextError("Enter a valid email or phone number.");
     } else {
-      setEmailOrPhoneTextError("");
+      setEmailOrPhoneTextError(""); // Clear the error
     }
   };
 
@@ -30,8 +36,20 @@ const ForgotPasswordRequest = () => {
   }, [emailOrPhoneText, emailOrPhoneTextError]);
 
   const handleForgotFormSubmit = (e: React.FormEvent) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^\d{1,11}$/;
+    let thisSelectedValue;
+
+    if (emailRegex.test(emailOrPhoneText)) { // to check if the input is email
+      thisSelectedValue = "email"
+    } else if (phoneRegex.test(emailOrPhoneText)) { // to check if the input is phone number
+      thisSelectedValue = "phone"
+    } else {
+      console.log("it is");
+    }
+
     const routeData = {
-      selectedValue: "phone",
+      selectedValue: thisSelectedValue,
       emailPhoneText: submittedValue,
     };
 
@@ -47,26 +65,15 @@ const ForgotPasswordRequest = () => {
       </p>
 
       <form onSubmit={handleForgotFormSubmit}>
-        <div className="email_phone_input_box">
-          <input
-            type="text"
-            value={emailOrPhoneText}
-            onChange={(e) => handleTextInput(e.target.value)}
-            className={`email_phone_textinput ${
-              emailOrPhoneTextError && "error_textInput"
-            }`}
-          />
-          <label
-            className={`${
-              emailOrPhoneText.length == 0 ? "" : "email_phone_label"
-            } ${emailOrPhoneTextError && "error_label"}`}
-          >
-            Email Address or Phone Number*
-          </label>
-          {emailOrPhoneTextError && (
-            <span className="error_message">{emailOrPhoneTextError}</span>
-          )}
-        </div>
+        <CustomTextInput
+          type={"normal"}
+          name={"emailOrPhoneText"}
+          value={emailOrPhoneText}
+          label={"Email Address or Phone Number*"}
+          errorMessage={emailOrPhoneTextError}
+          idAndHtmlFor={"emailOrPhoneText"}
+          handleTextInput={handleTextInput}
+        />
 
         <div style={{ margin: "20px" }} />
 

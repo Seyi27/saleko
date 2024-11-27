@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./ProfileSetup.css";
-import CustomButton from "../custom-button/CustomButton";
+import CustomButton from "../../custom-button/CustomButton";
 import PasswordChecklist from "react-password-checklist";
 import { FiEye, FiEyeOff } from "react-icons/fi"; // Import eye icons from react-icons
-import CustomModal from "../custom-modal/CustomModal";
+import CustomModal from "../../custom-modal/CustomModal";
 import { useLocation } from "react-router-dom";
-import CustomTextInput from "../custom-textInput/CustomTextInput";
+import CustomTextInput from "../../custom-textInput/CustomTextInput";
 
 const ProfileSetup = () => {
   const [firstName, setFirstName] = useState("");
@@ -153,150 +153,61 @@ const ProfileSetup = () => {
 
         <form onSubmit={handleSubmit}>
           {/* First Name */}
-          <div className="first_name_input_box">
-            <input
-              type="text"
-              value={firstName}
-              onChange={(e) => handleTextInput("firstName", e.target.value)}
-              className={`first_name_textinput ${
-                firstNameError && "error_textInput"
-              }`}
-            />
-            <label
-              className={`${firstName.length > 0 ? "first_name_label" : ""}  ${
-                firstNameError ? "error_label" : ""
-              }`}
-            >
-              Enter your first name*
-            </label>
-            {firstNameError && (
-              <span className="error_message">{firstNameError}</span>
-            )}
-          </div>
+          <CustomTextInput
+            type={"normal"}
+            name={"firstName"}
+            value={firstName}
+            label={"Enter your first name*"}
+            errorMessage={firstNameError}
+            idAndHtmlFor={"first_name"}
+            handleTextInput={handleTextInput}
+          />
 
           {/* Second Name */}
-          <div className="second_name_input_box">
-            <input
-              type="text"
-              value={secondName}
-              onChange={(e) => handleTextInput("secondName", e.target.value)}
-              className={`second_name_textinput ${
-                secondNameError && "error_textInput"
-              }`}
-            />
-            <label
-              className={`${
-                secondName.length > 0 ? "second_name_label" : ""
-              }  ${secondNameError ? "error_label" : ""}`}
-            >
-              Enter your second name*
-            </label>
-            {secondNameError && (
-              <span className="error_message">{secondNameError}</span>
-            )}
-          </div>
+          <CustomTextInput
+            type={"normal"}
+            name={"secondName"}
+            value={secondName}
+            label={"Enter your last name*"}
+            errorMessage={secondNameError}
+            idAndHtmlFor={"second_name"}
+            handleTextInput={handleTextInput}
+          />
 
           {selectedValue == "phone" ? (
             // Phone Number
-            <div className="phone_input_box">
-              <input
-                type="text"
-                value={phoneNo}
-                onChange={(e) => handleTextInput("phone", e.target.value)}
-                className={`phone_textinput ${
-                  phoneNoError && "error_textInput"
-                }`}
-                maxLength={11}
-              />
-              <label
-                className={`${phoneNo.length == 0 ? "" : "phone_label"} ${
-                  phoneNoError && "error_label"
-                }`}
-              >
-                Phone Number
-              </label>
-              {phoneNoError && (
-                <span className="error_message">{phoneNoError}</span>
-              )}
-            </div>
+            <CustomTextInput
+              type={"phoneNo"}
+              name={"phone"}
+              value={phoneNo}
+              label={"Phone Number"}
+              errorMessage={phoneNoError}
+              idAndHtmlFor={"phone"}
+              handleTextInput={handleTextInput}
+            />
           ) : (
             // Email Address
-            <div className="email_input_box">
-              <input
-                type="text"
-                value={email}
-                onChange={(e) => handleTextInput("email", e.target.value)}
-                className={`email_textinput ${emailError && "error_textInput"}`}
-              />
-              <label
-                className={`${email.length > 0 ? "email_label" : ""}  ${
-                  emailError ? "error_label" : ""
-                }`}
-              >
-                Enter your email
-              </label>
-              {emailError && (
-                <span className="error_message">{emailError}</span>
-              )}
-            </div>
+            <CustomTextInput
+              type={"normal"}
+              name={"email"}
+              value={email}
+              label={"Enter your email"}
+              errorMessage={emailError}
+              idAndHtmlFor={"email"}
+              handleTextInput={handleTextInput}
+            />
           )}
-          {/* Password */}
-          <div className="password_input_box">
-            <div
-              className={`password_textinput_container ${
-                passwordError && "error_textInput"
-              }`}
-            >
-              <input
-                type={toggleVisibility ? "text" : "password"}
-                value={password}
-                onChange={(e) => handleTextInput("password", e.target.value)}
-                className="password_textinput"
-              />
-              <span onClick={handleToggle}>
-                {toggleVisibility ? <FiEye /> : <FiEyeOff />}
-              </span>
-            </div>
-            <label
-              className={`${password.length > 0 ? "password_label" : ""}  ${
-                passwordError ? "error_label" : ""
-              }`}
-            >
-              Enter Password*
-            </label>
-            {passwordError && (
-              <span className="error_message">{passwordError}</span>
-            )}
-          </div>
 
-          {/* Password Checklist */}
-          {password && (
-            <div className="password_checklist_container">
-              <PasswordChecklist
-                rules={[
-                  "minLength",
-                  "capital",
-                  "lowercase",
-                  "number",
-                  "specialChar",
-                ]}
-                minLength={8}
-                value={password}
-                onChange={(isValid) => {}}
-                messages={{
-                  minLength: "8 characters",
-                  number: "Number",
-                  capital: "Uppercase",
-                  specialChar: "Special Characters",
-                  lowercase: "Lowercase",
-                }}
-                className="password_checklist"
-                hideIcon={true}
-                validTextColor="white"
-                invalidTextColor="white"
-              />
-            </div>
-          )}
+          {/* Password */}
+          <CustomTextInput
+            type={"password"}
+            name={"password"}
+            value={password}
+            label={"Enter password*"}
+            errorMessage={passwordError}
+            idAndHtmlFor={"password_Input"}
+            handleTextInput={handleTextInput}
+          />
 
           <div style={{ margin: "20px" }} />
 

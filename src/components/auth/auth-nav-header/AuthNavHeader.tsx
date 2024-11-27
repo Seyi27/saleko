@@ -1,9 +1,9 @@
 import React from "react";
 import "./AuthNavHeader.css";
-import CustomButton from "../custom-button/CustomButton";
+import CustomButton from "../../custom-button/CustomButton";
 import { useNavigate } from "react-router-dom";
-import { AuthNavHeaderProps } from "../../types/types";
-import SalekoGreenLogo from "../../assets/images/svg/SalekoGreenLogo";
+import { AuthNavHeaderProps } from "../../../types/types";
+import SalekoGreenLogo from "../../../assets/images/svg/SalekoGreenLogo";
 
 const AuthNavHeader = ({ noLogoDisplay, auth }: AuthNavHeaderProps) => {
   const navigate = useNavigate();

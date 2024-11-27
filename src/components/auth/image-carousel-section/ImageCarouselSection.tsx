@@ -1,8 +1,8 @@
 import React from "react";
-import { LoginBackground, SalekoBackgroundFrame } from "../../assets/images";
+import { LoginBackground, SalekoBackgroundFrame } from "../../../assets/images";
 import "./ImageCarouselSection.css";
 import CarouselComponent from "../carousel-component/CarouselComponent";
-import SalekoWhiteLogo from "../../assets/images/svg/SalekoWhiteLogo";
+import SalekoWhiteLogo from "../../../assets/images/svg/SalekoWhiteLogo";
 
 
 const ImageCarouselSection = () => {

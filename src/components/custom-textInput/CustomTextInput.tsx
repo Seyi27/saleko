@@ -3,6 +3,7 @@ import "./CustomTextInput.css";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { countryCallingCodes } from "../../helpers/CountryCallingCodes";
 import PasswordChecklist from "react-password-checklist";
+import { CustomTextInputProps } from "../../types/types";
 
 const CustomTextInput = ({
   type,
@@ -12,7 +13,7 @@ const CustomTextInput = ({
   errorMessage,
   idAndHtmlFor,
   handleTextInput,
-}: any) => {
+}: CustomTextInputProps) => {
   const [toggleVisibility, setToggleVisibility] = useState(false);
   const [selectedCode, setSelectedCode] = useState("+234");
 
@@ -67,7 +68,7 @@ const CustomTextInput = ({
                   padding: "5px",
                   margin: "10px 0",
                   backgroundColor: "#084c3f",
-                  borderRadius:'3px',
+                  borderRadius: "3px",
                   color: "white",
                   border: "none",
                   outline: "none",
@@ -81,22 +82,24 @@ const CustomTextInput = ({
               </select>
 
               <input
+                id={idAndHtmlFor}
                 type="text"
                 value={value}
-                onChange={(e) => handleTextInput("phone", e.target.value)}
+                onChange={(e) => handleTextInput(name, e.target.value)}
                 className={`custom_textinput ${
                   errorMessage && "error_textInput"
                 }`}
                 maxLength={11}
               />
             </div>
-            <span
-              className={`seyi ${value.length == 0 ? "" : "custom_label"} ${
-                errorMessage && "error_label"
-              }`}
+            <label
+              htmlFor={idAndHtmlFor}
+              className={`label_text ${
+                value.length == 0 ? "" : "custom_label"
+              } ${errorMessage && "error_label"}`}
             >
-              Phone Number
-            </span>
+              {label}
+            </label>
             {errorMessage && (
               <span className="error_message">{errorMessage}</span>
             )}
@@ -116,7 +119,7 @@ const CustomTextInput = ({
                   id="passwordInput"
                   type={toggleVisibility ? "text" : "password"}
                   value={value}
-                  onChange={(e) => handleTextInput("password", e.target.value)}
+                  onChange={(e) => handleTextInput(name, e.target.value)}
                   className="password_textinput"
                 />
                 <span onClick={handleToggle}>
