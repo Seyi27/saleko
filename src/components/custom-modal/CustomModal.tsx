@@ -2,6 +2,7 @@ import React from "react";
 import "./CustomModal.css";
 import CustomButton from "../custom-button/CustomButton";
 import { CustomModalProps } from "../../types/types";
+import { SalekoSuccessGif } from "../../assets/images";
 
 const CustomModal = ({ isOpen, closeModal, label, onclick }: CustomModalProps) => {
   if (!isOpen) return null; // If the modal is not open, don't render anything
@@ -20,7 +21,7 @@ const CustomModal = ({ isOpen, closeModal, label, onclick }: CustomModalProps) =
       contentBody = (
         <>
           <img
-            src="https://via.placeholder.com/400x200"
+            src={SalekoSuccessGif}
             className="modal_image"
           />
           <p className="header_text">Welcome to Saleko!</p>
@@ -47,7 +48,7 @@ const CustomModal = ({ isOpen, closeModal, label, onclick }: CustomModalProps) =
       contentBody = (
         <>
           <img
-            src="https://via.placeholder.com/400x200"
+            src={SalekoSuccessGif}
             className="modal_image"
           />
           <p className="header_text">Password Reset Successfully</p>
