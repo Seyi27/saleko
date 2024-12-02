@@ -112,9 +112,14 @@ const LoginForm = () => {
 
       {/* Form Divider */}
       <div className="form_divider">
-        <div className="divider" />
+        <hr
+          style={{ width: "100%", marginRight: "20px", marginLeft: "20px" }}
+        />
         <p>Or</p>
-        <div className="divider" />
+        {/* <div className="divider" /> */}
+        <hr
+          style={{ width: "100%", marginRight: "20px", marginLeft: "20px" }}
+        />
       </div>
 
       <div style={{ margin: "20px" }} />

@@ -18,20 +18,21 @@ export type CustomModalProps = {
     isOpen?: boolean,
     closeModal: () => void,
     label?: string;
-    onclick?:()=> void
+    onclick?: () => void
 }
 
-export type AuthNavHeaderProps={
+export type AuthNavHeaderProps = {
     noLogoDisplay?: boolean;
     auth?: string
 }
 
-export type CustomTextInputProps={
+export type CustomTextInputProps = {
     type: string,
     name: string,
     value: string,
     label: string,
-    errorMessage: string,
+    errorMessage?: string,
     idAndHtmlFor: string,
-    handleTextInput:(key: string, e: string)=> void,
+    handleTextInput: (key: string, e: string) => void,
+    handleDropdown?: () => void
 }

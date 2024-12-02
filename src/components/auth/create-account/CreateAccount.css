@@ -33,54 +33,6 @@ form {
 
 /* ******************************** */
 
-/* For Dropdown */
-.dropdown {
-  position: relative;
-  width: 100%;
-}
-
-.signup_dropdown {
-  width: 100%;
-  height: 50px;
-  font-size: 15px;
-  border-radius: 10px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #ced3dd;
-  padding-left: 10px;
-  outline: none;
-  transition: border-color 0.3s, border-width 0.3s;
-  box-sizing: border-box; /* Ensure consistent padding and border rendering */
-}
-
-/* To be able to render the condition 
-for if the input field is not empty so that label can stay up*/
-.dropdown_label {
-  top: -8px;
-  color: #084c3f;
-  font-size: 12px;
-  background-color: #ffffff;
-}
-
-/* For label to move up when the input field
- is clicked or focused */
-.signup_dropdown:focus + .label {
-  top: -8px;
-  color: #084c3f;
-  font-size: 12px;
-  background-color: #ffffff;
-}
-
-/* For border to change color and width
- when the input field is clicked 
- or focused */
-.signup_dropdown:focus {
-  border-width: 2px;
-  border-color: #084c3f;
-}
-
-/******************************/
-
 /* Form Divider */
 .form_divider {
   display: flex;
@@ -89,18 +41,32 @@ for if the input field is not empty so that label can stay up*/
   margin-top: 20px;
 }
 
-.divider {
-  background-color: #8e8e8e;
-  width: 200px;
-  height: 1px;
-  margin-left: 20px;
-  margin-right: 20px;
+/********************************/
+
+.dropdown_container {
+  position: absolute;
+  background-color: #ffffff;
+  width: 593px;
+  border: 1px solid black;
+  margin-top: 5px;
+  border-radius: 10px;
+  z-index: 100;
+}
+
+.dropdown_container > p {
+  padding-left: 10px;
+  font-size: 14px;
+  cursor: default;
 }
 
 /******************************/
 
 @media (max-width: 600px) {
   .create_form_container {
+    width: 382px;
+  }
+
+  .dropdown_container {
     width: 382px;
   }
 }

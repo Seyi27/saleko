@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./CustomTextInput.css";
-import { FiEye, FiEyeOff } from "react-icons/fi";
+import { FiChevronDown, FiEye, FiEyeOff } from "react-icons/fi";
 import { countryCallingCodes } from "../../helpers/CountryCallingCodes";
 import PasswordChecklist from "react-password-checklist";
 import { CustomTextInputProps } from "../../types/types";
@@ -13,6 +13,7 @@ const CustomTextInput = ({
   errorMessage,
   idAndHtmlFor,
   handleTextInput,
+  handleDropdown
 }: CustomTextInputProps) => {
   const [toggleVisibility, setToggleVisibility] = useState(false);
   const [selectedCode, setSelectedCode] = useState("+234");
@@ -167,6 +168,37 @@ const CustomTextInput = ({
                 />
               </div>
             )}
+          </>
+        );
+      case "dropdown":
+        return (
+          <>
+            <div className="password_input_box">
+              <div
+                className={`password_textinput_container ${
+                  errorMessage && "error_textInput"
+                }`}
+                onClick={handleDropdown}
+              >
+                <p className="password_textinput">
+                  {value}
+                </p>
+                <span onClick={handleToggle}>
+                  <FiChevronDown />
+                </span>
+              </div>
+              <label
+                className={`${value.length > 0 ? "password_label" : ""}  ${
+                  errorMessage ? "error_label" : ""
+                }`}
+                onClick={handleDropdown}
+              >
+                {label}
+              </label>
+              {/* {errorMessage && (
+                <span className="error_message">{errorMessage}</span>
+              )} */}
+            </div>
           </>
         );
     }

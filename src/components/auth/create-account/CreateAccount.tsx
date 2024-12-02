@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import "./CreateAccount.css";
 import CustomButton from "../../custom-button/CustomButton";
 import { FaApple } from "react-icons/fa";
@@ -14,13 +14,18 @@ const CreateAccount = () => {
   const [phoneNoError, setPhoneNoError] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
-  const [selectedValue, setSelectedValue] = useState("");
+  const [selectedDropdownKey, setSelectedDropdownKey] = useState("");
+  const [selectedDropdownValue, setSelectedDropdownValue] = useState("");
   const [emailPhoneText, setEmailPhoneText] = useState("");
+
+  const [dropdownToggle, setDropdownToggle] = useState(false);
 
   const navigate = useNavigate();
 
-  const handleDropdown = (e: any) => {
-    setSelectedValue(e.target.value);
+  const handleDropdownChange = (key: string, value: string) => {
+    setSelectedDropdownKey(key);
+    setSelectedDropdownValue(value);
+    setDropdownToggle(false);
   };
 
   const handleTextInput = (key: string, e: string) => {
@@ -57,18 +62,18 @@ const CreateAccount = () => {
   };
 
   useEffect(() => {
-    if (selectedValue === "phone" && phoneNo && !phoneNoError) {
+    if (selectedDropdownKey === "phone" && phoneNo && !phoneNoError) {
       setButtonDisabled(false);
-    } else if (selectedValue === "email" && email && !emailError) {
+    } else if (selectedDropdownKey === "email" && email && !emailError) {
       setButtonDisabled(false);
     } else {
       setButtonDisabled(true);
     }
-  }, [selectedValue, emailError, phoneNoError, email, phoneNo]);
+  }, [selectedDropdownKey, emailError, phoneNoError, email, phoneNo]);
 
   const handleSubmit = (e: React.FormEvent) => {
     const routeData = {
-      selectedValue: selectedValue,
+      selectedValue: selectedDropdownKey,
       emailPhoneText: emailPhoneText,
     };
 
@@ -76,29 +81,59 @@ const CreateAccount = () => {
     navigate("/verification", { state: routeData });
   };
 
+  // Reference to the dropdown container
+  const dropdownRef = useRef<HTMLDivElement | null>(null); // Explicitly type the ref
+
+  // Function to close the dropdown when clicking outside
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
+      setDropdownToggle(false);
+    }
+  };
+
+  useEffect(() => {
+    // Add event listener for clicks outside
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Cleanup the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="create_form_container">
       <p className="create_account_text">Create Account</p>
       <p className="otp_verify_text">We will send an OTP verification to you</p>
 
       <form onSubmit={handleSubmit}>
-        <div className="dropdown">
-          <select
-            value={selectedValue}
-            onChange={handleDropdown}
-            className="signup_dropdown"
-          >
-            <option value="" disabled selected hidden></option>
-            <option value={"email"}>Email Address</option>
-            <option value={"phone"}>Phone Number</option>
-          </select>
-          <label className={selectedValue?.length == 0 ? "" : "dropdown_label"}>
-            Email or Phone No.*
-          </label>
-        </div>
+        <CustomTextInput
+          type={"dropdown"}
+          name={"dropdown"}
+          value={selectedDropdownValue}
+          label={"Email or Phone No.*"}
+          // errorMessage={""}
+          idAndHtmlFor={"input_dropdown"}
+          handleTextInput={handleTextInput}
+          handleDropdown={() => setDropdownToggle(!dropdownToggle)}
+        />
 
-        {selectedValue ? (
-          selectedValue == "phone" ? (
+        {dropdownToggle ? (
+          <div className="dropdown_container" ref={dropdownRef}>
+            <p onClick={() => handleDropdownChange("email", "Email Address")}>
+              Email Address
+            </p>
+            <p onClick={() => handleDropdownChange("phone", "Phone Number")}>
+              Phone Number
+            </p>
+          </div>
+        ) : null}
+
+        {selectedDropdownKey ? (
+          selectedDropdownKey == "phone" ? (
             <CustomTextInput
               type={"phoneNo"}
               name={"phone"}
@@ -138,9 +173,14 @@ const CreateAccount = () => {
 
         {/* Form Divider */}
         <div className="form_divider">
-          <div className="divider" />
+          <hr
+            style={{ width: "100%", marginRight: "20px", marginLeft: "20px" }}
+          />
           <p>Or</p>
-          <div className="divider" />
+          {/* <div className="divider" /> */}
+          <hr
+            style={{ width: "100%", marginRight: "20px", marginLeft: "20px" }}
+          />
         </div>
 
         <div style={{ margin: "20px" }} />
