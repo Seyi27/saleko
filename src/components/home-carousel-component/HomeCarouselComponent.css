@@ -1,0 +1,33 @@
+.home_carousel_container{
+  width: 70%;
+}
+
+.custom_carousel .carousel .slider-wrapper {
+  width: 100% !important;
+}
+
+/* Center the indicators between images */
+.custom_carousel .carousel .control-dots {
+  position: absolute;
+  bottom: 0; /* Adjust as needed */
+}
+
+/* Default dot styles */
+.custom_carousel .carousel .control-dots .dot {
+  background-color: #E3E3E3;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: 0 4px; /* Adjust the spacing between dots */
+} 
+
+/* Active dot styles */
+.custom_carousel .carousel .control-dots .dot.selected {
+  background-color: #26A37C; /* Highlight color */
+}
+
+.image_slides{
+  height: 359px;
+  width: 100%;
+  object-fit: cover;
+}

@@ -1,0 +1,129 @@
+.image_card {
+  width: 196px;
+  height: 171px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 35px;
+  cursor: pointer;
+}
+
+.image {
+  transition: transform 0.3s ease-in-out; /* Smooth transition effect */
+}
+
+.image:hover {
+  transform: scale(1.1);
+}
+
+.percentage_off {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: red;
+  border-radius: 10px;
+  padding: 3px;
+  font-size: 10px;
+  font-weight: 700;
+  color: white;
+}
+
+.new_container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #084c3f;
+  border-radius: 10px;
+  padding: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  color: white;
+}
+
+.favorite_icon {
+  padding: 5px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: white;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.product_name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.rating_container {
+  display: flex;
+  gap: 5px;
+}
+
+.rating_container > span {
+  font-size: 12px;
+}
+
+.product_price_container {
+  padding-top: 10px;
+}
+
+.product_price {
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.product_former_price {
+  font-size: 14px;
+  color: #8e8e8e;
+  text-decoration: line-through;
+  margin-left: 10px;
+}
+
+.product_price_red {
+  color: red;
+}
+
+.product_button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 40px;
+  background-color: white;
+  border: 1px solid #084c3f;
+  border-radius: 25px;
+  outline: 0;
+  margin-top: 10px;
+  cursor: pointer;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #084c3f;
+}
+
+.product_button:hover{
+    background-color: #084c3f;
+    color: white;
+}
+
+.product_button_cart_icon{
+    color: #084c3f;
+}
+
+.product_button:hover .product_button_cart_icon{
+    color: white;
+}
+
+/* classnames: negotiate_icon, icon_path are called in NegotiateIcon.tsx */
+.negotiate_icon {
+  transition: stroke 0.3s ease; /* Smooth transition */
+}
+
+.product_button:hover .negotiate_icon .icon_path {
+  stroke: white; /* Change the stroke color when hovered */
+}

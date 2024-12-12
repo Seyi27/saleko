@@ -108,6 +108,7 @@ const ProfileSetup = () => {
     if (
       firstName &&
       secondName &&
+      // phoneNo &&
       (email || phoneNo) &&
       password &&
       !firstNameError &&

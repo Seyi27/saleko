@@ -1,0 +1,44 @@
+.group_header {
+  position: fixed;
+  width: 100%; /* Ensure it spans the entire width */
+  z-index: 1000;
+}
+
+.home_body_container {
+  display: flex;
+  justify-content: center;
+}
+
+.home_body_second_container {
+  width: 1300px;
+}
+
+.slide_container {
+  display: flex;
+  height: 359px;
+  padding-top: 200px;
+  gap: 10px;
+}
+
+.frame_container_right {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.frame_image {
+  width: 500px;
+  height: 175px;
+  background-color: #084c3f;
+}
+
+.flex_image_container {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 50px;
+  gap: 10px;
+}
+
+.frame_image_9 {
+  padding-top: 50px;
+}

@@ -1,0 +1,118 @@
+.best_seller_card_container {
+  display: flex;
+  width: 430px;
+  gap: 15px;
+}
+
+.best_seller_image_card {
+  width: 196px;
+  height: 171px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.best_seller_image {
+  transition: transform 0.3s ease-in-out; /* Smooth transition effect */
+}
+
+.best_seller_image:hover {
+  transform: scale(1.1);
+}
+
+.best_seller_product_details {
+  flex: 1;
+}
+
+.best_seller_percentage_off {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: red;
+  border-radius: 10px;
+  padding: 3px;
+  font-size: 10px;
+  font-weight: 700;
+  color: white;
+}
+
+.best_seller_favorite_icon {
+  padding: 5px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: white;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.best_seller_product_name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.best_seller_rating_container {
+  display: flex;
+  gap: 5px;
+}
+
+.best_seller_rating_container > span {
+  font-size: 12px;
+}
+
+.best_seller_price_container {
+  padding-top: 10px;
+}
+
+.best_seller_price {
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.best_seller_former_price {
+  font-size: 14px;
+  color: #8e8e8e;
+  text-decoration: line-through;
+  margin-left: 10px;
+}
+
+.best_seller_price_red {
+  color: red;
+}
+
+.best_seller_button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 40px;
+  background-color: white;
+  border: 1px solid #084c3f;
+  border-radius: 25px;
+  outline: 0;
+  margin-top: 10px;
+  cursor: pointer;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #084c3f;
+}
+
+.best_seller_button:hover{
+    background-color: #084c3f;
+    color: white;
+}
+
+.best_seller_button_cart_icon{
+    color: #084c3f;
+}
+  
+.best_seller_button:hover .best_seller_button_cart_icon{
+    color: white;
+}

@@ -13,7 +13,7 @@ const AuthNavHeader = ({ noLogoDisplay, auth }: AuthNavHeaderProps) => {
   };
 
   const handleNavToSignup = () => {
-    navigate("/");
+    navigate("/sign-up");
   };
 
   return (

@@ -28,7 +28,7 @@ const ConfirmPhoneEmail = () => {
       setPinError(true);
     } else {
       setPinError(false);  
-      navigate("/setup-profile", { state: routeData });  
+      navigate("/sign-up/setup-profile", { state: routeData });  
     }
   };
 

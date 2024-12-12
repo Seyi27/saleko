@@ -1,0 +1,143 @@
+.footer_container {
+  display: flex;
+  justify-content: center;
+  background-color: #f3f4f6;
+  margin-top: 20px;
+}
+
+.footer_second_container {
+  width: 1300px;
+}
+
+.footer_saleko_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+
+.footer_saleko_logo_container > p {
+  color: #606b6b;
+  margin-top: -1px;
+}
+
+.footer_input_container {
+  display: flex;
+}
+
+.footer_input {
+  width: 350px;
+  height: 40px;
+  border: 1px solid #d1d5db;
+  border-right: 0;
+  padding-left: 20px;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
+  background-color: white;
+}
+
+.footer_input_button {
+  width: 73px;
+  background-color: #084c3f;
+  color: white;
+  font-weight: 700;
+  border: 0;
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+
+.footer_terms_conditions {
+  font-size: 11px;
+}
+
+.footer_green_terms {
+  color: #084c3f;
+}
+
+/***************************/
+
+.footer_details_container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-top: 30px;
+  padding-bottom: 50px;
+}
+
+.download_app_container > span {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.get_app_container {
+  display: flex;
+  gap: 10px;
+  padding-top: 15px;
+}
+
+.follow_socials_container {
+  padding-top: 20px;
+}
+
+.follow_socials_container > span {
+  font-size: 14px;
+}
+
+.social_media_icon_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 10px;
+}
+
+.social_media_icon {
+  background-color: white;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.social_media_icon_twitter {
+  background-color: white;
+  padding: 7px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.other_footer_details > h4 {
+  font-size: 14px;
+}
+
+.other_footer_details p {
+  font-size: 13px;
+  color: #4b5563;
+}
+
+.contact_details_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.contact_details_container h3,
+.contact_details_container h4 {
+  margin-top: -7px;
+}
+
+.bottom_footer_details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bottom_footer_details_image{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.bottom_footer_details p {
+  font-size: 13px;
+  color: #4b5563;
+}

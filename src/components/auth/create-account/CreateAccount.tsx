@@ -78,7 +78,7 @@ const CreateAccount = () => {
     };
 
     e.preventDefault();
-    navigate("/verification", { state: routeData });
+    navigate("/sign-up/verification", { state: routeData });
   };
 
   // Reference to the dropdown container
