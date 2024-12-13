@@ -3,6 +3,7 @@ import "./App.css";
 import SignUp from "./pages/sign-up/SignUp";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/login/Login";
+import ForgotPassword from "./pages/forgot-password/ForgotPassword";
 import CreateAccount from "./components/auth/create-account/CreateAccount";
 import ConfirmPhoneEmail from "./components/auth/confirm-phone-email/ConfirmPhoneEmail";
 import ProfileSetup from "./components/auth/profile-setup/ProfileSetup";
@@ -10,7 +11,6 @@ import ForgotPasswordRequest from "./components/auth/forgot-password-request/For
 import ForgotPasswordVerification from "./components/auth/forgot-password-verification/ForgotPasswordVerification";
 import ForgotPasswordReset from "./components/auth/forgot-password-reset/ForgotPasswordReset";
 import HomePage from "./pages/home/HomePage";
-import ForgotPassword from "./pages/forgot-password/ForgotPassword";
 
 function App() {
   return (

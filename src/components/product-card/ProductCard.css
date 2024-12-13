@@ -12,6 +12,7 @@
 }
 
 .image {
+  border-radius: 10px;
   transition: transform 0.3s ease-in-out; /* Smooth transition effect */
 }
 

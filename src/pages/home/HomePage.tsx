@@ -64,17 +64,17 @@ const HomePage = () => {
             <HomeFrame8 />
           </div>
 
-          <ProductSection name={"New Arrivals"} data={productData} />
+          <ProductSection name={"Electronics"} data={productData} />
 
-          <ProductSection name={"Fashion"} data={productData} />
+          <ProductSection name={"Phones & Tablets Items"} data={productData} />
 
           <div className="frame_image_9">
             <HomeFrame9 />
           </div>
 
-          <ProductSection name={"New Arrivals"} data={productData} />
+          <ProductSection name={"Computer & Accessories"} data={productData} />
 
-          <ProductSection name={"Fashion"} data={productData} />
+          <ProductSection name={"Beauty & Personal Care"} data={productData} />
 
           <BestSellerSection name={"Best Seller"} data={bestSellerData} />
 
