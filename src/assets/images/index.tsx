@@ -5,7 +5,8 @@ export const Frame2 = require('./all_Images/Frame2.png');
 export const Frame3 = require('./all_Images/Frame3.png');
 export const Frame4 = require('./all_Images/Frame4.png');
 
-export const SalekoSuccessGif = require('./all_Images/saleko_success.gif');
+export const SalekoSuccessGif = require('./gif/saleko_success.gif');
+export const NewArrivalGif = require('./gif/new_arrival.gif');
 
 export const HomeFrame1 = require('./all_Images/homeFrame1.png');
 export const HomeFrame2 = require('./all_Images/homeFrame2.png');

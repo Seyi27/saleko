@@ -105,3 +105,14 @@ export type Store = {
     name: string,
     orders: string
 }
+
+export type CategoryData = {
+    id: number;
+    name: string;
+    subcategories?: CategoryDataSubcategories[]
+}
+
+export type CategoryDataSubcategories = {
+    image: string;
+    name: string
+}

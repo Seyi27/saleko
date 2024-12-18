@@ -7,6 +7,7 @@ import StoreIconLogo from "../../assets/images/svg/StoreIconLogo";
 import { MarketPlace } from "../../helpers/MarketPlace";
 import CustomButton from "../custom-button/CustomButton";
 import { useNavigate } from "react-router-dom";
+import SearchBar from "../search-bar/SearchBar";
 
 const NavHeaderSearch = () => {
   const [selectedMarket, setSelectedMarket] = useState("");
@@ -30,16 +31,7 @@ const NavHeaderSearch = () => {
 
         {/* Search Input and dropdown */}
         <div className="search_and_dropdown_container">
-          <div className="search_container">
-            <input
-              placeholder="Search for products, stores and more"
-              className="search_textinput"
-            />
-
-            <div className="search_icon">
-              <BsSearch color="#ffffff" />
-            </div>
-          </div>
+          <SearchBar />
 
           <div className="select_dropdown_container">
             <StoreIconLogo />

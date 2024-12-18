@@ -8,7 +8,7 @@
   position: fixed;
   top: 70px;
   width: 100%; /* Ensure it spans the entire width */
-  z-index: 1000;
+  z-index: 3; /* 2 */ /* higher than the other navs so that the searchbar component can overlap the whole screen */
 }
 
 .nav_header_search_second_container {
@@ -27,34 +27,6 @@
   display: flex;
   align-items: center;
   gap: 10px;
-}
-
-.search_container {
-  width: 367px;
-  height: 42px;
-  background-color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.search_textinput {
-  flex: 1;
-  border: 0;
-  outline: none;
-}
-
-.search_icon {
-  width: 30px;
-  height: 30px;
-  background-color: #084c3f;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 20px;
 }
 
 .select_dropdown_container {

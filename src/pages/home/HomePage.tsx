@@ -27,6 +27,7 @@ import HomeFrame7 from "../../assets/images/svg/HomeFrame7";
 import HomeFrame8 from "../../assets/images/svg/HomeFrame8";
 import HomeFrame9 from "../../assets/images/svg/HomeFrame9";
 import MastercardIcon from "../../assets/images/svg/MastercardIcon";
+import { NewArrivalGif } from "../../assets/images";
 
 const HomePage = () => {
   return (
@@ -49,7 +50,7 @@ const HomePage = () => {
               <img src={Frame2} className="frame_image" /> */}
 
               <div className="frame_image" />
-              <div className="frame_image" />
+              <img src={NewArrivalGif}  />
             </div>
           </div>
 
