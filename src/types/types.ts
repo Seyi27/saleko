@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export type CustomButtonProps = {
     width?: string;
     height?: string;
@@ -57,6 +59,10 @@ export type CustomTextInputProps = {
 export type ProductSectionProps = {
     name: string;
     data: Product[];
+    type: string;
+    visibleRows?: number;
+    setVisibleRows?: Dispatch<SetStateAction<number>>;
+    setRowData?: Dispatch<SetStateAction<Product[][]>>;
 }
 
 export type ProductCardProp = {
@@ -65,12 +71,18 @@ export type ProductCardProp = {
 }
 
 export type Product = {
+    id:number;
     name: string;
-    rating: number;
     description: string;
     price: string;
-    image: string;
-    former_price?: string
+    former_price?: string;
+    image: string[];
+    category: string;
+    subCategory: string[];
+    sizes: string[];
+    date: string;
+    rating: number;
+    bestseller: boolean;
 }
 
 export type BestSellerSectionProps = {

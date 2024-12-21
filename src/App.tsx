@@ -11,6 +11,7 @@ import ForgotPasswordRequest from "./components/auth/forgot-password-request/For
 import ForgotPasswordVerification from "./components/auth/forgot-password-verification/ForgotPasswordVerification";
 import ForgotPasswordReset from "./components/auth/forgot-password-reset/ForgotPasswordReset";
 import HomePage from "./pages/home/HomePage";
+import ProductDetails from "./components/product-details/ProductDetails";
 
 function App() {
   return (
@@ -31,6 +32,8 @@ function App() {
           <Route path="verification" element={<ForgotPasswordVerification />} />
           <Route path="reset" element={<ForgotPasswordReset />} />
         </Route>
+
+        <Route path="/product/:productId" element={<ProductDetails />} />
       </Routes>
     </BrowserRouter>
   );

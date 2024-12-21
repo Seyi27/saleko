@@ -11,3 +11,12 @@
     flex-direction: column;
   }
 } */
+
+.body_container {
+  display: flex;
+  justify-content: center;
+}
+
+.body_second_container {
+  width: 1300px;
+}

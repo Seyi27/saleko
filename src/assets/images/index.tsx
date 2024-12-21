@@ -14,3 +14,12 @@ export const HomeFrame3 = require('./all_Images/homeFrame3.png');
 export const HomeFrame4 = require('./all_Images/homeFrame4.png');
 export const HomeFrame5 = require('./all_Images/homeFrame5.png');
 export const HomeFrame6 = require('./all_Images/homeFrame6.png');
+
+export const img1 = require('./all_Images/img1.jpeg');
+export const img2 = require('./all_Images/img2.jpeg');
+export const img3 = require('./all_Images/img3.jpeg');
+export const img4 = require('./all_Images/img4.jpeg');
+export const img5 = require('./all_Images/img5.jpeg');
+export const img6 = require('./all_Images/img6.jpeg');
+
+export const check_ic = require('./all_Images/check_icon.png');

@@ -4,15 +4,6 @@
   z-index: 1000;
 }
 
-.home_body_container {
-  display: flex;
-  justify-content: center;
-}
-
-.home_body_second_container {
-  width: 1300px;
-}
-
 .slide_container {
   display: flex;
   height: 359px;

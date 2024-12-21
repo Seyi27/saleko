@@ -28,5 +28,4 @@ const NavHeader = () => {
   );
 };
 
-
 export default NavHeader;

@@ -1,38 +1,99 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./ProductSection.css";
-import { ProductSectionProps } from "../../types/types";
+import { Product, ProductSectionProps } from "../../types/types";
 import ProductCard from "../product-card/ProductCard";
 import { BsArrowRight } from "react-icons/bs";
+import { chunkArray } from "../../helpers/helper";
 
-const ProductSection = ({ name, data }: ProductSectionProps) => {
+const ProductSection = ({
+  name,
+  data,
+  type,
+  visibleRows,
+  setRowData,
+}: ProductSectionProps) => {
   const displayProductData = data.slice(0, 6); // Limit to the first 6 products
 
-  return (
-    <div className="product_section_container">
-      <div className="name_container">
-        <span>{name}</span>
+  const rowData = chunkArray(data, 6);
+  console.log("rowData rowData", rowData.slice(0, visibleRows));
 
-        <div className="view_container">
-          <span>View All</span>
-          <BsArrowRight size={12} />
-        </div>
-      </div>
+  useEffect(() => {
+    setRowData?.(rowData)
+  }, [setRowData])
+  
+  let contentbody = null;
 
-      <hr style={{ border: "0.5px solid #e5e7eb" }} />
+  switch (type) {
+    case "home":
+      contentbody = (
+        <div className="product_section_container">
+          <div className="name_container">
+            <span>{name}</span>
 
-      <div className="product_section_row">
-        {displayProductData.map((item, index) => (
-          <div key={index} className="product_card_container">
-            <ProductCard item={item} name={name} />
-
-            {index < displayProductData.length - 1 && (
-              <hr style={{ border: "0.5px solid #e5e7eb", height: "100%" }} />
-            )}
+            <div className="view_container">
+              <span>View All</span>
+              <BsArrowRight size={12} />
+            </div>
           </div>
-        ))}
-      </div>
-    </div>
-  );
+
+          <hr style={{ border: "0.5px solid #e5e7eb" }} />
+
+          <div className="product_section_row">
+            {displayProductData.map((item, index) => (
+              <div key={index} className="product_card_container">
+                <ProductCard item={item} name={name} />
+
+                {index < displayProductData.length - 1 && (
+                  <hr
+                    style={{ border: "0.5px solid #e5e7eb", height: "100%" }}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+      break;
+    case "related":
+      contentbody = (
+        <div className="product_section_container">
+          <div className="name_container">
+            <span>{name}</span>
+          </div>
+
+          <hr style={{ border: "0.5px solid #e5e7eb" }} />
+
+          <div>
+            {rowData.slice(0, visibleRows).map((row, rowIndex) => (
+
+              <div key={rowIndex} className={`${row.length < 6 ? 'product_section_row_to_remove_space':'product_section_row'}`}> {/* for if a row is less than 6, so as to remove 'justify-content: space-between;' */}
+
+                {row.map((item: Product, index: number) => (
+                  
+                  <div key={index} className="product_card_container">
+                    <ProductCard item={item} name={name} />
+
+                    {index < rowData.length - 1 && (
+                      <hr
+                        style={{
+                          border: "0.5px solid #e5e7eb",
+                          height: "100%",
+                        }}
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+      break;
+
+    default:
+      break;
+  }
+  return contentbody;
 };
 
 export default ProductSection;

@@ -40,8 +40,8 @@ const HomePage = () => {
       <NavCategories />
       {/* </div> */}
 
-      <div className="home_body_container">
-        <div className="home_body_second_container">
+      <div className="body_container">
+        <div className="body_second_container">
           <div className="slide_container">
             <HomeCarouselComponent />
 
@@ -54,28 +54,28 @@ const HomePage = () => {
             </div>
           </div>
 
-          <ProductSection name={"Negotiable Products"} data={negotiableData} />
+          <ProductSection name={"Negotiable Products"} data={negotiableData} type="home"/>
 
-          <ProductSection name={"New Arrivals"} data={productData} />
+          <ProductSection name={"New Arrivals"} data={productData} type="home"/>
 
-          <ProductSection name={"Fashion"} data={productData} />
+          <ProductSection name={"Fashion"} data={productData} type="home"/>
 
           <div className="flex_image_container">
             <HomeFrame7 />
             <HomeFrame8 />
           </div>
 
-          <ProductSection name={"Electronics"} data={productData} />
+          <ProductSection name={"Electronics"} data={productData} type="home"/>
 
-          <ProductSection name={"Phones & Tablets Items"} data={productData} />
+          <ProductSection name={"Phones & Tablets Items"} data={productData} type="home"/>
 
           <div className="frame_image_9">
             <HomeFrame9 />
           </div>
 
-          <ProductSection name={"Computer & Accessories"} data={productData} />
+          <ProductSection name={"Computer & Accessories"} data={productData} type="home"/>
 
-          <ProductSection name={"Beauty & Personal Care"} data={productData} />
+          <ProductSection name={"Beauty & Personal Care"} data={productData} type="home"/>
 
           <BestSellerSection name={"Best Seller"} data={bestSellerData} />
 

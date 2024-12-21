@@ -40,6 +40,15 @@
   margin-top: 20px;
 }
 
+.product_section_row_to_remove_space {
+  display: flex;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  gap: 20px;
+}
+
 .product_card_container {
   display: flex;
   align-items: center;

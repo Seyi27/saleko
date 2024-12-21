@@ -6,6 +6,7 @@ import { Rating } from "react-simple-star-rating";
 import CustomButton from "../custom-button/CustomButton";
 import { BiCartAdd } from "react-icons/bi";
 import NegotiateIcon from "../../assets/images/svg/NegotiateIcon";
+import { Link } from "react-router-dom";
 
 const ProductCard = ({ name, item }: ProductCardProp) => {
   const [rating, setRating] = useState(item.rating);
@@ -14,7 +15,9 @@ const ProductCard = ({ name, item }: ProductCardProp) => {
   return (
     <div>
       <div className="image_card">
-        <img src={item.image} className="image" />
+        <Link to={`/product/${item.id}`} className="product_link">
+          <img src={item.image[0]} className="product_image" />
+        </Link>
 
         {item.former_price ? (
           <span className="percentage_off">10% off</span>
@@ -39,25 +42,27 @@ const ProductCard = ({ name, item }: ProductCardProp) => {
         </div>
       </div>
 
-      <div>
-        <p className="product_name">{item.name}</p>
-        <div className="rating_container">
-          <Rating readonly initialValue={rating} size={12} />
-          <span>{item.rating}</span>
+      <Link to={`product/${item.id}`} className="product_link">
+        <div>
+          <p className="product_name">{item.name}</p>
+          <div className="rating_container">
+            <Rating readonly initialValue={rating} size={12} />
+            <span>{item.rating}</span>
+          </div>
+          <div className="product_price_container">
+            <span
+              className={`product_price ${
+                item.former_price && "product_price_red"
+              }`}
+            >
+              ₦{item.price}
+            </span>
+            {item.former_price && (
+              <span className="product_former_price">₦{item.former_price}</span>
+            )}
+          </div>
         </div>
-        <div className="product_price_container">
-          <span
-            className={`product_price ${
-              item.former_price && "product_price_red"
-            }`}
-          >
-            ₦{item.price}
-          </span>
-          {item.former_price && (
-            <span className="product_former_price">₦{item.former_price}</span>
-          )}
-        </div>
-      </div>
+      </Link>
 
       {name == "Negotiable Products" ? (
         <button className="product_button">

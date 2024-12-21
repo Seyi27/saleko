@@ -10,7 +10,7 @@ const StoreCard = ({ item }: StoreCardProp) => {
     <div className="store_card_container">
       {/* <img src={StoreIconGreen} /> */}
       <div className="store_image_placeholder">
-        <StoreIconGreen />
+        <StoreIconGreen width="50" height="46"/>
       </div>
       
       <p>{item.name}</p>

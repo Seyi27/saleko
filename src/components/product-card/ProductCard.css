@@ -7,16 +7,23 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  margin-bottom: 35px;
   cursor: pointer;
 }
 
-.image {
+.product_link{ /* for the Link from react-router-dom*/
+  text-decoration: none;
+  color: inherit;
+}
+
+.product_image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
   border-radius: 10px;
   transition: transform 0.3s ease-in-out; /* Smooth transition effect */
 }
 
-.image:hover {
+.product_image:hover {
   transform: scale(1.1);
 }
 
@@ -59,6 +66,7 @@
 .product_name {
   font-size: 14px;
   font-weight: 500;
+  padding-top: 20px;
 }
 
 .rating_container {
