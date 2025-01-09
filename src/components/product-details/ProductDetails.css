@@ -102,6 +102,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .product_details_name {
@@ -213,6 +214,22 @@
   margin: 0;
 }
 
+.selectedItem{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  background-color: #084C3F26;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* Changing the checked color */
+input[type="radio"]{
+  accent-color: #084C3F;
+}
+
 /************ Cart *****************/
 
 .cart_container {
@@ -233,7 +250,7 @@
   border-radius: 5px;
 }
 
-.cart_increase_decrease_container div {
+.cart_increase_decrease_container .count_container {
   background-color: white;
   border-radius: 5px;
   width: 40px;

@@ -1,17 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./NavHeaderSearch.css";
 import AppStore from "../../assets/images/svg/AppStore";
 import GoogleStore from "../../assets/images/svg/GoogleStore";
 import { BsCart3, BsHeart, BsSearch } from "react-icons/bs";
 import StoreIconLogo from "../../assets/images/svg/StoreIconLogo";
-import { MarketPlace } from "../../helpers/MarketPlace";
 import CustomButton from "../custom-button/CustomButton";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../search-bar/SearchBar";
+import {
+  useMarketplaceApiQuery,
+  useLazySingleMarketplaceApiQuery,
+} from "../../services/appApi";
+import { MarketplaceDataProps } from "../../types/types";
 
 const NavHeaderSearch = () => {
-  const [selectedMarket, setSelectedMarket] = useState("");
   const navigate = useNavigate();
+  const [selectedMarket, setSelectedMarket] = useState("");
+  const [marketData, setMarketData] = useState<MarketplaceDataProps[] | undefined>();
+  const { data, isSuccess, isLoading, isError, error } = useMarketplaceApiQuery(
+    {}
+  );
+
+  const [singleMarketplaceApi, { data: singleMarket }] =
+    useLazySingleMarketplaceApiQuery();
+
+  useEffect(() => {
+    if (isSuccess) {
+      setMarketData(data.data);
+    }
+    // singleMarketplaceApi(7)
+  }, [data, isSuccess]);
 
   const handleSelectionChange = (e: any) => {
     setSelectedMarket(e.target.value);
@@ -48,9 +66,9 @@ const NavHeaderSearch = () => {
                 outline: "none",
               }}
             >
-              {MarketPlace.map((country, index) => (
-                <option key={index} value={country.name}>
-                  {country.name}
+              {marketData?.map((market, index) => (
+                <option key={index} value={market.name}>
+                  {market.name}
                 </option>
               ))}
             </select>
@@ -64,9 +82,7 @@ const NavHeaderSearch = () => {
           </div>
           <div className="right_icon">
             <BsCart3 color="#084c3f" />
-              <div className="cart_number">
-                1
-              </div>
+            <div className="cart_number">1</div>
           </div>
 
           <CustomButton

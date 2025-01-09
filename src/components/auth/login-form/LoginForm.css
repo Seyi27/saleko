@@ -23,6 +23,6 @@ form {
 
 @media (max-width: 600px) {
   .login_form_container {
-    width: 382px;
+    width: 100%;
   }
 }

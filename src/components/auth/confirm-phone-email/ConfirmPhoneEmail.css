@@ -47,6 +47,6 @@
 
 @media (max-width: 600px) {
   .verify_phone_email_container {
-    width: 382px;
+    width: 100%;
   }
 }

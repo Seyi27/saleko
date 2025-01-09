@@ -7,7 +7,6 @@ import { BsCart3, BsHeart, BsSearch } from "react-icons/bs";
 import { countryCallingCodes } from "../../helpers/CountryCallingCodes";
 import StoreIconLogo from "../../assets/images/svg/StoreIconLogo";
 import CustomButton from "../../components/custom-button/CustomButton";
-import { MarketPlace } from "../../helpers/MarketPlace";
 import NavCategories from "../../components/nav-categories/NavCategories";
 import NavHeaderSearch from "../../components/nav-header-search/NavHeaderSearch";
 import ImageCarouselSection from "../../components/auth/image-carousel-section/ImageCarouselSection";

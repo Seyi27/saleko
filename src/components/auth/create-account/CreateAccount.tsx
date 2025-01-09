@@ -6,6 +6,7 @@ import { FcGoogle } from "react-icons/fc";
 import { countryCallingCodes } from "../../../helpers/CountryCallingCodes";
 import { useNavigate } from "react-router-dom";
 import CustomTextInput from "../../custom-textInput/CustomTextInput";
+import { useSignUpMutation } from "../../../services/authApi";
 
 const CreateAccount = () => {
   const [email, setEmail] = useState("");
@@ -17,6 +18,18 @@ const CreateAccount = () => {
   const [selectedDropdownKey, setSelectedDropdownKey] = useState("");
   const [selectedDropdownValue, setSelectedDropdownValue] = useState("");
   const [emailPhoneText, setEmailPhoneText] = useState("");
+
+  const [signUp, { data, isSuccess, isLoading, isError, error }] =
+    useSignUpMutation();
+
+  useEffect(() => {
+    signUp({
+      email: "witaga2855@chansd.com",
+      mode: "email",
+    });
+  }, []);
+
+  console.log("data data", data);
 
   const [dropdownToggle, setDropdownToggle] = useState(false);
 
@@ -81,29 +94,6 @@ const CreateAccount = () => {
     navigate("/sign-up/verification", { state: routeData });
   };
 
-  // Reference to the dropdown container
-  const dropdownRef = useRef<HTMLDivElement | null>(null); // Explicitly type the ref
-
-  // Function to close the dropdown when clicking outside
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
-    ) {
-      setDropdownToggle(false);
-    }
-  };
-
-  useEffect(() => {
-    // Add event listener for clicks outside
-    document.addEventListener("mousedown", handleClickOutside);
-
-    // Cleanup the event listener when the component unmounts
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
   return (
     <div className="create_form_container">
       <p className="create_account_text">Create Account</p>
@@ -118,11 +108,11 @@ const CreateAccount = () => {
           // errorMessage={""}
           idAndHtmlFor={"input_dropdown"}
           handleTextInput={handleTextInput}
-          handleDropdown={() => setDropdownToggle(!dropdownToggle)}
+          handleDropdown={() => setDropdownToggle((prevState) => !prevState)}
         />
 
         {dropdownToggle ? (
-          <div className="dropdown_container" ref={dropdownRef}>
+          <div className="dropdown_container">
             <p onClick={() => handleDropdownChange("email", "Email Address")}>
               Email Address
             </p>

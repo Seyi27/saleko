@@ -63,10 +63,10 @@ form {
 
 @media (max-width: 600px) {
   .create_form_container {
-    width: 382px;
+    width: 100%;
   }
 
   .dropdown_container {
-    width: 382px;
+    width: 89%;
   }
 }

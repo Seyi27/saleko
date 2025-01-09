@@ -3,12 +3,13 @@ import "./ProductDetails.css";
 import NavHeader from "../nav-header/NavHeader";
 import NavHeaderSearch from "../nav-header-search/NavHeaderSearch";
 import NavCategories from "../nav-categories/NavCategories";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import {
   BsChevronDown,
   BsChevronRight,
   BsFillCartFill,
   BsHeart,
+  BsHeartFill,
   BsShare,
   BsStarFill,
 } from "react-icons/bs";
@@ -29,12 +30,29 @@ import ImageSlider from "../image-slider/ImageSlider";
 const ProductDetails = () => {
   const [productDetailsData, setProductDetailsData] = useState<Product>();
   const [activeTab, setActiveTab] = useState("description");
-  const [visibleRows, setVisibleRows] = useState(1);
+  const [visibleRows, setVisibleRows] = useState(2);
   const [rowData, setRowData] = useState<Product[][]>([]);
   const { productId } = useParams();
 
+  const [favouriteClicked, setFavouriteClicked] = useState(false);
+  const [count, setCount] = useState(0);
+  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
+
+  const location = useLocation();
+
   const handleActiveState = (name: string) => {
     setActiveTab(name);
+  };
+
+  const countIncrement = () => {
+    setCount(count + 1);
+  };
+
+  const countDecrement = () => {
+    if (count > 0) {
+      setCount(count - 1);
+    }
   };
 
   const filterProduct = () => {
@@ -48,17 +66,27 @@ const ProductDetails = () => {
     setVisibleRows((prev) => prev + 1);
   };
 
-  const handleChooseColor = () => {};
-
   const chooseColor = ["Red", "Green", "Yellow", "Purple"];
 
   const chooseSize = ["Small", "Medium", "Large", "Extra Large", "XXL"];
+
+  const ratingReview = [17, 4, 1, 2, 0];
+
+  const handleChooseColor = (color: string) => {
+    setSelectedColor(color);
+  };
+
+  const handleChooseSize = (size: string) => {
+    setSelectedSize(size);
+  };
 
   useEffect(() => {
     filterProduct();
   }, [productId]);
 
-  const ratingReview = [17, 4, 1, 2, 0];
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scrolls to the top of the page
+  }, [location]); // dependent on when the user navigate (location) so it can start from the beginning of the page
 
   return (
     <div>
@@ -103,7 +131,10 @@ const ProductDetails = () => {
                 {productDetailsData?.image ? (
                   <ImageSlider images={productDetailsData?.image} />
                 ) : (
-                  <img src={productDetailsData?.image[0]} className="product_details_big_image" />
+                  <img
+                    src={productDetailsData?.image[0]}
+                    className="product_details_big_image"
+                  />
                 )}
               </div>
 
@@ -116,8 +147,15 @@ const ProductDetails = () => {
                   </div>
 
                   <div className="icon_container">
-                    <div className="icon_background">
-                      <BsHeart color="#084C3F" />
+                    <div
+                      className="icon_background"
+                      onClick={() => setFavouriteClicked(!favouriteClicked)}
+                    >
+                      {favouriteClicked ? (
+                        <BsHeartFill color="#084c3f" size={17} />
+                      ) : (
+                        <BsHeart color="#084c3f" size={17} />
+                      )}{" "}
                     </div>
                     <div className="icon_background">
                       <BsShare color="#084C3F" />
@@ -238,8 +276,21 @@ const ProductDetails = () => {
 
                   <div className="choose_color_container">
                     {chooseColor.map((color, index) => (
-                      <div className="choose_color_item" key={index}>
-                        <input type="radio" name={color} value={color} />
+                      <div
+                        className={`choose_color_item ${
+                          selectedColor == color ? "selectedItem" : ""
+                        }`}
+                        key={index}
+                        onClick={() => handleChooseColor(color)}
+                      >
+                        <input
+                          type="radio"
+                          id={color}
+                          name="color"
+                          value={color}
+                          checked={selectedColor == color}
+                          onChange={() => handleChooseColor(color)}
+                        />
                         <p>{color}</p>
                       </div>
                     ))}
@@ -261,8 +312,20 @@ const ProductDetails = () => {
 
                   <div className="choose_color_container">
                     {chooseSize.map((size, index) => (
-                      <div className="choose_color_item" key={index}>
-                        <input type="radio" name={size} value={size} />
+                      <div
+                        className={`choose_color_item ${
+                          selectedSize == size ? "selectedItem" : ""
+                        }`}
+                        key={index}
+                        onClick={() => handleChooseSize(size)}
+                      >
+                        <input
+                          type="radio"
+                          name="size"
+                          value={size}
+                          checked={selectedSize == size}
+                          onChange={() => handleChooseSize(size)}
+                        />
                         <p>{size}</p>
                       </div>
                     ))}
@@ -278,7 +341,13 @@ const ProductDetails = () => {
                 {/* Cart container */}
                 <div className="cart_container">
                   <div className="cart_increase_decrease_container">
-                    -<div>0</div>+
+                    <div onClick={countDecrement} style={{ cursor: "pointer" }}>
+                      -
+                    </div>
+                    <div className="count_container">{count}</div>
+                    <div onClick={countIncrement} style={{ cursor: "pointer" }}>
+                      +
+                    </div>
                   </div>
                   <div className="cart_button">
                     <CustomButton
@@ -298,7 +367,7 @@ const ProductDetails = () => {
               </div>
             </div>
 
-            {/* Description, Delivery Details and Reviews */}
+            {/* Description, Delivery Details and Reviews Tabs */}
             <div>
               <div className="description_nav">
                 <p
@@ -328,6 +397,7 @@ const ProductDetails = () => {
               </div>
 
               <div>
+                {/* Tab: Description */}
                 {activeTab === "description" && (
                   <div style={{ marginTop: "30px" }}>
                     <h3 className="product_description_header">
@@ -361,8 +431,10 @@ const ProductDetails = () => {
                   </div>
                 )}
 
+                {/* Tab: Delivery */}
                 {activeTab === "delivery" && <></>}
 
+                {/* Tab: Reviews */}
                 {activeTab === "reviews" && (
                   <div>
                     <div className="customer_reviews_container">

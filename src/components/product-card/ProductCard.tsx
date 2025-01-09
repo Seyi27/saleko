@@ -6,18 +6,24 @@ import { Rating } from "react-simple-star-rating";
 import CustomButton from "../custom-button/CustomButton";
 import { BiCartAdd } from "react-icons/bi";
 import NegotiateIcon from "../../assets/images/svg/NegotiateIcon";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const ProductCard = ({ name, item }: ProductCardProp) => {
   const [rating, setRating] = useState(item.rating);
   const [favouriteClicked, setFavouriteClicked] = useState(false);
 
+  const navigate = useNavigate();
+
+  const handleItemClick = () => {
+    navigate(`/product/${item.id}`);
+  };
+
   return (
     <div>
       <div className="image_card">
-        <Link to={`/product/${item.id}`} className="product_link">
+        <div onClick={handleItemClick} className="product_link">
           <img src={item.image[0]} className="product_image" />
-        </Link>
+        </div>
 
         {item.former_price ? (
           <span className="percentage_off">10% off</span>

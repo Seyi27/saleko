@@ -95,6 +95,7 @@ export type BestSellerProp = {
 }
 
 export type BestSeller = {
+    id:number,
     name: string;
     rating: number;
     description: string;
@@ -127,4 +128,12 @@ export type CategoryData = {
 export type CategoryDataSubcategories = {
     image: string;
     name: string
+}
+
+/*************** Market Place data ************************* */
+export type MarketplaceDataProps = {
+    marketId: number;
+    name: string;
+    image: string;
+    description: string;
 }

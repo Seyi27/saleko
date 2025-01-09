@@ -66,17 +66,17 @@ const ProductSection = ({
           <div>
             {rowData.slice(0, visibleRows).map((row, rowIndex) => (
 
-              <div key={rowIndex} className={`${row.length < 6 ? 'product_section_row_to_remove_space':'product_section_row'}`}> {/* for if a row is less than 6, so as to remove 'justify-content: space-between;' */}
+              <div key={rowIndex} className={`${row.length < 6 ? 'product_section_row_to_remove_space':'product_section_row'}`}> {/* for if the items in a row is less than 6, so as to remove 'justify-content: space-between;' */}
 
                 {row.map((item: Product, index: number) => (
                   
                   <div key={index} className="product_card_container">
                     <ProductCard item={item} name={name} />
 
-                    {index < rowData.length - 1 && (
+                    {index < row.length - 1 && (
                       <hr
                         style={{
-                          border: "0.5px solid #e5e7eb",
+                          border: "0.1px solid #e5e7eb",
                           height: "100%",
                         }}
                       />

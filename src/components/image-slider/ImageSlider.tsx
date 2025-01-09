@@ -5,15 +5,15 @@ import { BsCaretLeftFill, BsCaretRightFill } from "react-icons/bs";
 const ImageSlider = ({ images }: any) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  const handlePrev = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
-    );
-  };
-
   const handleNext = () => {
     setCurrentIndex((prevIndex) =>
       prevIndex === images.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
     );
   };
 

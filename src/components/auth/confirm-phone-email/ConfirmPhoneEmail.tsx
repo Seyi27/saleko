@@ -17,7 +17,7 @@ const ConfirmPhoneEmail = () => {
   // Access passed data from location.state
   const { selectedValue, emailPhoneText } = location.state;
 
-  console.log("selectedValue", selectedValue, emailPhoneText)
+  console.log("selectedValue", selectedValue, emailPhoneText);
 
   const handlePinSubmit = () => {
     const routeData = {
@@ -27,8 +27,8 @@ const ConfirmPhoneEmail = () => {
     if (pin !== "123456") {
       setPinError(true);
     } else {
-      setPinError(false);  
-      navigate("/sign-up/setup-profile", { state: routeData });  
+      setPinError(false);
+      navigate("/sign-up/setup-profile", { state: routeData });
     }
   };
 
@@ -78,7 +78,7 @@ const ConfirmPhoneEmail = () => {
           inputMode="number"
           style={{
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent:'space-between',
             paddingTop: "20px",
             paddingBottom: "10px",
           }}
@@ -86,6 +86,8 @@ const ConfirmPhoneEmail = () => {
             borderColor: pinError ? "red" : "#084C3F",
             borderWidth: "2px",
             borderRadius: "5px",
+            width: "40px",
+            height: "40px",
           }}
           //   inputFocusStyle={{ borderColor: "blue" }}
           onComplete={(value, index) => {}}

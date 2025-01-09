@@ -731,6 +731,7 @@ export const productData = [
 
 export const bestSellerData = [
   {
+    id: 1,
     name: "Wireless Earbuds",
     rating: 2.5,
     description:
@@ -742,6 +743,7 @@ export const bestSellerData = [
     targetDate: "2025-01-31T23:59:59",
   },
   {
+    id: 2,
     name: "Smartphone Stand",
     rating: 4.2,
     description:
@@ -753,6 +755,7 @@ export const bestSellerData = [
     targetDate: "2025-01-29T23:59:59",
   },
   {
+    id: 3,
     name: "Stainless Steel Water Bottle",
     rating: 4.8,
     description:
@@ -764,6 +767,7 @@ export const bestSellerData = [
     targetDate: "2025-01-27T23:59:59",
   },
   {
+    id: 4,
     name: "Bluetooth Speaker",
     rating: 4.6,
     description:
@@ -775,6 +779,7 @@ export const bestSellerData = [
     targetDate: "2025-01-25T23:59:59",
   },
   {
+    id: 5,
     name: "Gaming Mouse",
     rating: 4.3,
     description:
@@ -786,6 +791,7 @@ export const bestSellerData = [
     targetDate: "2025-01-23T23:59:59",
   },
   {
+    id: 6,
     name: "Yoga Mat",
     rating: 4.7,
     description:
@@ -797,6 +803,7 @@ export const bestSellerData = [
     targetDate: "2025-01-21T23:59:59",
   },
   {
+    id: 7,
     name: "LED Desk Lamp",
     rating: 4.4,
     description:
@@ -808,6 +815,7 @@ export const bestSellerData = [
     targetDate: "2025-01-19T23:59:59",
   },
   {
+    id: 8,
     name: "Noise-Cancelling Headphones",
     rating: 4.9,
     description:
@@ -819,6 +827,7 @@ export const bestSellerData = [
     targetDate: "2025-01-17T23:59:59",
   },
   {
+    id: 9,
     name: "Fitness Tracker",
     rating: 4.1,
     description:
@@ -830,6 +839,7 @@ export const bestSellerData = [
     targetDate: "2025-01-15T23:59:59",
   },
   {
+    id: 10,
     name: "Coffee Maker",
     rating: 4.5,
     description:
@@ -841,6 +851,7 @@ export const bestSellerData = [
     targetDate: "2025-01-15T23:59:59",
   },
   {
+    id: 11,
     name: "Wireless Charger",
     rating: 4.3,
     description:
@@ -852,6 +863,7 @@ export const bestSellerData = [
     targetDate: "2025-01-13T23:59:59",
   },
   {
+    id: 12,
     name: "Laptop Backpack",
     rating: 4.6,
     description:
@@ -863,6 +875,7 @@ export const bestSellerData = [
     targetDate: "2025-01-11T23:59:59",
   },
   {
+    id: 13,
     name: "Digital Alarm Clock",
     rating: 4.2,
     description:
@@ -874,6 +887,7 @@ export const bestSellerData = [
     targetDate: "2025-01-09T23:59:59",
   },
   {
+    id: 14,
     name: "Smart Thermostat",
     rating: 4.8,
     description:

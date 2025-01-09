@@ -45,18 +45,18 @@ const ForgotPasswordVerification = () => {
   }, [countDown]);
 
   return (
-    <div className="verify_phone_email_container">
-      <p className="confirm_phone_number">
+    <div className="fp_verify_phone_email_container">
+      <p className="fp_verify_confirm_phone_number">
         Confirm your{" "}
         {selectedValue == "phone" ? "phone number" : "email address"}
       </p>
-      <p className="code_sent_text">
+      <p className="fp_verify_code_sent_text">
         Enter the code sent to the{" "}
         {selectedValue == "phone" ? "number" : "email"} {emailPhoneText}
       </p>
 
-      <div className="verify_code_container">
-        <span className="verify_code_text">
+      <div className="fp_verify_code_container">
+        <span className="fp_verify_code_text">
           Verification Code<span style={{ color: "red" }}>*</span>
         </span>
         <PinInput
@@ -86,7 +86,7 @@ const ForgotPasswordVerification = () => {
           autoSelect={true}
           regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
         />
-        {pinError && <span className="invalid_otp">Invalid OTP</span>}
+        {pinError && <span className="fp_verify_invalid_otp">Invalid OTP</span>}
       </div>
 
       {/* Continue */}
@@ -114,10 +114,10 @@ const ForgotPasswordVerification = () => {
         />
       ) : (
         <div style={{ marginTop: "40px" }}>
-          <p className="receive_verification_text">
+          <p className="fp_verify_receive_verification_text">
             Didn't receive the verification code? It could take a
           </p>
-          <p className="receive_verification_text_second">
+          <p className="fp_verify_receive_verification_text_second">
             bit of time, request a new code in 
             <span style={{ color: "#084c3f", fontWeight: 600 }}>
               {countDown} seconds

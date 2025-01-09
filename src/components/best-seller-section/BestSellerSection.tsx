@@ -5,6 +5,7 @@ import BestSellerCard from "../best-seller-card/BestSellerCard";
 import { BsArrowRight, BsHeart, BsHeartFill } from "react-icons/bs";
 import { Rating } from "react-simple-star-rating";
 import { BiCartAdd } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 const BestSellerSection = ({ name, data }: BestSellerSectionProps) => {
   const displayBestSellerData = data.slice(0, 7); // Limit to the first 6 products
@@ -15,6 +16,12 @@ const BestSellerSection = ({ name, data }: BestSellerSectionProps) => {
 
   const [rating, setRating] = useState(secondColumnData.rating);
   const [favouriteClicked, setFavouriteClicked] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleItemClick = (id: number) => {
+    navigate(`/product/${id}`);
+  };
 
   return (
     <div className="best_seller_section_container">
@@ -30,6 +37,7 @@ const BestSellerSection = ({ name, data }: BestSellerSectionProps) => {
       <hr style={{ border: "0.5px solid #e5e7eb" }} />
 
       <div className="best_seller_section_row">
+        {/* First Column */}
         <div className="best_seller_section_first_row">
           {firstColumnData.map((item, index) => (
             <div key={index}>
@@ -38,11 +46,13 @@ const BestSellerSection = ({ name, data }: BestSellerSectionProps) => {
           ))}
         </div>
 
+        {/* Second Column */}
         <div className="best_seller_section_second_row">
           <div className="best_seller_second_row_image_card">
             <img
               src={secondColumnData.image}
               className="best_seller_second_row_image"
+              onClick={() => handleItemClick(secondColumnData.id)}
             />
 
             <span className="best_seller_second_row_percentage_off">
@@ -75,10 +85,17 @@ const BestSellerSection = ({ name, data }: BestSellerSectionProps) => {
               <span>{secondColumnData.rating}</span>
             </div>
             <div className="best_seller_second_row_price_container">
-              <span className={`best_seller_second_row_price ${secondColumnData.former_price && "best_seller_second_row_price_red"}`}>
+              <span
+                className={`best_seller_second_row_price ${
+                  secondColumnData.former_price &&
+                  "best_seller_second_row_price_red"
+                }`}
+              >
                 ₦{secondColumnData.price}
               </span>
-              <span className="best_seller_second_row_former_price">₦{secondColumnData.former_price}</span>
+              <span className="best_seller_second_row_former_price">
+                ₦{secondColumnData.former_price}
+              </span>
             </div>
             <div className="best_seller_second_row_description_container">
               <span className="best_seller_second_row_description">
@@ -119,6 +136,7 @@ const BestSellerSection = ({ name, data }: BestSellerSectionProps) => {
           </button>
         </div>
 
+        {/* Third Column */}
         <div className="best_seller_section_third_row">
           {thirdColumnData.map((item, index) => (
             <div key={index}>

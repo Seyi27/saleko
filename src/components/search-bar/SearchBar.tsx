@@ -8,7 +8,7 @@ const SearchBar = () => {
   const [searchValue, setSearchValue] = useState(""); // Tracks the search input
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
-  const [suggestedSearch, setSuggestedSearch] = useState<any[]>([]);
+  const [apiSuggestedSearch, setApiSuggestedSearch] = useState<any[]>([]);
 
   const searchBarRef = useRef<HTMLDivElement | null>(null); // Explicitly type the ref
 
@@ -51,13 +51,30 @@ const SearchBar = () => {
   const fetchData = async (value: string) => {
     await fetch(`http://api.tvmaze.com/search/shows?q=${value}`)
       .then((res) => res.json())
-      .then((data) => setSuggestedSearch(data));
+      .then((data) => setApiSuggestedSearch(data));
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
     setShowSuggestions(true); // Show suggestions as user types
     fetchData(e.target.value);
+  };
+
+  const handleInputSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (searchValue.trim() === "") return;
+
+    // Add search value to history if it doesn't already exist
+    if (!searchHistory.includes(searchValue)) {
+      setSearchHistory((prevHistory) => [...prevHistory, searchValue]);
+    }
+
+    setShowSuggestions(false); // Hide the suggestions
+  };
+
+  const handleClearHistory = () => {
+    setSearchHistory([]);
   };
 
   const handleSuggestionClick = (suggestion: string) => {
@@ -70,46 +87,15 @@ const SearchBar = () => {
     }
   };
 
-  const handleInputSubmit = (e: any) => {
-    if (searchValue.trim() === "") return;
-
-    // Add search value to history if it doesn't already exist
-    if (!searchHistory.includes(searchValue)) {
-      setSearchHistory((prevHistory) => [...prevHistory, searchValue]);
-    }
-
-    e.preventDefault(); // Prevent the page from refreshing
-    setSearchValue("");
-  };
-
-  const handleClearHistory = () => {
-    setSearchHistory([]);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      // Check if the click is outside the search bar container
-      if (
-        searchBarRef.current &&
-        !searchBarRef.current.contains(event.target as Node)
-      ) {
-        setShowSuggestions(false); // Hide suggestions
-      }
-    };
-
-    // Attach event listener
-    document.addEventListener("mousedown", handleClickOutside);
-
-    // Cleanup listener on unmount
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
   return (
     <div className="search_bar_container" ref={searchBarRef}>
       {/* Background overlay */}
-      {showSuggestions && <div className="background_overlay"></div>}
+      {showSuggestions && (
+        <div
+          className="background_overlay"
+          onClick={() => setShowSuggestions(false)}
+        ></div>
+      )}
 
       {/* Search Input */}
       <form onSubmit={handleInputSubmit} style={{ margin: 0, padding: 0 }}>
@@ -185,9 +171,9 @@ const SearchBar = () => {
       {/* Show filtered results when typing */}
       {showSuggestions && searchValue.trim() !== "" && (
         <div>
-          {suggestedSearch.length > 0 && (
+          {apiSuggestedSearch.length > 0 && (
             <div className="search_suggestion_container">
-              {suggestedSearch.map((data, index) => (
+              {apiSuggestedSearch.map((data, index) => (
                 <div
                   key={index}
                   className="search_suggestion_item"
