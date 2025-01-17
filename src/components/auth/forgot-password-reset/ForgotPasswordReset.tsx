@@ -6,18 +6,21 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 import PasswordChecklist from "react-password-checklist";
 import CustomModal from "../../custom-modal/CustomModal";
 import CustomTextInput from "../../custom-textInput/CustomTextInput";
+import CloseModalContainer from "../close-auth-modal-container/CloseModalContainer";
+import { AuthValueProps } from "../../../types/types";
 
-const ForgotPasswordReset = () => {
+const ForgotPasswordReset = ({
+  handleCloseModal,
+  handleAuthNavigate,
+}: AuthValueProps) => {
   const [resetPasswordDisabled, setResetPasswordDisabled] = useState(true);
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [toggleVisibility, setToggleVisibility] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const navigate = useNavigate();
 
   const handleResetPasswordModal = () => {
-    navigate("/login");
     setIsModalOpen(false);
+    handleAuthNavigate("create_account");
   };
 
   const openModal = () => {
@@ -26,9 +29,10 @@ const ForgotPasswordReset = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    handleCloseModal();
   };
 
-  const handlePasswordInput = (key:string,e: string) => {
+  const handlePasswordInput = (key: string, e: string) => {
     setPassword(e.trim());
     if (!e.trim()) {
       setPasswordError("Password cannot be empty");
@@ -52,6 +56,13 @@ const ForgotPasswordReset = () => {
 
   return (
     <>
+      <CloseModalContainer
+        handleCloseModal={handleCloseModal}
+        handleAuthNavigate={() =>
+          handleAuthNavigate("forgot_password_verification")
+        }
+      />
+
       <div className="forgot_password_reset_container">
         <p className="forgot_password_reset_text">Set new password</p>
 

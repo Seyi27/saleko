@@ -39,6 +39,15 @@ export const authApi = createApi({
         };
       },
     }),
+    verifyOtp: builder.mutation({
+      query: (body: any) => {
+        return {
+          url: "/api/auth-svc/otp/verify",
+          method: "post",
+          body,
+        };
+      },
+    }),
   }),
 });
 
@@ -46,4 +55,5 @@ export const {
   useLoginMutation,
   useSignUpMutation,
   useForgotPasswordMutation,
+  useVerifyOtpMutation
 } = authApi;

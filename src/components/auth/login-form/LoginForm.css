@@ -1,12 +1,12 @@
 .login_form_container {
-  width: 593px;
+  width: 500px;
   margin: 0 auto;
-  margin-top: 40px;
+  padding: 0 0 40px 0;
 }
 
 .login_text {
   text-align: center;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
 }
 
@@ -19,6 +19,7 @@ form {
   color: #084C3F;
   font-weight: 700;
   text-decoration: none;
+  cursor: pointer;
 }
 
 @media (max-width: 600px) {

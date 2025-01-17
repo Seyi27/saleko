@@ -12,14 +12,19 @@ import {
   useLazySingleMarketplaceApiQuery,
 } from "../../services/appApi";
 import { MarketplaceDataProps } from "../../types/types";
+import AuthModal from "../auth/auth-modal/AuthModal";
 
 const NavHeaderSearch = () => {
   const navigate = useNavigate();
   const [selectedMarket, setSelectedMarket] = useState("");
-  const [marketData, setMarketData] = useState<MarketplaceDataProps[] | undefined>();
+  const [marketData, setMarketData] = useState<
+    MarketplaceDataProps[] | undefined
+  >();
   const { data, isSuccess, isLoading, isError, error } = useMarketplaceApiQuery(
     {}
   );
+
+  const [isOpen, setIsOpen] = useState(false);
 
   const [singleMarketplaceApi, { data: singleMarket }] =
     useLazySingleMarketplaceApiQuery();
@@ -36,7 +41,12 @@ const NavHeaderSearch = () => {
   };
 
   const handleNavigate = () => {
-    navigate("/login");
+    // navigate("/login");
+    setIsOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpen(false);
   };
 
   return (
@@ -97,6 +107,8 @@ const NavHeaderSearch = () => {
           />
         </div>
       </div>
+
+      <AuthModal isOpen={isOpen} handleCloseModal={handleCloseModal} />
     </div>
   );
 };

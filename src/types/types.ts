@@ -12,6 +12,7 @@ export type CustomButtonProps = {
     borderColor?: string,
     borderWidth?: string,
     borderRadius?: string,
+    loader?: boolean,
     onClick?: React.MouseEventHandler<HTMLButtonElement>; // Type for onClick
     disabled?: boolean
 }
@@ -19,7 +20,7 @@ export type CustomButtonProps = {
 export type CustomModalProps = {
     isOpen?: boolean,
     closeModal: () => void,
-    label?: string;
+    label?: 'signup' | 'password_reset';
     onclick?: () => void
 }
 
@@ -29,37 +30,38 @@ export type AuthNavHeaderProps = {
 }
 
 export type CustomTextInputProps = {
-    type: string,
+    type: 'normal' | 'phoneNo' | 'password' | 'dropdown',
     name: string,
     value: string,
     label: string,
     errorMessage?: string,
     idAndHtmlFor: string,
     handleTextInput: (key: string, e: string) => void,
-    handleDropdown?: () => void
+    handleDropdown?: () => void,
+    noPasswordChecklist?: boolean
 }
 
-// export type NegotiableSectionProps = {
-//     name: string;
-//     data: Negotiable[];
-// }
+export type AuthValueProps = {
+    handleCloseModal: () => void,
+    handleAuthNavigate: (screen: string) => void
+}
 
-// export type NegotiableProp = {
-//     item: Negotiable;
-// }
 
-// export type Negotiable = {
-//     name: string;
-//     rating: number;
-//     description: string;
-//     price: string;
-//     image: string;
-// }
+export type CloseModalContainerProps = {
+    cancelIconOnly?: boolean,
+    handleCloseModal: () => void,
+    handleAuthNavigate: (screen: string) => void
+}
+
+export type AuthModalProps = {
+    isOpen: boolean,
+    handleCloseModal: () => void,
+}
 
 export type ProductSectionProps = {
     name: string;
     data: Product[];
-    type: string;
+    type: 'home' | 'related';
     visibleRows?: number;
     setVisibleRows?: Dispatch<SetStateAction<number>>;
     setRowData?: Dispatch<SetStateAction<Product[][]>>;
@@ -71,7 +73,7 @@ export type ProductCardProp = {
 }
 
 export type Product = {
-    id:number;
+    id: number;
     name: string;
     description: string;
     price: string;
@@ -95,7 +97,7 @@ export type BestSellerProp = {
 }
 
 export type BestSeller = {
-    id:number,
+    id: number,
     name: string;
     rating: number;
     description: string;

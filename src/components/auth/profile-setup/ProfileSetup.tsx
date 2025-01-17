@@ -6,8 +6,15 @@ import { FiEye, FiEyeOff } from "react-icons/fi"; // Import eye icons from react
 import CustomModal from "../../custom-modal/CustomModal";
 import { useLocation } from "react-router-dom";
 import CustomTextInput from "../../custom-textInput/CustomTextInput";
+import { useSelector } from "react-redux";
+import CloseModalContainer from "../close-auth-modal-container/CloseModalContainer";
+import { AuthValueProps } from "../../../types/types";
+import { RootState } from "../../../store/store";
 
-const ProfileSetup = () => {
+const ProfileSetup = ({
+  handleCloseModal,
+  handleAuthNavigate,
+}: AuthValueProps) => {
   const [firstName, setFirstName] = useState("");
   const [secondName, setSecondName] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
@@ -27,10 +34,9 @@ const ProfileSetup = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const location = useLocation();
-
-  // Access passed data from location.state
-  const { selectedValue } = location.state;
+  const selectedDropdownValue = useSelector(
+    (state: RootState) => state.authValue.selectedDropdownValue
+  );
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -38,6 +44,8 @@ const ProfileSetup = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+    handleCloseModal();
+    handleAuthNavigate("create_account");
   };
 
   const handleToggle = () => {
@@ -143,11 +151,17 @@ const ProfileSetup = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
     openModal();
   };
 
   return (
     <>
+      <CloseModalContainer
+        handleCloseModal={handleCloseModal}
+        handleAuthNavigate={() => handleAuthNavigate("verify_account")}
+      />
+
       <div className="profile_setup_form_container">
         <p className="setup_profile_text">Set up your profile</p>
 
@@ -174,7 +188,7 @@ const ProfileSetup = () => {
             handleTextInput={handleTextInput}
           />
 
-          {selectedValue == "phone" ? (
+          {selectedDropdownValue == "phone" ? (
             // Phone Number
             <CustomTextInput
               type={"phoneNo"}

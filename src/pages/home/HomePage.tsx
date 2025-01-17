@@ -9,8 +9,6 @@ import StoreIconLogo from "../../assets/images/svg/StoreIconLogo";
 import CustomButton from "../../components/custom-button/CustomButton";
 import NavCategories from "../../components/nav-categories/NavCategories";
 import NavHeaderSearch from "../../components/nav-header-search/NavHeaderSearch";
-import ImageCarouselSection from "../../components/auth/image-carousel-section/ImageCarouselSection";
-import CarouselComponent from "../../components/auth/carousel-component/CarouselComponent";
 import HomeCarouselComponent from "../../components/home-carousel-component/HomeCarouselComponent";
 import ProductSection from "../../components/product-section/ProductSection";
 import {

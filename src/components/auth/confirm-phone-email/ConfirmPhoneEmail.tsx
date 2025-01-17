@@ -3,33 +3,56 @@ import "./ConfirmPhoneEmail.css";
 import CustomButton from "../../custom-button/CustomButton";
 import PinInput from "react-pin-input";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { BsChevronLeft, BsX } from "react-icons/bs";
+import CloseModalContainer from "../close-auth-modal-container/CloseModalContainer";
+import { AuthValueProps } from "../../../types/types";
+import { RootState } from "../../../store/store";
+import { useVerifyOtpMutation } from "../../../services/authApi";
 
-const ConfirmPhoneEmail = () => {
+const ConfirmPhoneEmail = ({
+  handleCloseModal,
+  handleAuthNavigate,
+}: AuthValueProps) => {
   const [pin, setPin] = useState("");
   const [pinError, setPinError] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [sendCodeState, setSendCodeState] = useState(false);
   const [countDown, setCountDown] = useState(44);
 
-  const location = useLocation();
-  const navigate = useNavigate();
+  const selectedDropdownValue = useSelector(
+    (state: RootState) => state.authValue.selectedDropdownValue
+  );
+  const emailPhoneText = useSelector(
+    (state: RootState) => state.authValue.emailPhonenumberText
+  );
 
-  // Access passed data from location.state
-  const { selectedValue, emailPhoneText } = location.state;
+  const userNotificationRef = useSelector(
+    (state: RootState) => state.createAccountData.notification_reference
+  );
 
-  console.log("selectedValue", selectedValue, emailPhoneText);
+  const [verifyOtp, { data, isSuccess, isError, error, isLoading }] =
+    useVerifyOtpMutation();
+
+  useEffect(() => {
+    if (isSuccess) {
+      setPinError(false);
+      handleAuthNavigate("profile_setup");
+    } else {
+      // setPinError(true);
+    }
+  }, [data, isSuccess, isError, error]);
+
+  console.log("confirm data", data);
 
   const handlePinSubmit = () => {
-    const routeData = {
-      selectedValue: selectedValue,
+    const verifyOtpBody = {
+      otp: pin,
+      reference: userNotificationRef,
+      username: "",
     };
 
-    if (pin !== "123456") {
-      setPinError(true);
-    } else {
-      setPinError(false);
-      navigate("/sign-up/setup-profile", { state: routeData });
-    }
+    verifyOtp(verifyOtpBody);
   };
 
   useEffect(() => {
@@ -51,89 +74,97 @@ const ConfirmPhoneEmail = () => {
   }, [countDown]);
 
   return (
-    <div className="verify_phone_email_container">
-      <p className="confirm_phone_number">
-        Confirm your{" "}
-        {selectedValue == "phone" ? "phone number" : "email address"}
-      </p>
-      <p className="code_sent_text">
-        Enter the code sent to the{" "}
-        {selectedValue == "phone" ? "number" : "email"} {emailPhoneText}
-      </p>
-
-      <div className="verify_code_container">
-        <span className="verify_code_text">
-          Verification Code<span style={{ color: "red" }}>*</span>
-        </span>
-        <PinInput
-          length={6}
-          initialValue=""
-          //   secret
-          //   secretDelay={100}
-          onChange={(value, index) => {
-            setPinError(false);
-            setPin(value);
-          }}
-          type="numeric"
-          inputMode="number"
-          style={{
-            display: "flex",
-            justifyContent:'space-between',
-            paddingTop: "20px",
-            paddingBottom: "10px",
-          }}
-          inputStyle={{
-            borderColor: pinError ? "red" : "#084C3F",
-            borderWidth: "2px",
-            borderRadius: "5px",
-            width: "40px",
-            height: "40px",
-          }}
-          //   inputFocusStyle={{ borderColor: "blue" }}
-          onComplete={(value, index) => {}}
-          autoSelect={true}
-          regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
-        />
-        {pinError && <span className="invalid_otp">Invalid OTP</span>}
-      </div>
-
-      {/* Continue */}
-      <CustomButton
-        label="Continue"
-        width={"100%"}
-        height="55px"
-        bgColor="#084C3F"
-        textColor="white"
-        fontSize={16}
-        fontWeight={600}
-        disabled={disabled}
-        onClick={handlePinSubmit}
+    <>
+      <CloseModalContainer
+        handleCloseModal={handleCloseModal}
+        handleAuthNavigate={() => handleAuthNavigate("create_account")}
       />
 
-      {sendCodeState ? (
+      <div className="verify_phone_email_container">
+        <p className="confirm_phone_number">
+          Confirm your{" "}
+          {selectedDropdownValue == "phone" ? "phone number" : "email address"}
+        </p>
+        <p className="code_sent_text">
+          Enter the code sent to the{" "}
+          {selectedDropdownValue == "phone" ? "number" : "email"}{" "}
+          {emailPhoneText}
+        </p>
+
+        <div className="verify_code_container">
+          <span className="verify_code_text">
+            Verification Code<span style={{ color: "red" }}>*</span>
+          </span>
+          <PinInput
+            length={6}
+            initialValue=""
+            //   secret
+            //   secretDelay={100}
+            onChange={(value, index) => {
+              setPinError(false);
+              setPin(value);
+            }}
+            type="numeric"
+            inputMode="number"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              paddingTop: "20px",
+              paddingBottom: "10px",
+            }}
+            inputStyle={{
+              borderColor: pinError ? "red" : "#084C3F",
+              borderWidth: "2px",
+              borderRadius: "5px",
+              width: "40px",
+              height: "40px",
+            }}
+            //   inputFocusStyle={{ borderColor: "blue" }}
+            onComplete={(value, index) => {}}
+            autoSelect={true}
+            regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
+          />
+          {pinError && <span className="invalid_otp">Invalid OTP</span>}
+        </div>
+
+        {/* Continue */}
         <CustomButton
-          label="Send code again"
+          label="Continue"
           width={"100%"}
           height="55px"
-          bgColor="white"
-          textColor="#084C3F"
-          fontSize={13}
+          bgColor="#084C3F"
+          textColor="white"
+          fontSize={16}
           fontWeight={600}
+          disabled={disabled}
+          onClick={handlePinSubmit}
         />
-      ) : (
-        <div style={{ marginTop: "40px" }}>
-          <p className="receive_verification_text">
-            Didn't receive the verification code? It could take a
-          </p>
-          <p className="receive_verification_text_second">
-            bit of time, request a new code in 
-            <span style={{ color: "#084c3f", fontWeight: 600 }}>
-              {countDown} seconds
-            </span>
-          </p>
-        </div>
-      )}
-    </div>
+
+        {sendCodeState ? (
+          <CustomButton
+            label="Send code again"
+            width={"100%"}
+            height="55px"
+            bgColor="white"
+            textColor="#084C3F"
+            fontSize={13}
+            fontWeight={600}
+          />
+        ) : (
+          <div style={{ marginTop: "40px" }}>
+            <p className="receive_verification_text">
+              Didn't receive the verification code? It could take a
+            </p>
+            <p className="receive_verification_text_second">
+              bit of time, request a new code in 
+              <span style={{ color: "#084c3f", fontWeight: 600 }}>
+                {countDown} seconds
+              </span>
+            </p>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

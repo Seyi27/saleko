@@ -13,7 +13,8 @@ const CustomTextInput = ({
   errorMessage,
   idAndHtmlFor,
   handleTextInput,
-  handleDropdown
+  handleDropdown,
+  noPasswordChecklist
 }: CustomTextInputProps) => {
   const [toggleVisibility, setToggleVisibility] = useState(false);
   const [selectedCode, setSelectedCode] = useState("+234");
@@ -141,7 +142,7 @@ const CustomTextInput = ({
             </div>
 
             {/* Password Checklist */}
-            {value && (
+            {value && !noPasswordChecklist && (
               <div className="password_checklist_container">
                 <PasswordChecklist
                   rules={[

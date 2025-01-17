@@ -7,8 +7,22 @@ import { countryCallingCodes } from "../../../helpers/CountryCallingCodes";
 import { useNavigate } from "react-router-dom";
 import CustomTextInput from "../../custom-textInput/CustomTextInput";
 import { useSignUpMutation } from "../../../services/authApi";
+import { Audio, ColorRing, TailSpin } from "react-loader-spinner";
+import { BsChevronLeft, BsX } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addEmailPhonenumberText,
+  addSelectedDropdownValue,
+} from "../../../slice/authValueSlice";
+import CloseModalContainer from "../close-auth-modal-container/CloseModalContainer";
+import encrypted_ic from "../../../assets/images/svg/encrypted_ic.svg";
+import { AuthValueProps } from "../../../types/types";
+import { addCreateAccountData } from "../../../slice/createAccountDataSlice";
 
-const CreateAccount = () => {
+const CreateAccount = ({
+  handleCloseModal,
+  handleAuthNavigate,
+}: AuthValueProps) => {
   const [email, setEmail] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -17,35 +31,29 @@ const CreateAccount = () => {
 
   const [selectedDropdownKey, setSelectedDropdownKey] = useState("");
   const [selectedDropdownValue, setSelectedDropdownValue] = useState("");
-  const [emailPhoneText, setEmailPhoneText] = useState("");
+
+  const [dropdownToggle, setDropdownToggle] = useState(false);
 
   const [signUp, { data, isSuccess, isLoading, isError, error }] =
     useSignUpMutation();
 
-  useEffect(() => {
-    signUp({
-      email: "witaga2855@chansd.com",
-      mode: "email",
-    });
-  }, []);
-
-  console.log("data data", data);
-
-  const [dropdownToggle, setDropdownToggle] = useState(false);
-
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleDropdownChange = (key: string, value: string) => {
     setSelectedDropdownKey(key);
     setSelectedDropdownValue(value);
     setDropdownToggle(false);
+
+    dispatch(addSelectedDropdownValue(key));
   };
+
+  console.log("data data", data)
 
   const handleTextInput = (key: string, e: string) => {
     switch (key) {
       case "phone":
         setPhoneNo(e.trim());
-        setEmailPhoneText(e.trim());
+        dispatch(addEmailPhonenumberText(e.trim()));
         if (!e.trim()) {
           setPhoneNoError("Phone Number cannot be empty");
         } else if (!/^\d+$/.test(e.trim())) {
@@ -59,7 +67,7 @@ const CreateAccount = () => {
         break;
       case "email":
         setEmail(e.trim());
-        setEmailPhoneText(e.trim());
+        dispatch(addEmailPhonenumberText(e.trim()));
         if (!e.trim()) {
           setEmailError("Email cannot be empty");
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.trim())) {
@@ -84,122 +92,162 @@ const CreateAccount = () => {
     }
   }, [selectedDropdownKey, emailError, phoneNoError, email, phoneNo]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    const routeData = {
-      selectedValue: selectedDropdownKey,
-      emailPhoneText: emailPhoneText,
-    };
+  useEffect(() => {
+    if (isSuccess) {
+      const submitvalue = {
+        user: data.data.user,
+        notification_reference: data.data.notification_reference,
+      };
+  
+      dispatch(addCreateAccountData(submitvalue))
+      handleAuthNavigate("verify_account");
+    } else if (isError && error) {
+      console.log("error", error);
+    }
+  }, [data, isSuccess, isError, error]);
 
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate("/sign-up/verification", { state: routeData });
+
+    signUp({
+      username: selectedDropdownKey == "email" ? email : phoneNo,
+      mode: selectedDropdownKey == "email" ? "email" : "phonenumber",
+    });
   };
 
   return (
-    <div className="create_form_container">
-      <p className="create_account_text">Create Account</p>
-      <p className="otp_verify_text">We will send an OTP verification to you</p>
+    <>
+      <CloseModalContainer
+        handleCloseModal={handleCloseModal}
+        handleAuthNavigate={handleAuthNavigate}
+      />
 
-      <form onSubmit={handleSubmit}>
-        <CustomTextInput
-          type={"dropdown"}
-          name={"dropdown"}
-          value={selectedDropdownValue}
-          label={"Email or Phone No.*"}
-          // errorMessage={""}
-          idAndHtmlFor={"input_dropdown"}
-          handleTextInput={handleTextInput}
-          handleDropdown={() => setDropdownToggle((prevState) => !prevState)}
-        />
+      <div className="create_form_container">
+        <p className="create_account_text">Create Account</p>
+        <p className="otp_verify_text">
+          We will send an OTP verification to you
+        </p>
 
-        {dropdownToggle ? (
-          <div className="dropdown_container">
-            <p onClick={() => handleDropdownChange("email", "Email Address")}>
-              Email Address
-            </p>
-            <p onClick={() => handleDropdownChange("phone", "Phone Number")}>
-              Phone Number
+        <p className="data_encrypted_text">
+          <img src={encrypted_ic} />
+          All data will be encrypted
+        </p>
+
+        <form onSubmit={handleSubmit} className="create_account_form">
+          <CustomTextInput
+            type={"dropdown"}
+            name={"dropdown"}
+            value={selectedDropdownValue}
+            label={"Email or Phone No.*"}
+            // errorMessage={""}
+            idAndHtmlFor={"input_dropdown"}
+            handleTextInput={handleTextInput}
+            handleDropdown={() => setDropdownToggle((prevState) => !prevState)}
+          />
+
+          {dropdownToggle ? (
+            <div className="dropdown_container">
+              <p onClick={() => handleDropdownChange("email", "Email Address")}>
+                Email Address
+              </p>
+              <p onClick={() => handleDropdownChange("phone", "Phone Number")}>
+                Phone Number
+              </p>
+            </div>
+          ) : null}
+
+          {selectedDropdownKey ? (
+            selectedDropdownKey == "phone" ? (
+              <CustomTextInput
+                type={"phoneNo"}
+                name={"phone"}
+                value={phoneNo}
+                label={"Phone Number*"}
+                errorMessage={phoneNoError}
+                idAndHtmlFor={"phone_input"}
+                handleTextInput={handleTextInput}
+              />
+            ) : (
+              <CustomTextInput
+                type={"normal"}
+                name={"email"}
+                value={email}
+                label={"Enter your email"}
+                errorMessage={emailError}
+                idAndHtmlFor={"email_input"}
+                handleTextInput={handleTextInput}
+              />
+            )
+          ) : null}
+
+          <div style={{ margin: "20px" }} />
+
+          {/* Send Code Button */}
+          <CustomButton
+            label="Send Code"
+            width={"100%"}
+            height="55px"
+            bgColor="#084C3F"
+            textColor="white"
+            fontSize={15}
+            fontWeight={600}
+            loader={isLoading}
+            disabled={buttonDisabled}
+            onClick={handleSubmit}
+          />
+
+          <div className="have_an_account_container">
+            <p>
+              Already have an account?{" "}
+              <span onClick={() => handleAuthNavigate("login_form")}>
+                Login
+              </span>
             </p>
           </div>
-        ) : null}
 
-        {selectedDropdownKey ? (
-          selectedDropdownKey == "phone" ? (
-            <CustomTextInput
-              type={"phoneNo"}
-              name={"phone"}
-              value={phoneNo}
-              label={"Phone Number*"}
-              errorMessage={phoneNoError}
-              idAndHtmlFor={"phone_input"}
-              handleTextInput={handleTextInput}
+          <div style={{ margin: "30px" }} />
+
+          {/* Form Divider */}
+          <div className="form_divider">
+            <hr
+              style={{ width: "100%", marginRight: "20px", marginLeft: "20px" }}
             />
-          ) : (
-            <CustomTextInput
-              type={"normal"}
-              name={"email"}
-              value={email}
-              label={"Enter your email"}
-              errorMessage={emailError}
-              idAndHtmlFor={"email_input"}
-              handleTextInput={handleTextInput}
+            <p style={{ fontSize: "12px", color: "#8E8E8E" }}>Or</p>
+            {/* <div className="divider" /> */}
+            <hr
+              style={{ width: "100%", marginRight: "20px", marginLeft: "20px" }}
             />
-          )
-        ) : null}
+          </div>
 
-        <div style={{ margin: "20px" }} />
+          <div style={{ margin: "2px" }} />
 
-        {/* Send Code Button */}
-        <CustomButton
-          label="Send Code"
-          width={"100%"}
-          height="55px"
-          bgColor="#084C3F"
-          textColor="white"
-          fontSize={15}
-          fontWeight={600}
-          disabled={buttonDisabled}
-          onClick={handleSubmit}
-        />
-
-        {/* Form Divider */}
-        <div className="form_divider">
-          <hr
-            style={{ width: "100%", marginRight: "20px", marginLeft: "20px" }}
+          {/* Continue with Apple */}
+          <CustomButton
+            label="Continue with Apple"
+            width={"100%"}
+            height="55px"
+            bgColor="white"
+            borderColor="#DFDFDF"
+            borderWidth="1px"
+            icon={<FaApple size={16} />}
           />
-          <p>Or</p>
-          {/* <div className="divider" /> */}
-          <hr
-            style={{ width: "100%", marginRight: "20px", marginLeft: "20px" }}
+
+          <div style={{ margin: "20px" }} />
+
+          {/* Continue with Google */}
+          <CustomButton
+            label="Continue with Google"
+            width={"100%"}
+            height="55px"
+            bgColor="white"
+            borderColor="#DFDFDF"
+            borderWidth="1px"
+            icon={<FcGoogle size={16} />}
           />
-        </div>
-
-        <div style={{ margin: "20px" }} />
-
-        {/* Continue with Apple */}
-        <CustomButton
-          label="Continue with Apple"
-          width={"100%"}
-          height="55px"
-          bgColor="white"
-          borderColor="#DFDFDF"
-          borderWidth="1px"
-          icon={<FaApple size={16} />}
-        />
-
-        <div style={{ margin: "20px" }} />
-
-        {/* Continue with Google */}
-        <CustomButton
-          label="Continue with Google"
-          width={"100%"}
-          height="55px"
-          bgColor="white"
-          borderColor="#DFDFDF"
-          borderWidth="1px"
-          icon={<FcGoogle size={16} />}
-        />
-      </form>
-    </div>
+        </form>
+      </div>
+    </>
   );
 };
 

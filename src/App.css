@@ -20,3 +20,11 @@
 .body_second_container {
   width: 1300px;
 }
+
+.data_encrypted_text{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color:#4CAF50
+}

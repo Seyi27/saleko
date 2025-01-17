@@ -1,18 +1,18 @@
 .create_form_container {
-  width: 593px;
+  width: 500px;
   margin: 0 auto;
-  margin-top: 40px;
+  padding: 0 0 40px 0;
 }
 
 .create_account_text {
   text-align: center;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
 }
 
 .otp_verify_text {
   text-align: center;
-  font-size: 16px;
+  font-size: 14px;
   color: #8e8e8e;
   margin-top: -15px;
 }
@@ -27,8 +27,25 @@ label {
   transition: 0.3s;
 }
 
-form {
-  margin-top: 40px;
+.create_account_form {
+  margin-top: 30px;
+}
+
+.have_an_account_container {
+  margin: 0;
+  text-align: center;
+  font-size: 14px;
+}
+
+.have_an_account_container p {
+  color: #8e8e8e;
+}
+
+.have_an_account_container span {
+  color: #084c3f;
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 /* ******************************** */
@@ -46,7 +63,7 @@ form {
 .dropdown_container {
   position: absolute;
   background-color: #ffffff;
-  width: 593px;
+  width: 500px;
   border: 1px solid black;
   margin-top: 5px;
   border-radius: 10px;
