@@ -20,7 +20,7 @@ export type CustomButtonProps = {
 export type CustomModalProps = {
     isOpen?: boolean,
     closeModal: () => void,
-    label?: 'signup' | 'password_reset';
+    label?: 'signup' | 'login' | 'password_reset';
     onclick?: () => void
 }
 
@@ -41,21 +41,26 @@ export type CustomTextInputProps = {
     noPasswordChecklist?: boolean
 }
 
-export type AuthValueProps = {
-    handleCloseModal: () => void,
-    handleAuthNavigate: (screen: string) => void
-}
-
-
 export type CloseModalContainerProps = {
     cancelIconOnly?: boolean,
     handleCloseModal: () => void,
-    handleAuthNavigate: (screen: string) => void
+    handleAuthNavigate?: (screen: string) => void
 }
 
 export type AuthModalProps = {
     isOpen: boolean,
     handleCloseModal: () => void,
+    handleOpenSignupModal?: () => void,
+    handleOpenLoginModal?: () => void,
+    handleOpenResetPasswordModal?: () => void
+}
+
+export type AuthModalScreenProps = {
+    handleCloseModal: () => void,
+    handleAuthNavigate: (screen: string) => void
+    handleOpenSignupModal?: () => void,
+    handleOpenLoginModal?: () => void,
+    handleOpenResetPasswordModal?: () => void
 }
 
 export type ProductSectionProps = {

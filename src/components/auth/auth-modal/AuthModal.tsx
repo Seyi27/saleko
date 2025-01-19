@@ -11,8 +11,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { addActiveScreen } from "../../../slice/authValueSlice";
 import { AuthModalProps } from "../../../types/types";
 import { RootState } from "../../../store/store";
+import CloseModalContainer from "../close-auth-modal-container/CloseModalContainer";
 
-const AuthModal = ({ isOpen, handleCloseModal }: AuthModalProps) => {
+const AuthModal = ({
+  isOpen,
+  handleCloseModal,
+  handleOpenSignupModal,
+  handleOpenLoginModal,
+  handleOpenResetPasswordModal
+}: AuthModalProps) => {
   //   const [activeScreen, setActiveScreen] = useState("create_account");
 
   const dispatch = useDispatch();
@@ -31,7 +38,7 @@ const AuthModal = ({ isOpen, handleCloseModal }: AuthModalProps) => {
 
   const handleAuthNavigate = (screen: string) => {
     // setActiveScreen(screen);
-    dispatch(addActiveScreen(screen))
+    dispatch(addActiveScreen(screen));
   };
 
   const renderModal = () => {
@@ -59,6 +66,7 @@ const AuthModal = ({ isOpen, handleCloseModal }: AuthModalProps) => {
           <ProfileSetup
             handleCloseModal={handleCloseModal}
             handleAuthNavigate={handleAuthNavigate}
+            handleOpenSignupModal={handleOpenSignupModal}
           />
         );
         break;
@@ -68,6 +76,7 @@ const AuthModal = ({ isOpen, handleCloseModal }: AuthModalProps) => {
           <LoginForm
             handleCloseModal={handleCloseModal}
             handleAuthNavigate={handleAuthNavigate}
+            handleOpenLoginModal={handleOpenLoginModal}
           />
         );
         break;
@@ -95,6 +104,7 @@ const AuthModal = ({ isOpen, handleCloseModal }: AuthModalProps) => {
           <ForgotPasswordReset
             handleCloseModal={handleCloseModal}
             handleAuthNavigate={handleAuthNavigate}
+            handleOpenResetPasswordModal={handleOpenResetPasswordModal}
           />
         );
         break;
@@ -106,7 +116,9 @@ const AuthModal = ({ isOpen, handleCloseModal }: AuthModalProps) => {
 
   return (
     <div className="auth-modal-overlay" onClick={handleOverlayClick}>
-      <div className="auth-modal-content">{renderModal()}</div>
+      <div className="auth-modal-content">
+        {renderModal()}
+      </div>
     </div>
   );
 };

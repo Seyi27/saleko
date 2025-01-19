@@ -13,6 +13,10 @@ import {
 } from "../../services/appApi";
 import { MarketplaceDataProps } from "../../types/types";
 import AuthModal from "../auth/auth-modal/AuthModal";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import CustomModal from "../custom-modal/CustomModal";
+import { addActiveScreen } from "../../slice/authValueSlice";
 
 const NavHeaderSearch = () => {
   const navigate = useNavigate();
@@ -25,9 +29,13 @@ const NavHeaderSearch = () => {
   );
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenSignup, setIsOpenSignup] = useState(false);
+  const [isOpenLogin, setIsOpenLogin] = useState(false);
+  const [isOpenResetPassword, setIsOpenResetPassword] = useState(false);
 
-  const [singleMarketplaceApi, { data: singleMarket }] =
-    useLazySingleMarketplaceApiQuery();
+  const dispatch = useDispatch();
+
+  // const user = useSelector((state: RootState) => state.userDetails.user);
 
   useEffect(() => {
     if (isSuccess) {
@@ -40,13 +48,41 @@ const NavHeaderSearch = () => {
     setSelectedMarket(e.target.value);
   };
 
-  const handleNavigate = () => {
-    // navigate("/login");
+  const handleOpenModal = () => {
     setIsOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsOpen(false);
+  };
+
+  // open successful modal
+  const handleOpenSignupModal = () => {
+    setIsOpenSignup(true);
+  };
+
+  const handleOpenLoginModal = () => {
+    setIsOpenLogin(true);
+  };
+
+  const handleOpenResetPasswordModal = () => {
+    setIsOpenResetPassword(true);
+  };
+
+  // close successful modal
+  const handleCloseSignupModal = () => {
+    setIsOpenSignup(false);
+    dispatch(addActiveScreen('create_account'));
+  };
+
+  const handleCloseLoginModal = () => {
+    setIsOpenLogin(false);
+    dispatch(addActiveScreen('create_account'));
+  };
+
+  const handleCloseResetPasswordModal = () => {
+    setIsOpenResetPassword(false);
+    dispatch(addActiveScreen('create_account'));
   };
 
   return (
@@ -95,6 +131,11 @@ const NavHeaderSearch = () => {
             <div className="cart_number">1</div>
           </div>
 
+          {/* {user ? (
+            <div>
+              <span>Hi {user.email}</span>
+            </div>
+          ) : ( */}
           <CustomButton
             label="Login/Register"
             width={"120px"}
@@ -103,12 +144,37 @@ const NavHeaderSearch = () => {
             textColor="#FFFFFF"
             fontWeight={600}
             fontSize={16}
-            onClick={handleNavigate}
+            onClick={handleOpenModal}
           />
+          {/* )} */}
         </div>
       </div>
 
-      <AuthModal isOpen={isOpen} handleCloseModal={handleCloseModal} />
+      <AuthModal
+        isOpen={isOpen}
+        handleCloseModal={handleCloseModal}
+        handleOpenSignupModal={handleOpenSignupModal}
+        handleOpenLoginModal={handleOpenLoginModal}
+        handleOpenResetPasswordModal={handleOpenResetPasswordModal}
+      />
+
+      <CustomModal
+        isOpen={isOpenSignup}
+        closeModal={handleCloseSignupModal}
+        label="signup"
+      />
+
+      <CustomModal
+        isOpen={isOpenLogin}
+        closeModal={handleCloseLoginModal}
+        label="login"
+      />
+
+      <CustomModal
+        isOpen={isOpenResetPassword}
+        closeModal={handleCloseResetPasswordModal}
+        label="password_reset"
+      />
     </div>
   );
 };

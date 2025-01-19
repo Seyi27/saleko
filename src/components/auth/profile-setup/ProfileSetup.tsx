@@ -6,51 +6,56 @@ import { FiEye, FiEyeOff } from "react-icons/fi"; // Import eye icons from react
 import CustomModal from "../../custom-modal/CustomModal";
 import { useLocation } from "react-router-dom";
 import CustomTextInput from "../../custom-textInput/CustomTextInput";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CloseModalContainer from "../close-auth-modal-container/CloseModalContainer";
-import { AuthValueProps } from "../../../types/types";
+import { AuthModalScreenProps } from "../../../types/types";
 import { RootState } from "../../../store/store";
+import { useCompleteSignupMutation } from "../../../services/authApi";
+import { addUser } from "../../../slice/userDetailsSlice";
 
 const ProfileSetup = ({
   handleCloseModal,
   handleAuthNavigate,
-}: AuthValueProps) => {
+  handleOpenSignupModal
+}: AuthModalScreenProps) => {
   const [firstName, setFirstName] = useState("");
-  const [secondName, setSecondName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const [firstNameError, setFirstNameError] = useState("");
-  const [secondNameError, setSecondNameError] = useState("");
+  const [lastNameError, setLastNameError] = useState("");
   const [phoneNoError, setPhoneNoError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
-  const [toggleVisibility, setToggleVisibility] = useState(false);
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [termsChecked, setTermsChecked] = useState(false);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const dispatch = useDispatch()
 
   const selectedDropdownValue = useSelector(
     (state: RootState) => state.authValue.selectedDropdownValue
   );
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
+  // const [selectedDropdownValue, setselectedDropdownValue] = useState("email")
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-    handleCloseModal();
-    handleAuthNavigate("create_account");
-  };
+  const [completeSetup, { data, isLoading, isError, isSuccess }] =
+    useCompleteSignupMutation();
 
-  const handleToggle = () => {
-    setToggleVisibility(!toggleVisibility);
-  };
+
+  useEffect(() => {
+    if (isSuccess) {
+      handleOpenSignupModal?.()
+      handleCloseModal()
+      dispatch(addUser(data.data))
+    }
+  }, [data, isSuccess, isError]);
 
   const handleCheckboxChange = () => {
     setTermsChecked(!termsChecked);
@@ -66,12 +71,12 @@ const ProfileSetup = ({
           setFirstNameError("");
         }
         break;
-      case "secondName":
-        setSecondName(e.trim());
+      case "lastName":
+        setLastName(e.trim());
         if (!e.trim()) {
-          setSecondNameError("Second Name cannot be empty");
+          setLastNameError("Last Name cannot be empty");
         } else {
-          setSecondNameError("");
+          setLastNameError("");
         }
         break;
       case "phone":
@@ -106,6 +111,16 @@ const ProfileSetup = ({
           setPasswordError("");
         }
         break;
+      case "confirm_password":
+        setConfirmPassword(e.trim());
+        if (!e.trim()) {
+          setConfirmPasswordError("Password cannot be empty");
+        } else if (password !== e.trim()) {
+          setConfirmPasswordError("Passwords do not match");
+        } else {
+          setConfirmPasswordError("");
+        }
+        break
       default:
         break;
     }
@@ -115,15 +130,17 @@ const ProfileSetup = ({
   const checkFormValidity = () => {
     if (
       firstName &&
-      secondName &&
+      lastName &&
       // phoneNo &&
       (email || phoneNo) &&
+      confirmPassword &&
       password &&
       !firstNameError &&
-      !secondNameError &&
+      !lastNameError &&
       !phoneNoError &&
       !emailError &&
       !passwordError &&
+      !confirmPasswordError &&
       termsChecked
     ) {
       setButtonDisabled(false); // Enable button
@@ -137,22 +154,31 @@ const ProfileSetup = ({
     checkFormValidity();
   }, [
     firstName,
-    secondName,
+    lastName,
     phoneNo,
     email,
     password,
     firstNameError,
-    secondNameError,
+    lastNameError,
     phoneNoError,
     emailError,
     passwordError,
     termsChecked,
+    confirmPassword,
+    confirmPasswordError
   ]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    openModal();
+    completeSetup({
+      first_name: firstName,
+      last_name: lastName,
+      username: selectedDropdownValue == "email" ? email : phoneNo,
+      password: password,
+      password_confirmation: confirmPassword,
+      accept_terms: termsChecked,
+    });
   };
 
   return (
@@ -180,10 +206,10 @@ const ProfileSetup = ({
           {/* Second Name */}
           <CustomTextInput
             type={"normal"}
-            name={"secondName"}
-            value={secondName}
+            name={"lastName"}
+            value={lastName}
             label={"Enter your last name*"}
-            errorMessage={secondNameError}
+            errorMessage={lastNameError}
             idAndHtmlFor={"second_name"}
             handleTextInput={handleTextInput}
           />
@@ -223,6 +249,18 @@ const ProfileSetup = ({
             handleTextInput={handleTextInput}
           />
 
+          {/* Confirm Password */}
+          <CustomTextInput
+            type={"password"}
+            name={"confirm_password"}
+            value={confirmPassword}
+            label={"Confirm password*"}
+            errorMessage={confirmPasswordError}
+            idAndHtmlFor={"confirm_password"}
+            handleTextInput={handleTextInput}
+            noPasswordChecklist
+          />
+
           <div style={{ margin: "20px" }} />
 
           <div className="terms_conditions">
@@ -253,15 +291,10 @@ const ProfileSetup = ({
             fontWeight={600}
             disabled={buttonDisabled}
             onClick={handleSubmit}
+            loader={isLoading}
           />
         </form>
       </div>
-
-      <CustomModal
-        isOpen={isModalOpen}
-        closeModal={closeModal}
-        label="signup"
-      />
     </>
   );
 };

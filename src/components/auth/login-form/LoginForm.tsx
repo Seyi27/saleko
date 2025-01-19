@@ -6,35 +6,67 @@ import { FcGoogle } from "react-icons/fc";
 import CustomTextInput from "../../custom-textInput/CustomTextInput";
 import CloseModalContainer from "../close-auth-modal-container/CloseModalContainer";
 import encrypted_ic from "../../../assets/images/svg/encrypted_ic.svg";
-import { AuthValueProps } from "../../../types/types";
+import { AuthModalScreenProps } from "../../../types/types";
+import { useLoginMutation } from "../../../services/authApi";
+import { useDispatch } from "react-redux";
+import { addUser, removeUser } from "../../../slice/userDetailsSlice";
 
 const LoginForm = ({
   handleCloseModal,
   handleAuthNavigate,
-}: AuthValueProps) => {
-  const [email, setEmail] = useState("");
+  handleOpenLoginModal,
+}: AuthModalScreenProps) => {
+  const [text, setText] = useState("");
   const [password, setPassword] = useState("");
+  const [customErrorText, setCustomErrorText] = useState("");
 
-  const [emailError, setEmailError] = useState("");
+  const [textError, setTextError] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
+  const dispatch = useDispatch();
+
+  const [login, { data, isSuccess, isError, error, isLoading }] =
+    useLoginMutation();
+
+  console.log("login data", data);
+
+  useEffect(() => {
+    if (isSuccess) {
+      handleCloseModal();
+      handleOpenLoginModal?.();
+      dispatch(addUser(data.data));
+    }
+
+    if (isError && error) {
+      if ("status" in error) {
+        if (error.status == 401 || error.status == 422) {
+          setCustomErrorText("Incorrect password");
+        }
+      }
+    }
+  }, [data, isSuccess, isError]);
+
   const handleTextInput = (key: string, e: string) => {
     switch (key) {
-      case "email":
-        setEmail(e.trim());
+      case "text":
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^\d{1,11}$/;
+
+        setText(e.trim());
+        setCustomErrorText('') // to remove any text when typing
         if (!e.trim()) {
-          setEmailError("Email cannot be empty");
-        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.trim())) {
-          // if email is not valid
-          setEmailError("Email is not valid");
+          setTextError("Field cannot be empty");
+        } else if (!emailRegex.test(e.trim()) && !phoneRegex.test(e.trim())) {
+          setTextError("Enter a valid email or phone number.");
         } else {
-          setEmailError("");
+          setTextError(""); // Clear the error
         }
         break;
       case "password":
         setPassword(e.trim());
+        setCustomErrorText('') // to remove any text when typing
         if (!e.trim()) {
           setPasswordError("Password cannot be empty");
         } else {
@@ -48,7 +80,7 @@ const LoginForm = ({
 
   // Function to check if the form is valid and enable/disable the button
   const checkFormValidity = () => {
-    if (email && password && !emailError && !passwordError) {
+    if (text && password && !textError && !passwordError) {
       setButtonDisabled(false); // Enable button
     } else {
       setButtonDisabled(true); // Disable button
@@ -58,19 +90,20 @@ const LoginForm = ({
   // Trigger form validation whenever any input changes
   useEffect(() => {
     checkFormValidity();
-  }, [email, password, emailError, passwordError]);
+  }, [text, password, textError, passwordError]);
 
   const handleSubmit = (e: React.FormEvent) => {
+    login({
+      username: text,
+      password: password,
+    });
+
     e.preventDefault();
   };
 
   return (
     <>
-      <CloseModalContainer
-        cancelIconOnly
-        handleCloseModal={handleCloseModal}
-        handleAuthNavigate={handleAuthNavigate}
-      />
+      <CloseModalContainer cancelIconOnly handleCloseModal={handleCloseModal} />
 
       <div className="login_form_container">
         <p className="login_text">Login</p>
@@ -81,14 +114,14 @@ const LoginForm = ({
         </p>
 
         <form onSubmit={handleSubmit}>
-          {/* Email */}
+          {/* Email Address or Phone Number* */}
           <CustomTextInput
             type={"normal"}
-            name={"email"}
-            value={email}
-            label={"Enter your email"}
-            errorMessage={emailError}
-            idAndHtmlFor={"emailInput"}
+            name={"text"}
+            value={text}
+            label={"Email Address or Phone Number*"}
+            errorMessage={textError}
+            idAndHtmlFor={"textInput"}
             handleTextInput={handleTextInput}
           />
 
@@ -103,6 +136,8 @@ const LoginForm = ({
             handleTextInput={handleTextInput}
             noPasswordChecklist
           />
+
+          {customErrorText && !passwordError && <p className="customErrorText">{customErrorText}</p>}
 
           <div style={{ margin: "20px" }} />
 
@@ -126,6 +161,7 @@ const LoginForm = ({
             fontWeight={600}
             disabled={buttonDisabled}
             onClick={handleSubmit}
+            loader={isLoading}
           />
         </form>
 

@@ -16,13 +16,13 @@ import {
 } from "../../../slice/authValueSlice";
 import CloseModalContainer from "../close-auth-modal-container/CloseModalContainer";
 import encrypted_ic from "../../../assets/images/svg/encrypted_ic.svg";
-import { AuthValueProps } from "../../../types/types";
+import { AuthModalScreenProps } from "../../../types/types";
 import { addCreateAccountData } from "../../../slice/createAccountDataSlice";
 
 const CreateAccount = ({
   handleCloseModal,
   handleAuthNavigate,
-}: AuthValueProps) => {
+}: AuthModalScreenProps) => {
   const [email, setEmail] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -47,7 +47,7 @@ const CreateAccount = ({
     dispatch(addSelectedDropdownValue(key));
   };
 
-  console.log("data data", data)
+  console.log("data data", data);
 
   const handleTextInput = (key: string, e: string) => {
     switch (key) {
@@ -98,29 +98,28 @@ const CreateAccount = ({
         user: data.data.user,
         notification_reference: data.data.notification_reference,
       };
-  
-      dispatch(addCreateAccountData(submitvalue))
+
+      dispatch(addCreateAccountData(submitvalue));
       handleAuthNavigate("verify_account");
     } else if (isError && error) {
       console.log("error", error);
     }
   }, [data, isSuccess, isError, error]);
 
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     signUp({
       username: selectedDropdownKey == "email" ? email : phoneNo,
-      mode: selectedDropdownKey == "email" ? "email" : "phonenumber",
+      mode: selectedDropdownKey == "email" ? "email" : "phone_number",
     });
   };
 
   return (
     <>
       <CloseModalContainer
+        cancelIconOnly
         handleCloseModal={handleCloseModal}
-        handleAuthNavigate={handleAuthNavigate}
       />
 
       <div className="create_form_container">

@@ -6,14 +6,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { BsChevronLeft, BsX } from "react-icons/bs";
 import CloseModalContainer from "../close-auth-modal-container/CloseModalContainer";
-import { AuthValueProps } from "../../../types/types";
+import { AuthModalScreenProps} from "../../../types/types";
 import { RootState } from "../../../store/store";
 import { useVerifyOtpMutation } from "../../../services/authApi";
 
 const ConfirmPhoneEmail = ({
   handleCloseModal,
   handleAuthNavigate,
-}: AuthValueProps) => {
+}: AuthModalScreenProps) => {
   const [pin, setPin] = useState("");
   const [pinError, setPinError] = useState(false);
   const [disabled, setDisabled] = useState(true);
@@ -138,6 +138,7 @@ const ConfirmPhoneEmail = ({
           fontWeight={600}
           disabled={disabled}
           onClick={handlePinSubmit}
+          loader={isLoading}
         />
 
         {sendCodeState ? (

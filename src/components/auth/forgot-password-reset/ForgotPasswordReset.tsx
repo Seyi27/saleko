@@ -7,30 +7,16 @@ import PasswordChecklist from "react-password-checklist";
 import CustomModal from "../../custom-modal/CustomModal";
 import CustomTextInput from "../../custom-textInput/CustomTextInput";
 import CloseModalContainer from "../close-auth-modal-container/CloseModalContainer";
-import { AuthValueProps } from "../../../types/types";
+import { AuthModalScreenProps } from "../../../types/types";
 
 const ForgotPasswordReset = ({
   handleCloseModal,
   handleAuthNavigate,
-}: AuthValueProps) => {
+  handleOpenResetPasswordModal
+}: AuthModalScreenProps) => {
   const [resetPasswordDisabled, setResetPasswordDisabled] = useState(true);
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleResetPasswordModal = () => {
-    setIsModalOpen(false);
-    handleAuthNavigate("create_account");
-  };
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    handleCloseModal();
-  };
 
   const handlePasswordInput = (key: string, e: string) => {
     setPassword(e.trim());
@@ -51,7 +37,8 @@ const ForgotPasswordReset = ({
 
   const handleResetPasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    openModal();
+    handleCloseModal();
+    handleOpenResetPasswordModal?.()
   };
 
   return (
@@ -95,12 +82,12 @@ const ForgotPasswordReset = ({
         </form>
       </div>
 
-      <CustomModal
+      {/* <CustomModal
         isOpen={isModalOpen}
         closeModal={closeModal}
         label="password_reset"
         onclick={handleResetPasswordModal}
-      />
+      /> */}
     </>
   );
 };

@@ -14,7 +14,7 @@ const CustomTextInput = ({
   idAndHtmlFor,
   handleTextInput,
   handleDropdown,
-  noPasswordChecklist
+  noPasswordChecklist,
 }: CustomTextInputProps) => {
   const [toggleVisibility, setToggleVisibility] = useState(false);
   const [selectedCode, setSelectedCode] = useState("+234");
@@ -118,7 +118,7 @@ const CustomTextInput = ({
                 }`}
               >
                 <input
-                  id="passwordInput"
+                  id={idAndHtmlFor}
                   type={toggleVisibility ? "text" : "password"}
                   value={value}
                   onChange={(e) => handleTextInput(name, e.target.value)}
@@ -129,7 +129,7 @@ const CustomTextInput = ({
                 </span>
               </div>
               <label
-                htmlFor="passwordInput"
+                htmlFor={idAndHtmlFor}
                 className={`${value.length > 0 ? "password_label" : ""}  ${
                   errorMessage ? "error_label" : ""
                 }`}
@@ -181,9 +181,7 @@ const CustomTextInput = ({
                 }`}
                 onClick={handleDropdown}
               >
-                <p className="password_textinput">
-                  {value}
-                </p>
+                <p className="password_textinput">{value}</p>
                 <span onClick={handleToggle}>
                   <FiChevronDown />
                 </span>

@@ -7,12 +7,12 @@ interface UserState {
   created_at: string;
 }
 
-interface createAccountDataState {
+interface CreateAccountDataState {
   user: UserState | null;
   notification_reference: string | null;
 }
 
-const initialState: createAccountDataState = {
+const initialState: CreateAccountDataState = {
   user: null,
   notification_reference: null,
 };
@@ -23,7 +23,7 @@ const createAccountDataSlice = createSlice({
   reducers: {
     addCreateAccountData: (
       state,
-      action: PayloadAction<createAccountDataState>
+      action: PayloadAction<CreateAccountDataState>
     ) => {
       state.user = action.payload.user;
       state.notification_reference = action.payload.notification_reference;

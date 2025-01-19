@@ -5,13 +5,13 @@ import PinInput from "react-pin-input";
 import CustomButton from "../../custom-button/CustomButton";
 import CloseModalContainer from "../close-auth-modal-container/CloseModalContainer";
 import { useSelector } from "react-redux";
-import { AuthValueProps } from "../../../types/types";
+import { AuthModalScreenProps } from "../../../types/types";
 import { RootState } from "../../../store/store";
 
 const ForgotPasswordVerification = ({
   handleCloseModal,
   handleAuthNavigate,
-}: AuthValueProps) => {
+}: AuthModalScreenProps) => {
   const [pin, setPin] = useState("");
   const [pinError, setPinError] = useState(false);
   const [disabled, setDisabled] = useState(true);

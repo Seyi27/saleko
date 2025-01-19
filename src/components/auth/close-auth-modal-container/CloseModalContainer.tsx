@@ -14,7 +14,7 @@ const CloseModalContainer = ({
         <div className="close_modal_container">
           <div
             className="close_modal_back_container"
-            onClick={() => handleAuthNavigate("create_account")}
+            onClick={() => handleAuthNavigate?.("create_account")}
           >
             <BsChevronLeft color="#084C3F" size={15} />
             <span>Back</span>

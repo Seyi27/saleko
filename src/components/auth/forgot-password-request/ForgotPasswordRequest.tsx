@@ -6,12 +6,12 @@ import CustomTextInput from "../../custom-textInput/CustomTextInput";
 import CloseModalContainer from "../close-auth-modal-container/CloseModalContainer";
 import { useDispatch } from "react-redux";
 import { addFpEmailPhoneText, addFpSelectedValueType } from "../../../slice/authValueSlice";
-import { AuthValueProps } from "../../../types/types";
+import { AuthModalScreenProps } from "../../../types/types";
 
 const ForgotPasswordRequest = ({
   handleCloseModal,
   handleAuthNavigate,
-}: AuthValueProps) => {
+}: AuthModalScreenProps) => {
   const [emailOrPhoneText, setEmailOrPhoneText] = useState("");
   const [emailOrPhoneTextError, setEmailOrPhoneTextError] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(true);
