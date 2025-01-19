@@ -29,8 +29,11 @@
   cursor: pointer;
 }
 
-.modal_image{
-    width: 100%;
+.modal_image {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-self: center;
 }
 
 .header_text {
@@ -41,7 +44,7 @@
 }
 
 .body_text {
-    font-size: 12px;
-    font-weight: 400;
-    text-align: center;
-  }
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+}
