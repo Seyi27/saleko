@@ -4,6 +4,8 @@ interface UserType {
   user_id: string;
   user_type: string;
   email: string;
+  first_name:string;
+  last_name:string
 }
 
 interface UserDetailsType {

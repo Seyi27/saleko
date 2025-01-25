@@ -17,8 +17,8 @@ import MonnifyIcon from "../../assets/images/svg/MonnifyIcon";
 
 const Footer = () => {
   return (
-    <div className="footer_container">
-      <div className="footer_second_container">
+    <div className="body_container footer_container">
+      <div className="body_second_container footer_second_container">
         <div className="footer_saleko_container">
           <div className="footer_saleko_logo_container">
             <SalekoGreyLogo />

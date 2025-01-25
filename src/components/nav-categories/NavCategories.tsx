@@ -22,8 +22,8 @@ const NavCategories = () => {
     <div>
       {visibleDropdown && <div className="category_background_overlay"></div>}
 
-      <div className="nav_categories_container">
-        <div className="nav_categories_second_container">
+      <div className="body_container nav_categories_container">
+        <div className="body_second_container nav_categories_second_container">
           <div
             className="categories_icon_container"
             onMouseEnter={() => setVisibleDropdown(true)}

@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./NavHeaderSearch.css";
 import AppStore from "../../assets/images/svg/AppStore";
 import GoogleStore from "../../assets/images/svg/GoogleStore";
-import { BsCart3, BsHeart, BsSearch } from "react-icons/bs";
+import { BsCart3, BsHeart, BsPersonFill, BsSearch } from "react-icons/bs";
 import StoreIconLogo from "../../assets/images/svg/StoreIconLogo";
 import CustomButton from "../custom-button/CustomButton";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../search-bar/SearchBar";
 import {
   useMarketplaceApiQuery,
@@ -35,7 +35,7 @@ const NavHeaderSearch = () => {
 
   const dispatch = useDispatch();
 
-  // const user = useSelector((state: RootState) => state.userDetails.user);
+  const user = useSelector((state: RootState) => state.userDetails.user);
 
   useEffect(() => {
     if (isSuccess) {
@@ -72,22 +72,23 @@ const NavHeaderSearch = () => {
   // close successful modal
   const handleCloseSignupModal = () => {
     setIsOpenSignup(false);
-    dispatch(addActiveScreen('create_account'));
+    dispatch(addActiveScreen("login_form"));
+    setIsOpen(true);
   };
 
   const handleCloseLoginModal = () => {
     setIsOpenLogin(false);
-    dispatch(addActiveScreen('create_account'));
+    dispatch(addActiveScreen("create_account"));
   };
 
   const handleCloseResetPasswordModal = () => {
     setIsOpenResetPassword(false);
-    dispatch(addActiveScreen('create_account'));
+    dispatch(addActiveScreen("create_account"));
   };
 
   return (
-    <div className="nav_header_search_container">
-      <div className="nav_header_search_second_container">
+    <div className="body_container nav_header_search_container">
+      <div className="body_second_container nav_header_search_second_container">
         <div className="nav_header_search_left_container">
           <AppStore />
           <GoogleStore />
@@ -122,31 +123,47 @@ const NavHeaderSearch = () => {
         </div>
 
         {/* Favorite and Add to cart */}
-        <div className="nav_header_search_right_container">
-          <div className="right_icon">
-            <BsHeart color="#084c3f" />
-          </div>
-          <div className="right_icon">
-            <BsCart3 color="#084c3f" />
-            <div className="cart_number">1</div>
+        <div
+          className="nav_header_search_right_container"
+          style={{ gap: "20px" }}
+        >
+          <div className="nav_header_search_right_container">
+            <div className="right_icon">
+              <BsHeart color="#084c3f" />
+            </div>
+            <Link to={"/cart"} className="right_icon">
+              <BsCart3 color="#084c3f" />
+              <div className="cart_number">1</div>
+            </Link>
           </div>
 
-          {/* {user ? (
-            <div>
-              <span>Hi {user.email}</span>
+          {user ? (
+            <div className="userdetails_container">
+              <div className="userIcon_container">
+                <BsPersonFill color="#9c9c9c" size={20} />
+              </div>
+              <div>
+                <span>Hi {user.first_name}</span>
+                <p>
+                  {user.last_name.charAt(0).toUpperCase() +
+                    user.last_name.slice(1).toLowerCase()}{" "}
+                  {user.first_name.charAt(0).toUpperCase() +
+                    '.'}
+                </p>
+              </div>
             </div>
-          ) : ( */}
-          <CustomButton
-            label="Login/Register"
-            width={"120px"}
-            height="51px"
-            bgColor="transparent"
-            textColor="#FFFFFF"
-            fontWeight={600}
-            fontSize={16}
-            onClick={handleOpenModal}
-          />
-          {/* )} */}
+          ) : (
+            <CustomButton
+              label="Login/Register"
+              width={"120px"}
+              height="51px"
+              bgColor="transparent"
+              textColor="#FFFFFF"
+              fontWeight={600}
+              fontSize={16}
+              onClick={handleOpenModal}
+            />
+          )}
         </div>
       </div>
 

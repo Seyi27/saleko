@@ -1,6 +1,4 @@
 .nav_header_search_container {
-  display: flex;
-  justify-content: center;
   background-color: #084c3f;
   height: 60px;
 
@@ -12,7 +10,6 @@
 }
 
 .nav_header_search_second_container {
-  width: 1300px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -59,7 +56,7 @@
   position: relative;
 }
 
-.cart_number{
+.cart_number {
   width: 10px;
   height: 10px;
   position: absolute;
@@ -74,4 +71,31 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.userdetails_container {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.userdetails_container span {
+  color: white;
+  font-size: 14px;
+}
+
+.userdetails_container p {
+  margin: 0;
+  color: white;
+  font-weight: bold;
+}
+
+.userIcon_container {
+  width: 30px;
+  height: 30px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
 }

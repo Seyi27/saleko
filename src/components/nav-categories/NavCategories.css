@@ -1,8 +1,6 @@
 .nav_categories_container {
   background-color: #24a681;
   height: 40px;
-  display: flex;
-  justify-content: center;
 
   /* for fixed position */
   position: fixed;
@@ -15,7 +13,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 1300px;
   gap: 50px;
   position: relative;
 }
@@ -40,7 +37,7 @@
 }
 
 .categories_items_container > p {
-  font-size: 14px;
+  font-size: 13px;
   color: #ffffff;
   cursor: pointer;
 }

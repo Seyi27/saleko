@@ -20,7 +20,9 @@ export type CustomButtonProps = {
 export type CustomModalProps = {
     isOpen?: boolean,
     closeModal: () => void,
-    label?: 'signup' | 'login' | 'password_reset';
+    label?: 'signup' | 'login' | 'password_reset' | 'order_confirmed' | 'confirm_negotiation_modal';
+    item?: Product,
+    quantity?: string,
     onclick?: () => void
 }
 
@@ -70,6 +72,7 @@ export type ProductSectionProps = {
     visibleRows?: number;
     setVisibleRows?: Dispatch<SetStateAction<number>>;
     setRowData?: Dispatch<SetStateAction<Product[][]>>;
+    viewAll?: boolean
 }
 
 export type ProductCardProp = {
@@ -137,10 +140,26 @@ export type CategoryDataSubcategories = {
     name: string
 }
 
-/*************** Market Place data ************************* */
+/*************** Market Place data ******************* */
 export type MarketplaceDataProps = {
     marketId: number;
     name: string;
     image: string;
     description: string;
+}
+
+/************ Negotiation Modal Prop ***************** */
+
+export type NegotiationModalProp = {
+    isOpen: boolean
+    closeModal: () => void
+    item?: Product 
+}
+
+/************ Transaction Pin Modal Prop ****************** */
+
+export type TransactionPinModalProp = {
+    isOpen: boolean,
+    closeModal: () => void,
+    setOrderConfirmedModal: Dispatch<SetStateAction<boolean>>,
 }

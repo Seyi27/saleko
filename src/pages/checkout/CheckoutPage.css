@@ -1,0 +1,249 @@
+.checkout_main_container {
+  padding-top: 200px;
+}
+
+/************** Cart breadcrumbs ****************/
+
+.checkout_breadcrumbs_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkout_breadcrumbs_container a {
+  font-size: 14px;
+}
+
+.checkout_active_link {
+  color: black;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.checkout_inactive_link {
+  color: #a3a9c2;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/********************************************/
+
+.checkout_body_container {
+  display: flex;
+  gap: 20px;
+}
+
+/********************************************/
+
+.checkout_delivery_border_container {
+  border: 1px solid #e7e9eb;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.checkout_delivery_header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkout_delivery_header p {
+  color: #084c3f;
+  font-weight: 700;
+}
+
+/*************** delivery options *******/
+
+.delivery_options_text {
+  font-size: 14px;
+}
+
+.delivery_options_child_container {
+  display: flex;
+  gap: 20px;
+}
+
+.delivery_option_card {
+  border: 1px solid #8e8e8e;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  position: relative;
+  width: 200px;
+  height: 75px;
+}
+
+.delivery_option_card p {
+  color: #4c4c4c;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.delivery_option_card span {
+  color: #8e8e8e;
+  font-size: 12px;
+}
+
+.active_delivery_option {
+  border: 1px solid #084c3f;
+  background-color: white;
+}
+
+.delivery_active_ic {
+  position: absolute;
+  top: 25px;
+  right: 10px;
+}
+
+/************ Customer Address **********/
+
+.customer_address_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.customer_address_container p {
+  font-size: 14px;
+}
+
+.customer_change_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.customer_change_container p {
+  color: #084c3f;
+  font-size: 14px;
+}
+
+/************ Home Details **********/
+
+.home_details_container p {
+  font-size: 14px;
+}
+
+.home_details_container p:first-child {
+  font-weight: 700;
+}
+
+/************ Payment **********/
+
+.payment_border_container {
+  border: 1px solid #e7e9eb;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.payment_header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.payment_header p {
+  margin: 0;
+  font-weight: 700;
+  color: #737373;
+}
+
+.payment_radio_input_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.payment_radio_input_container p {
+  margin: 0;
+  font-weight: 700;
+}
+
+.payment_wallet_bal {
+  font-size: 12px;
+  color: #084c3f;
+  font-weight: 700;
+  margin-left: 30px;
+}
+
+/************** Checkout Cart Summary ****************/
+
+.checkout_cart_summary {
+  border: 1px solid #e7e9eb;
+  border-radius: 10px;
+  padding: 10px;
+  width: 400px;
+  /* height: 160px; */
+}
+
+.checkout_cart_header_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.checkout_cart_summary_text {
+  margin: 0;
+  padding-bottom: 5px;
+  color: #222222;
+  font-size: 18px;
+}
+
+.checkout_modify_cart_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.checkout_modify_cart_container p {
+  font-size: 14px;
+  color: #084c3f;
+}
+
+.checkout_subtotal_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0 5px 0;
+}
+
+.checkout_subtotal_text {
+  color: #737373;
+  margin: 0;
+  font-size: 14px;
+}
+
+.checkout_subtotal_amount {
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0;
+}
+
+/********** Coupon container *********/
+
+.coupon_container {
+  display: flex;
+  margin-top: 30px;
+}
+
+.coupon_input_container {
+  border: 1px solid #e7e9eb;
+  display: flex;
+  align-items: center;
+  height: 30px;
+  width: 250px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.coupon_textinput {
+  outline: 0;
+  border: 0;
+  margin-left: 10px;
+  width: 100%;
+}

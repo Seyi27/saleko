@@ -5,20 +5,14 @@
   overflow: hidden; /* Prevent the entire container from scrolling */
 }
 
-/* @media (max-width: 600px) {
-  .main_container {
-    display: flex;
-    flex-direction: column;
-  }
-} */
-
 .body_container {
   display: flex;
   justify-content: center;
 }
 
 .body_second_container {
-  width: 1300px;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .data_encrypted_text{
@@ -34,4 +28,32 @@
   padding-top: 5px;
   font-size: 12px;
   color: red;
+}
+
+.count_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.count_increase_decrease_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 120px;
+  height: 55px;
+  background-color: #f3f3f3;
+  border-radius: 5px;
+}
+
+.count_increase_decrease_container .count_container {
+  background-color: white;
+  border-radius: 5px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

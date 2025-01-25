@@ -2,7 +2,7 @@ import React from 'react'
 
 const HomeFrame9 = () => {
   return (
-<svg width="1300" height="534" viewBox="0 0 1321 534" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+<svg width="1200" height="534" viewBox="0 0 1321 534" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
 <rect y="0.885742" width="1321" height="533" rx="34.7632" fill="url(#pattern0_18971_14996)"/>
 <defs>
 <pattern id="pattern0_18971_14996" patternContentUnits="objectBoundingBox" width="1" height="1">

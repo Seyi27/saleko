@@ -18,6 +18,7 @@ import CloseModalContainer from "../close-auth-modal-container/CloseModalContain
 import encrypted_ic from "../../../assets/images/svg/encrypted_ic.svg";
 import { AuthModalScreenProps } from "../../../types/types";
 import { addCreateAccountData } from "../../../slice/createAccountDataSlice";
+import { showCustomToast } from "../../custom-toast/CustomToast";
 
 const CreateAccount = ({
   handleCloseModal,
@@ -101,8 +102,23 @@ const CreateAccount = ({
 
       dispatch(addCreateAccountData(submitvalue));
       handleAuthNavigate("verify_account");
-    } else if (isError && error) {
-      console.log("error", error);
+    }
+
+    if (isError && error) {
+      if ("status" in error) {
+        if (error.status == 422) {
+          showCustomToast({
+            message: "The email has already been taken.",
+            type: "error",
+          });
+
+          if (selectedDropdownKey == "email") {
+            setEmail("");
+          } else {
+            setPhoneNo("");
+          }
+        }
+      }
     }
   }, [data, isSuccess, isError, error]);
 
@@ -117,10 +133,7 @@ const CreateAccount = ({
 
   return (
     <>
-      <CloseModalContainer
-        cancelIconOnly
-        handleCloseModal={handleCloseModal}
-      />
+      <CloseModalContainer cancelIconOnly handleCloseModal={handleCloseModal} />
 
       <div className="create_form_container">
         <p className="create_account_text">Create Account</p>

@@ -76,7 +76,7 @@ const BestSellerCard = ({ item }: BestSellerProp) => {
         style={{
           border: "0.5px solid #e5e7eb",
           width: "100%",
-          marginBottom: "20px",
+          marginBottom: "30px",
         }}
       />
     </>

@@ -48,3 +48,93 @@
   font-weight: 400;
   text-align: center;
 }
+
+.order_confirmed_image {
+  width: 100%;
+}
+
+.order_confirmed_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+
+.order_confirmed_container p {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0;
+  color: #4f4f4f;
+}
+
+.order_confirmed_check_image {
+  width: 50px;
+  height: 50px;
+}
+
+.order_confirmed_id {
+  margin: 0;
+  font-size: 10px;
+  color: #084c3f;
+  padding: 5px 0 30px 0;
+}
+
+/******** confirm_negotiation_modal *******/
+
+.confirm_negotiation_modal_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.confirm_negotiation_modal_header p {
+  font-size: 14px;
+  margin: 0;
+  font-weight: bold;
+}
+
+.confirm_negotiation_accept_price_text {
+  font-size: 14px;
+}
+
+.confirm_negotiation_item_body_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 20px;
+}
+
+.confirm_negotiation_item_image {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  border: 1px solid #e7e9eb;
+  border-radius: 10px;
+}
+
+.confirm_negotiation_item_name {
+  font-weight: bold;
+  margin: 0;
+  padding-bottom: 15px;
+}
+
+.confirm_negotiation_item_quantity {
+  margin: 0;
+  padding-bottom: 15px;
+  font-size: 12px;
+}
+
+.confirm_negotiation_item_price_row {
+  display: flex;
+  gap: 10px;
+}
+
+.confirm_negotiation_item_price_row p {
+  font-size: 12px;
+}
+
+.confirm_negotiation_button_row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

@@ -10,6 +10,8 @@ import { AuthModalScreenProps } from "../../../types/types";
 import { useLoginMutation } from "../../../services/authApi";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../../../slice/userDetailsSlice";
+import { ToastContainer, toast } from "react-toastify";
+import { showCustomToast } from "../../custom-toast/CustomToast";
 
 const LoginForm = ({
   handleCloseModal,
@@ -18,7 +20,7 @@ const LoginForm = ({
 }: AuthModalScreenProps) => {
   const [text, setText] = useState("");
   const [password, setPassword] = useState("");
-  const [customErrorText, setCustomErrorText] = useState("");
+  // const [customErrorText, setCustomErrorText] = useState("");
 
   const [textError, setTextError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -30,6 +32,8 @@ const LoginForm = ({
   const [login, { data, isSuccess, isError, error, isLoading }] =
     useLoginMutation();
 
+  // const notify = () => toast("Wow so easy!");
+
   console.log("login data", data);
 
   useEffect(() => {
@@ -37,12 +41,22 @@ const LoginForm = ({
       handleCloseModal();
       handleOpenLoginModal?.();
       dispatch(addUser(data.data));
+      setText("")
+      setPassword("")
     }
 
     if (isError && error) {
       if ("status" in error) {
         if (error.status == 401 || error.status == 422) {
-          setCustomErrorText("Incorrect password");
+          // setCustomErrorText("Incorrect password");
+
+          showCustomToast({
+            message: "Error! Please check your credentials and try again..",
+            type: "error",
+          });
+
+          setText("")
+          setPassword("")
         }
       }
     }
@@ -55,7 +69,7 @@ const LoginForm = ({
         const phoneRegex = /^\d{1,11}$/;
 
         setText(e.trim());
-        setCustomErrorText('') // to remove any text when typing
+        // setCustomErrorText(""); // to remove any text when typing
         if (!e.trim()) {
           setTextError("Field cannot be empty");
         } else if (!emailRegex.test(e.trim()) && !phoneRegex.test(e.trim())) {
@@ -66,7 +80,7 @@ const LoginForm = ({
         break;
       case "password":
         setPassword(e.trim());
-        setCustomErrorText('') // to remove any text when typing
+        // setCustomErrorText(""); // to remove any text when typing
         if (!e.trim()) {
           setPasswordError("Password cannot be empty");
         } else {
@@ -137,7 +151,9 @@ const LoginForm = ({
             noPasswordChecklist
           />
 
-          {customErrorText && !passwordError && <p className="customErrorText">{customErrorText}</p>}
+          {/* {customErrorText && !passwordError && (
+            <p className="customErrorText">{customErrorText}</p>
+          )} */}
 
           <div style={{ margin: "20px" }} />
 

@@ -727,6 +727,34 @@ export const productData = [
     rating: 4.8,
     bestseller: true,
   },
+
+  {
+    id: 21,
+    name: "Luxury Watch",
+    description: "Elegant luxury watch with a timeless design.",
+    price: "999.99",
+    image: [img5, img3, img1, img4, img6],
+    category: "Accessories",
+    subCategory: ["Watches", "Luxury"],
+    sizes: ["Standard"],
+    date: "2024-12-14",
+    rating: 4.8,
+    bestseller: true,
+  },
+
+  {
+    id: 22,
+    name: "Luxury Watch",
+    description: "Elegant luxury watch with a timeless design.",
+    price: "999.99",
+    image: [img5, img3, img1, img4, img6],
+    category: "Accessories",
+    subCategory: ["Watches", "Luxury"],
+    sizes: ["Standard"],
+    date: "2024-12-14",
+    rating: 4.8,
+    bestseller: true,
+  },
 ];
 
 export const bestSellerData = [

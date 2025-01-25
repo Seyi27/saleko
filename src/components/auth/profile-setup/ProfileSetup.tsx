@@ -12,11 +12,12 @@ import { AuthModalScreenProps } from "../../../types/types";
 import { RootState } from "../../../store/store";
 import { useCompleteSignupMutation } from "../../../services/authApi";
 import { addUser } from "../../../slice/userDetailsSlice";
+import { showCustomToast } from "../../custom-toast/CustomToast";
 
 const ProfileSetup = ({
   handleCloseModal,
   handleAuthNavigate,
-  handleOpenSignupModal
+  handleOpenSignupModal,
 }: AuthModalScreenProps) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -37,7 +38,7 @@ const ProfileSetup = ({
 
   // const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const selectedDropdownValue = useSelector(
     (state: RootState) => state.authValue.selectedDropdownValue
@@ -45,15 +46,31 @@ const ProfileSetup = ({
 
   // const [selectedDropdownValue, setselectedDropdownValue] = useState("email")
 
-  const [completeSetup, { data, isLoading, isError, isSuccess }] =
+  const [completeSetup, { data, isLoading, isError,error, isSuccess }] =
     useCompleteSignupMutation();
-
 
   useEffect(() => {
     if (isSuccess) {
-      handleOpenSignupModal?.()
-      handleCloseModal()
-      dispatch(addUser(data.data))
+      handleOpenSignupModal?.();
+      handleCloseModal();
+    }
+
+    if (isError && error) {
+      if ("status" in error) {
+        if (error.status == 400 || error.status == 422) {
+          showCustomToast({
+            message: "Error! Please check your credentials and try again..",
+            type: "error",
+          });
+
+          setFirstName("");
+          setLastName("");
+          setPhoneNo("");
+          setEmail("");
+          setPassword("");
+          setConfirmPasswordError("");
+        }
+      }
     }
   }, [data, isSuccess, isError]);
 
@@ -120,7 +137,7 @@ const ProfileSetup = ({
         } else {
           setConfirmPasswordError("");
         }
-        break
+        break;
       default:
         break;
     }
@@ -165,7 +182,7 @@ const ProfileSetup = ({
     passwordError,
     termsChecked,
     confirmPassword,
-    confirmPasswordError
+    confirmPasswordError,
   ]);
 
   const handleSubmit = (e: React.FormEvent) => {

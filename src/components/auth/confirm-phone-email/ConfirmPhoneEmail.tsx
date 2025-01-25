@@ -6,9 +6,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { BsChevronLeft, BsX } from "react-icons/bs";
 import CloseModalContainer from "../close-auth-modal-container/CloseModalContainer";
-import { AuthModalScreenProps} from "../../../types/types";
+import { AuthModalScreenProps } from "../../../types/types";
 import { RootState } from "../../../store/store";
 import { useVerifyOtpMutation } from "../../../services/authApi";
+import { showCustomToast } from "../../custom-toast/CustomToast";
 
 const ConfirmPhoneEmail = ({
   handleCloseModal,
@@ -38,8 +39,22 @@ const ConfirmPhoneEmail = ({
     if (isSuccess) {
       setPinError(false);
       handleAuthNavigate("profile_setup");
-    } else {
-      // setPinError(true);
+
+      showCustomToast({
+        message: "Verification Code successfull",
+        type: "success",
+      });
+    }
+    if (isError && error) {
+      if ("status" in error) {
+        if (error.status == 400 || error.status == 422) {
+          setPinError(true)
+          showCustomToast({
+            message: "Invalid Verification Code",
+            type: "error",
+          });
+        }
+      }
     }
   }, [data, isSuccess, isError, error]);
 
@@ -48,8 +63,8 @@ const ConfirmPhoneEmail = ({
   const handlePinSubmit = () => {
     const verifyOtpBody = {
       otp: pin,
-      reference: userNotificationRef,
-      username: "",
+      reference_code: userNotificationRef,
+      sent_to: emailPhoneText,
     };
 
     verifyOtp(verifyOtpBody);
@@ -103,6 +118,18 @@ const ConfirmPhoneEmail = ({
             onChange={(value, index) => {
               setPinError(false);
               setPin(value);
+              if (value.length === 6) {
+                setDisabled(false);
+                setSendCodeState(true);
+              } else {
+                setDisabled(true);
+              }
+            }}
+            onComplete={(value) => {
+              setPinError(false);
+              setPin(value);
+              setDisabled(false); // Enable the button after completion
+              setSendCodeState(true);
             }}
             type="numeric"
             inputMode="number"
@@ -120,7 +147,6 @@ const ConfirmPhoneEmail = ({
               height: "40px",
             }}
             //   inputFocusStyle={{ borderColor: "blue" }}
-            onComplete={(value, index) => {}}
             autoSelect={true}
             regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
           />

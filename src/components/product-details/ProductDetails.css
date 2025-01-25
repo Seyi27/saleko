@@ -37,6 +37,7 @@
   gap: 50px;
   height: 500px;
   margin-top: 30px;
+  margin-bottom: 100px;
 }
 
 .product_image_left_container {
@@ -228,36 +229,6 @@
 /* Changing the checked color */
 input[type="radio"]{
   accent-color: #084C3F;
-}
-
-/************ Cart *****************/
-
-.cart_container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 20px;
-}
-
-.cart_increase_decrease_container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 120px;
-  height: 55px;
-  background-color: #f3f3f3;
-  border-radius: 5px;
-}
-
-.cart_increase_decrease_container .count_container {
-  background-color: white;
-  border-radius: 5px;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 /************************************/

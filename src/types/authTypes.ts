@@ -10,8 +10,8 @@ export type SignUpType = {
 
 export type VerifyOtpType = {
     otp: string,
-    reference: string | null,
-    username: string
+    reference_code: string | null,
+    sent_to: string
 }
 
 export type CompleteSignup = {

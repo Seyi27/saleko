@@ -5,8 +5,8 @@ import CustomButton from "../custom-button/CustomButton";
 
 const NavHeader = () => {
   return (
-    <div className="nav_header_container">
-      <div className="nav_header_second_container">
+    <div className="body_container nav_header_container">
+      <div className="body_second_container nav_header_second_container">
         <SalekoWhiteLogo />
 
         <h3>Buy Boku, Sell Berekete</h3>
