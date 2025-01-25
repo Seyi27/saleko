@@ -8,20 +8,22 @@ interface UserState {
 }
 
 interface CreateAccountDataState {
-  user: UserState | null;
+  user?: UserState | null;
   notification_reference: string | null;
+  user_id?: string | null;
 }
 
 const initialState: CreateAccountDataState = {
   user: null,
   notification_reference: null,
+  user_id: null,
 };
 
 const createAccountDataSlice = createSlice({
   name: "createAccountData",
   initialState,
   reducers: {
-    addCreateAccountData: (
+    addCreateAccountDataByEmail: (
       state,
       action: PayloadAction<CreateAccountDataState>
     ) => {
@@ -29,14 +31,29 @@ const createAccountDataSlice = createSlice({
       state.notification_reference = action.payload.notification_reference;
     },
 
-    removeCreateAccountData: (state) => {
+    addCreateAccountDataByPhone: (
+      state,
+      action: PayloadAction<CreateAccountDataState>
+    ) => {
+      state.user_id = action.payload.user_id;
+      state.notification_reference = action.payload.notification_reference;
+    },
+
+    removeCreateAccountDataByEmail: (state) => {
       state.user = null;
+      state.notification_reference = null;
+    },
+
+    removeCreateAccountDataByPhone: (
+      state,
+    ) => {
+      state.user_id = null;
       state.notification_reference = null;
     },
   },
 });
 
-export const { addCreateAccountData, removeCreateAccountData } =
+export const { addCreateAccountDataByEmail, addCreateAccountDataByPhone } =
   createAccountDataSlice.actions;
 
 export default createAccountDataSlice.reducer;

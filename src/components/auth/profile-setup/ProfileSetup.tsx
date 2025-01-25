@@ -32,6 +32,7 @@ const ProfileSetup = ({
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
+  const [selectedCode, setSelectedCode] = useState("+234");
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [termsChecked, setTermsChecked] = useState(false);
@@ -103,7 +104,7 @@ const ProfileSetup = ({
         } else if (!/^\d+$/.test(e.trim())) {
           // if it is not numbers
           setPhoneNoError("Phone Number is not valid");
-        } else if (!/^\d{11}$/.test(e.trim())) {
+        } else if (!/^\d{10}$/.test(e.trim())) {
           setPhoneNoError("Invalid phone number format");
         } else {
           setPhoneNoError("");
@@ -187,11 +188,12 @@ const ProfileSetup = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const phoneNoWithCountryCode = selectedCode + phoneNo;
 
     completeSetup({
       first_name: firstName,
       last_name: lastName,
-      username: selectedDropdownValue == "email" ? email : phoneNo,
+      username: selectedDropdownValue == "email" ? email : phoneNoWithCountryCode,
       password: password,
       password_confirmation: confirmPassword,
       accept_terms: termsChecked,
@@ -240,6 +242,8 @@ const ProfileSetup = ({
               label={"Phone Number"}
               errorMessage={phoneNoError}
               idAndHtmlFor={"phone"}
+              selectedCode={selectedCode}
+              setSelectedCode={setSelectedCode}
               handleTextInput={handleTextInput}
             />
           ) : (

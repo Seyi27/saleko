@@ -157,7 +157,7 @@ const NegotiationPage = () => {
                   >
                     <p className="negotiation_header_text">Product Details</p>
 
-                    <div style={{ marginTop: "35px" }}>
+                    <div style={{ marginTop: "25px" }}>
                       <img
                         src={productDetailsData?.image[0]}
                         className="negotiated_item_image"

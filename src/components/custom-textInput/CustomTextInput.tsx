@@ -15,16 +15,17 @@ const CustomTextInput = ({
   handleTextInput,
   handleDropdown,
   noPasswordChecklist,
+  selectedCode,
+  setSelectedCode
 }: CustomTextInputProps) => {
   const [toggleVisibility, setToggleVisibility] = useState(false);
-  const [selectedCode, setSelectedCode] = useState("+234");
 
   const handleToggle = () => {
     setToggleVisibility(!toggleVisibility);
   };
 
   const handleSelectionChange = (e: any) => {
-    setSelectedCode(e.target.value);
+    setSelectedCode?.(e.target.value);
   };
 
   const renderCustomInput = () => {
@@ -88,10 +89,8 @@ const CustomTextInput = ({
                 type="text"
                 value={value}
                 onChange={(e) => handleTextInput(name, e.target.value)}
-                className={`custom_textinput ${
-                  errorMessage && "error_textInput"
-                }`}
-                maxLength={11}
+                className={`custom_textinput`}
+                maxLength={10}
               />
             </div>
             <label

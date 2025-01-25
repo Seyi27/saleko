@@ -40,7 +40,9 @@ export type CustomTextInputProps = {
     idAndHtmlFor: string,
     handleTextInput: (key: string, e: string) => void,
     handleDropdown?: () => void,
-    noPasswordChecklist?: boolean
+    noPasswordChecklist?: boolean,
+    selectedCode?: string,
+    setSelectedCode?: Dispatch<SetStateAction<string>>
 }
 
 export type CloseModalContainerProps = {

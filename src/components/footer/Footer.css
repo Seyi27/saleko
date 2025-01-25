@@ -111,6 +111,11 @@
 .other_footer_details p {
   font-size: 13px;
   color: #4b5563;
+  cursor: pointer;
+}
+
+.other_footer_details p:hover {
+  color: #084c3f;
 }
 
 .contact_details_container {

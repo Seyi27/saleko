@@ -17,7 +17,10 @@ import {
 import CloseModalContainer from "../close-auth-modal-container/CloseModalContainer";
 import encrypted_ic from "../../../assets/images/svg/encrypted_ic.svg";
 import { AuthModalScreenProps } from "../../../types/types";
-import { addCreateAccountData } from "../../../slice/createAccountDataSlice";
+import {
+  addCreateAccountDataByEmail,
+  addCreateAccountDataByPhone,
+} from "../../../slice/createAccountDataSlice";
 import { showCustomToast } from "../../custom-toast/CustomToast";
 
 const CreateAccount = ({
@@ -32,6 +35,8 @@ const CreateAccount = ({
 
   const [selectedDropdownKey, setSelectedDropdownKey] = useState("");
   const [selectedDropdownValue, setSelectedDropdownValue] = useState("");
+
+  const [selectedCode, setSelectedCode] = useState("+234");
 
   const [dropdownToggle, setDropdownToggle] = useState(false);
 
@@ -54,13 +59,13 @@ const CreateAccount = ({
     switch (key) {
       case "phone":
         setPhoneNo(e.trim());
-        dispatch(addEmailPhonenumberText(e.trim()));
+        dispatch(addEmailPhonenumberText(selectedCode + e.trim()));
         if (!e.trim()) {
           setPhoneNoError("Phone Number cannot be empty");
         } else if (!/^\d+$/.test(e.trim())) {
           // if it is not numbers
           setPhoneNoError("Phone Number is not valid");
-        } else if (!/^\d{11}$/.test(e.trim())) {
+        } else if (!/^\d{10}$/.test(e.trim())) {
           setPhoneNoError("Invalid phone number format");
         } else {
           setPhoneNoError("");
@@ -95,22 +100,38 @@ const CreateAccount = ({
 
   useEffect(() => {
     if (isSuccess) {
-      const submitvalue = {
-        user: data.data.user,
-        notification_reference: data.data.notification_reference,
-      };
+      if (selectedDropdownKey == "email") {
+        const submitvalue = {
+          user: data.data.user,
+          notification_reference: data.data.notification_reference,
+        };
 
-      dispatch(addCreateAccountData(submitvalue));
+        dispatch(addCreateAccountDataByEmail(submitvalue));
+      } else if (selectedDropdownKey == "phone") {
+        const submitvalue = {
+          user_id: data.data.user_id,
+          notification_reference: data.data.notification_reference,
+        };
+
+        dispatch(addCreateAccountDataByPhone(submitvalue));
+      }
       handleAuthNavigate("verify_account");
     }
 
     if (isError && error) {
       if ("status" in error) {
         if (error.status == 422) {
-          showCustomToast({
-            message: "The email has already been taken.",
-            type: "error",
-          });
+          if (selectedDropdownKey == "email") {
+            showCustomToast({
+              message: "The email has already been taken.",
+              type: "error",
+            });
+          } else if (selectedDropdownKey == "phone") {
+            showCustomToast({
+              message: "The phone number has already been taken.",
+              type: "error",
+            });
+          }
 
           if (selectedDropdownKey == "email") {
             setEmail("");
@@ -124,9 +145,10 @@ const CreateAccount = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const phoneNoWithCountryCode = selectedCode + phoneNo;
 
     signUp({
-      username: selectedDropdownKey == "email" ? email : phoneNo,
+      username: selectedDropdownKey == "email" ? email : phoneNoWithCountryCode,
       mode: selectedDropdownKey == "email" ? "email" : "phone_number",
     });
   };
@@ -175,9 +197,11 @@ const CreateAccount = ({
                 type={"phoneNo"}
                 name={"phone"}
                 value={phoneNo}
-                label={"Phone Number*"}
+                label={"Phone Number"}
                 errorMessage={phoneNoError}
                 idAndHtmlFor={"phone_input"}
+                selectedCode={selectedCode}
+                setSelectedCode={setSelectedCode}
                 handleTextInput={handleTextInput}
               />
             ) : (
