@@ -203,6 +203,7 @@ const CreateAccount = ({
                 selectedCode={selectedCode}
                 setSelectedCode={setSelectedCode}
                 handleTextInput={handleTextInput}
+                placeholder="e.g 8147999999"
               />
             ) : (
               <CustomTextInput

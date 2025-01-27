@@ -13,6 +13,7 @@ import { RootState } from "../../../store/store";
 import { useCompleteSignupMutation } from "../../../services/authApi";
 import { addUser } from "../../../slice/userDetailsSlice";
 import { showCustomToast } from "../../custom-toast/CustomToast";
+import { addActiveScreen } from "../../../slice/authValueSlice";
 
 const ProfileSetup = ({
   handleCloseModal,
@@ -47,13 +48,14 @@ const ProfileSetup = ({
 
   // const [selectedDropdownValue, setselectedDropdownValue] = useState("email")
 
-  const [completeSetup, { data, isLoading, isError,error, isSuccess }] =
+  const [completeSetup, { data, isLoading, isError, error, isSuccess }] =
     useCompleteSignupMutation();
 
   useEffect(() => {
     if (isSuccess) {
       handleOpenSignupModal?.();
       handleCloseModal();
+      dispatch(addActiveScreen("login_form"));
     }
 
     if (isError && error) {
@@ -193,7 +195,8 @@ const ProfileSetup = ({
     completeSetup({
       first_name: firstName,
       last_name: lastName,
-      username: selectedDropdownValue == "email" ? email : phoneNoWithCountryCode,
+      username:
+        selectedDropdownValue == "email" ? email : phoneNoWithCountryCode,
       password: password,
       password_confirmation: confirmPassword,
       accept_terms: termsChecked,
@@ -245,6 +248,7 @@ const ProfileSetup = ({
               selectedCode={selectedCode}
               setSelectedCode={setSelectedCode}
               handleTextInput={handleTextInput}
+              placeholder="e.g 8147999999"
             />
           ) : (
             // Email Address

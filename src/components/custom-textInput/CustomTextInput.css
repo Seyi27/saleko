@@ -21,7 +21,12 @@
   box-sizing: border-box; /* Ensure padding and borders are included in the width */
 }
 
-label {
+.normal_textinput::placeholder {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.normal_textinput_label {
   position: absolute;
   top: 17px;
   left: 10px;
@@ -33,7 +38,7 @@ label {
 
 /* To be able to render the condition 
     for if the input field is not empty so that label can stay up*/
-.normal_label {
+.normal_floating_label {
   top: -8px;
   color: #084c3f;
   font-size: 12px;
@@ -94,7 +99,12 @@ label {
   box-sizing: border-box; /* Ensure padding and borders are included in the width */
 }
 
-.label_text {
+.custom_textinput::placeholder {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.phoneNo_label_text {
   position: absolute;
   top: 17px;
   left: 75px;
@@ -168,7 +178,7 @@ label {
 
 /* To be able to render the condition 
     for if the input field is not empty so that label can stay up*/
-.password_label {
+.password_floating_label {
   top: -8px;
   color: #084c3f;
   font-size: 12px;

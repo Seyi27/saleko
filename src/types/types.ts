@@ -43,6 +43,7 @@ export type CustomTextInputProps = {
     noPasswordChecklist?: boolean,
     selectedCode?: string,
     setSelectedCode?: Dispatch<SetStateAction<string>>
+    placeholder?: string
 }
 
 export type CloseModalContainerProps = {
@@ -64,7 +65,7 @@ export type AuthModalScreenProps = {
     handleAuthNavigate: (screen: string) => void
     handleOpenSignupModal?: () => void,
     handleOpenLoginModal?: () => void,
-    handleOpenResetPasswordModal?: () => void
+    handleOpenResetPasswordModal?: () => void,
 }
 
 export type ProductSectionProps = {

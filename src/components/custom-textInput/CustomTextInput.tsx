@@ -16,9 +16,11 @@ const CustomTextInput = ({
   handleDropdown,
   noPasswordChecklist,
   selectedCode,
-  setSelectedCode
+  setSelectedCode,
+  placeholder
 }: CustomTextInputProps) => {
   const [toggleVisibility, setToggleVisibility] = useState(false);
+  const [focused, setFocused] = useState(false);
 
   const handleToggle = () => {
     setToggleVisibility(!toggleVisibility);
@@ -32,19 +34,24 @@ const CustomTextInput = ({
     switch (type) {
       case "normal":
         return (
-          <div className="normal_input_box">
+          <div
+            className="normal_input_box"
+          >
             <input
               id={idAndHtmlFor}
               type="text"
               value={value}
               onChange={(e) => handleTextInput(name, e.target.value)}
+              onFocus={() => setFocused(true)}
+              onBlur={(e) => setFocused(e.target.value !== "")}
               className={`normal_textinput ${
                 errorMessage && "error_textInput"
               }`}
+              placeholder={focused ? placeholder : ""}
             />
             <label
               htmlFor={idAndHtmlFor}
-              className={`${value.length > 0 ? "normal_label" : ""}  ${
+              className={`normal_textinput_label ${value.length > 0 ? "normal_floating_label" : ""}  ${
                 errorMessage ? "error_label" : ""
               }`}
             >
@@ -90,12 +97,15 @@ const CustomTextInput = ({
                 value={value}
                 onChange={(e) => handleTextInput(name, e.target.value)}
                 className={`custom_textinput`}
+                onFocus={() => setFocused(true)}
+                onBlur={(e) => setFocused(e.target.value !== "")}
                 maxLength={10}
-              />
+                placeholder={focused ? placeholder : ""}
+                />
             </div>
             <label
               htmlFor={idAndHtmlFor}
-              className={`label_text ${
+              className={`phoneNo_label_text ${
                 value.length == 0 ? "" : "custom_label"
               } ${errorMessage && "error_label"}`}
             >
@@ -129,7 +139,7 @@ const CustomTextInput = ({
               </div>
               <label
                 htmlFor={idAndHtmlFor}
-                className={`${value.length > 0 ? "password_label" : ""}  ${
+                className={`normal_textinput_label ${value.length > 0 ? "password_floating_label" : ""}  ${
                   errorMessage ? "error_label" : ""
                 }`}
               >
@@ -186,7 +196,7 @@ const CustomTextInput = ({
                 </span>
               </div>
               <label
-                className={`${value.length > 0 ? "password_label" : ""}  ${
+                className={`normal_textinput_label ${value.length > 0 ? "password_floating_label" : ""}  ${
                   errorMessage ? "error_label" : ""
                 }`}
                 onClick={handleDropdown}

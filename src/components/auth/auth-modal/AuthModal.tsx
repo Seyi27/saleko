@@ -41,6 +41,7 @@ const AuthModal = ({
     dispatch(addActiveScreen(screen));
   };
 
+
   const renderModal = () => {
     switch (activeScreen) {
       case "create_account":

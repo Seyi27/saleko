@@ -32,8 +32,6 @@ const LoginForm = ({
   const [login, { data, isSuccess, isError, error, isLoading }] =
     useLoginMutation();
 
-  // const notify = () => toast("Wow so easy!");
-
   console.log("login data", data);
 
   useEffect(() => {
@@ -41,8 +39,8 @@ const LoginForm = ({
       handleCloseModal();
       handleOpenLoginModal?.();
       dispatch(addUser(data.data));
-      setText("")
-      setPassword("")
+      setText("");
+      setPassword("");
     }
 
     if (isError && error) {
@@ -55,8 +53,8 @@ const LoginForm = ({
             type: "error",
           });
 
-          setText("")
-          setPassword("")
+          setText("");
+          setPassword("");
         }
       }
     }
@@ -66,7 +64,8 @@ const LoginForm = ({
     switch (key) {
       case "text":
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const phoneRegex = /^\d{1,11}$/;
+        // const phoneRegex = /^\d{1,11}$/;
+        const phoneRegex = /^\+234\d{10}$/;
 
         setText(e.trim());
         // setCustomErrorText(""); // to remove any text when typing
@@ -137,6 +136,7 @@ const LoginForm = ({
             errorMessage={textError}
             idAndHtmlFor={"textInput"}
             handleTextInput={handleTextInput}
+            placeholder="e.g johndoe@gmail.com or +2348177777777"
           />
 
           {/* Password */}
