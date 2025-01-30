@@ -38,8 +38,8 @@ const ProfileSetup = ({
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [termsChecked, setTermsChecked] = useState(false);
 
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [focusedTextinput, setFocusedTextinput] = useState(false);
+  
   const dispatch = useDispatch();
 
   const selectedDropdownValue = useSelector(
@@ -60,9 +60,11 @@ const ProfileSetup = ({
 
     if (isError && error) {
       if ("status" in error) {
+        setFocusedTextinput(false)
+
         if (error.status == 400 || error.status == 422) {
           showCustomToast({
-            message: "Error! Please check your credentials and try again..",
+            message: "Your username is not verified.",
             type: "error",
           });
 
@@ -71,7 +73,8 @@ const ProfileSetup = ({
           setPhoneNo("");
           setEmail("");
           setPassword("");
-          setConfirmPasswordError("");
+          setConfirmPassword("");
+          setTermsChecked(false)
         }
       }
     }
@@ -249,6 +252,8 @@ const ProfileSetup = ({
               setSelectedCode={setSelectedCode}
               handleTextInput={handleTextInput}
               placeholder="e.g 8147999999"
+              focused={focusedTextinput}
+              setFocused={setFocusedTextinput}
             />
           ) : (
             // Email Address

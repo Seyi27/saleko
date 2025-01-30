@@ -13,6 +13,7 @@ export type CustomButtonProps = {
     borderWidth?: string,
     borderRadius?: string,
     loader?: boolean,
+    loaderColor?: boolean,
     onClick?: React.MouseEventHandler<HTMLButtonElement>; // Type for onClick
     disabled?: boolean
 }
@@ -43,7 +44,9 @@ export type CustomTextInputProps = {
     noPasswordChecklist?: boolean,
     selectedCode?: string,
     setSelectedCode?: Dispatch<SetStateAction<string>>
-    placeholder?: string
+    placeholder?: string,
+    focused?:boolean
+    setFocused?: Dispatch<SetStateAction<boolean>>
 }
 
 export type CloseModalContainerProps = {

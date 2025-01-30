@@ -15,4 +15,10 @@
     font-size: 14px;
     color: #084C3F;
   }
+
+  .saleko_green_logo{
+    width: 100px;
+    height: 30px;
+    object-fit: contain;
+  }
   

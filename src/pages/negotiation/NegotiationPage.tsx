@@ -100,7 +100,7 @@ const NegotiationPage = () => {
                     </div>
 
                     <div className="negotiation_chatbody_container">
-                      <div className="negotiation_chatbody">milk</div>
+                      <div className="negotiation_chatbody">chat</div>
 
                       <div>
                         <hr

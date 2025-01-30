@@ -15,12 +15,14 @@ const ForgotPasswordRequest = ({
   const [emailOrPhoneText, setEmailOrPhoneText] = useState("");
   const [emailOrPhoneTextError, setEmailOrPhoneTextError] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [focusedTextinput, setFocusedTextinput] = useState(false);
 
   const dispatch = useDispatch();
 
   const handleTextInput = (key: string, e: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^\d{1,11}$/;
+    // const phoneRegex = /^\d{1,11}$/;
+    const phoneRegex = /^\+234\d{10}$/;
 
     setEmailOrPhoneText(e.trim());
     dispatch(addFpEmailPhoneText(e.trim()))
@@ -43,7 +45,7 @@ const ForgotPasswordRequest = ({
 
   const handleForgotFormSubmit = (e: React.FormEvent) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRegex = /^\d{1,11}$/;
+    const phoneRegex = /^\+234\d{10}$/;
     let thisSelectedValue;
 
     if (emailRegex.test(emailOrPhoneText)) {
@@ -84,6 +86,9 @@ const ForgotPasswordRequest = ({
             errorMessage={emailOrPhoneTextError}
             idAndHtmlFor={"emailOrPhoneText"}
             handleTextInput={handleTextInput}
+            placeholder="e.g johndoe@gmail.com or +2348177777777"
+            focused={focusedTextinput}
+            setFocused={setFocusedTextinput}
           />
 
           <div style={{ margin: "20px" }} />

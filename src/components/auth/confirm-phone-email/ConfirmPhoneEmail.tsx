@@ -3,12 +3,15 @@ import "./ConfirmPhoneEmail.css";
 import CustomButton from "../../custom-button/CustomButton";
 import PinInput from "react-pin-input";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BsChevronLeft, BsX } from "react-icons/bs";
 import CloseModalContainer from "../close-auth-modal-container/CloseModalContainer";
 import { AuthModalScreenProps } from "../../../types/types";
-import { RootState } from "../../../store/store";
-import { useVerifyOtpMutation } from "../../../services/authApi";
+import { RootState, store } from "../../../store/store";
+import {
+  useSignUpMutation,
+  useVerifyOtpMutation,
+} from "../../../services/authApi";
 import { showCustomToast } from "../../custom-toast/CustomToast";
 
 const ConfirmPhoneEmail = ({
@@ -19,7 +22,7 @@ const ConfirmPhoneEmail = ({
   const [pinError, setPinError] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [sendCodeState, setSendCodeState] = useState(false);
-  const [countDown, setCountDown] = useState(44);
+  const [countDown, setCountDown] = useState(40);
 
   const selectedDropdownValue = useSelector(
     (state: RootState) => state.authValue.selectedDropdownValue
@@ -35,20 +38,30 @@ const ConfirmPhoneEmail = ({
   const [verifyOtp, { data, isSuccess, isError, error, isLoading }] =
     useVerifyOtpMutation();
 
+  const [
+    signUp,
+    {
+      data: signUpData,
+      isSuccess: signUpSuccess,
+      error: signUpError,
+      isLoading: signUpLoading,
+    },
+  ] = useSignUpMutation();
+
   useEffect(() => {
     if (isSuccess) {
       setPinError(false);
       handleAuthNavigate("profile_setup");
 
       showCustomToast({
-        message: "Verification Code successfull",
+        message: "Verification successfull",
         type: "success",
       });
     }
     if (isError && error) {
       if ("status" in error) {
         if (error.status == 400 || error.status == 422) {
-          setPinError(true)
+          setPinError(true);
           showCustomToast({
             message: "Invalid Verification Code",
             type: "error",
@@ -57,6 +70,13 @@ const ConfirmPhoneEmail = ({
       }
     }
   }, [data, isSuccess, isError, error]);
+
+  useEffect(() => {
+    if (signUpSuccess) {
+      setSendCodeState(false);
+      setCountDown(40);
+    }
+  }, [signUpSuccess, signUpError]);
 
   console.log("confirm data", data);
 
@@ -70,21 +90,24 @@ const ConfirmPhoneEmail = ({
     verifyOtp(verifyOtpBody);
   };
 
-  useEffect(() => {
-    if (pin.length !== 6) {
-      setDisabled(true);
-    } else {
-      setDisabled(false);
-      setSendCodeState(true);
-    }
-  }, [pin]);
+  const handleResendCode = () => {
+    // to fire the signup endpoint again, in order to generate another otp code
+    signUp({
+      username: emailPhoneText,
+      mode: selectedDropdownValue,
+    });
+  };
 
   useEffect(() => {
     if (countDown > 0) {
       const timer = setTimeout(() => {
         setCountDown((prev) => prev - 1);
-      }, 3000);
+      }, 2000);
       return () => clearTimeout(timer);
+    }
+
+    if (countDown == 0) {
+      setSendCodeState(true);
     }
   }, [countDown]);
 
@@ -176,6 +199,9 @@ const ConfirmPhoneEmail = ({
             textColor="#084C3F"
             fontSize={13}
             fontWeight={600}
+            onClick={handleResendCode}
+            loader={signUpLoading}
+            loaderColor={true}
           />
         ) : (
           <div style={{ marginTop: "40px" }}>

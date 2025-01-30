@@ -16,7 +16,6 @@ import { showCustomToast } from "../../custom-toast/CustomToast";
 const LoginForm = ({
   handleCloseModal,
   handleAuthNavigate,
-  handleOpenLoginModal,
 }: AuthModalScreenProps) => {
   const [text, setText] = useState("");
   const [password, setPassword] = useState("");
@@ -26,6 +25,7 @@ const LoginForm = ({
   const [passwordError, setPasswordError] = useState("");
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [focusedTextinput, setFocusedTextinput] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -37,7 +37,6 @@ const LoginForm = ({
   useEffect(() => {
     if (isSuccess) {
       handleCloseModal();
-      handleOpenLoginModal?.();
       dispatch(addUser(data.data));
       setText("");
       setPassword("");
@@ -45,6 +44,8 @@ const LoginForm = ({
 
     if (isError && error) {
       if ("status" in error) {
+        setFocusedTextinput(false) // to remove the placeholder when there is an error
+
         if (error.status == 401 || error.status == 422) {
           // setCustomErrorText("Incorrect password");
 
@@ -137,6 +138,8 @@ const LoginForm = ({
             idAndHtmlFor={"textInput"}
             handleTextInput={handleTextInput}
             placeholder="e.g johndoe@gmail.com or +2348177777777"
+            focused={focusedTextinput}
+            setFocused={setFocusedTextinput}
           />
 
           {/* Password */}

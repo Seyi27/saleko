@@ -17,7 +17,6 @@ const AuthModal = ({
   isOpen,
   handleCloseModal,
   handleOpenSignupModal,
-  handleOpenLoginModal,
   handleOpenResetPasswordModal
 }: AuthModalProps) => {
   //   const [activeScreen, setActiveScreen] = useState("create_account");
@@ -77,7 +76,6 @@ const AuthModal = ({
           <LoginForm
             handleCloseModal={handleCloseModal}
             handleAuthNavigate={handleAuthNavigate}
-            handleOpenLoginModal={handleOpenLoginModal}
           />
         );
         break;

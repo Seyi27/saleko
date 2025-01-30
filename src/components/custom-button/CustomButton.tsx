@@ -15,6 +15,7 @@ const CustomButton = ({
   borderWidth,
   borderRadius,
   loader,
+  loaderColor,
   onClick,
   disabled,
 }: CustomButtonProps) => {
@@ -45,9 +46,9 @@ const CustomButton = ({
       {loader ? (
         <TailSpin
           visible={true}
-          height="30"
-          width="30"
-          color="#ffffff"
+          height={loaderColor ? "25" : "30"}
+          width={loaderColor ? "25" : "30"}
+          color={loaderColor ? "#084C3F" : "#ffffff"}
           ariaLabel="tail-spin-loading"
           radius="2"
           wrapperStyle={{}}

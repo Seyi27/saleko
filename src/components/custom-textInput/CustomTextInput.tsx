@@ -17,10 +17,11 @@ const CustomTextInput = ({
   noPasswordChecklist,
   selectedCode,
   setSelectedCode,
-  placeholder
+  placeholder,
+  focused,
+  setFocused
 }: CustomTextInputProps) => {
   const [toggleVisibility, setToggleVisibility] = useState(false);
-  const [focused, setFocused] = useState(false);
 
   const handleToggle = () => {
     setToggleVisibility(!toggleVisibility);
@@ -42,8 +43,8 @@ const CustomTextInput = ({
               type="text"
               value={value}
               onChange={(e) => handleTextInput(name, e.target.value)}
-              onFocus={() => setFocused(true)}
-              onBlur={(e) => setFocused(e.target.value !== "")}
+              onFocus={() => setFocused?.(true)}
+              onBlur={(e) => setFocused?.(e.target.value !== "")}
               className={`normal_textinput ${
                 errorMessage && "error_textInput"
               }`}
@@ -97,8 +98,8 @@ const CustomTextInput = ({
                 value={value}
                 onChange={(e) => handleTextInput(name, e.target.value)}
                 className={`custom_textinput`}
-                onFocus={() => setFocused(true)}
-                onBlur={(e) => setFocused(e.target.value !== "")}
+                onFocus={() => setFocused?.(true)}
+                onBlur={(e) => setFocused?.(e.target.value !== "")}
                 maxLength={10}
                 placeholder={focused ? placeholder : ""}
                 />

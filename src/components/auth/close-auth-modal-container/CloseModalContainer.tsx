@@ -2,6 +2,7 @@ import React from "react";
 import "./CloseModalContainer.css";
 import { BsChevronLeft, BsX } from "react-icons/bs";
 import { CloseModalContainerProps } from "../../../types/types";
+import saleko_green from '../../../assets/images/svg/saleko_green.svg'
 
 const CloseModalContainer = ({
   cancelIconOnly,
@@ -20,6 +21,8 @@ const CloseModalContainer = ({
             <span>Back</span>
           </div>
 
+          <img src={saleko_green} className="saleko_green_logo"/>
+
           <BsX
             size={25}
             style={{ cursor: "pointer" }}
@@ -27,7 +30,8 @@ const CloseModalContainer = ({
           />
         </div>
       ) : (
-        <div style={{textAlign:'right'}}>
+        <div className="close_modal_container">
+          <img src={saleko_green} className="saleko_green_logo"/>
           <BsX
             size={25}
             style={{ cursor: "pointer" }}

@@ -30,7 +30,6 @@ const NavHeaderSearch = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenSignup, setIsOpenSignup] = useState(false);
-  const [isOpenLogin, setIsOpenLogin] = useState(false);
   const [isOpenResetPassword, setIsOpenResetPassword] = useState(false);
 
   const dispatch = useDispatch();
@@ -48,8 +47,16 @@ const NavHeaderSearch = () => {
     setSelectedMarket(e.target.value);
   };
 
-  const handleOpenModal = () => {
+  // handle login modal
+  const handleLoginOpenModal = () => {
     setIsOpen(true);
+    dispatch(addActiveScreen("login_form"));
+  };
+
+  // handle Register modal
+  const handleRegisterOpenModal = () => {
+    setIsOpen(true);
+    dispatch(addActiveScreen("create_account"));
   };
 
   const handleCloseModal = () => {
@@ -61,10 +68,6 @@ const NavHeaderSearch = () => {
     setIsOpenSignup(true);
   };
 
-  const handleOpenLoginModal = () => {
-    setIsOpenLogin(true);
-  };
-
   const handleOpenResetPasswordModal = () => {
     setIsOpenResetPassword(true);
   };
@@ -74,11 +77,6 @@ const NavHeaderSearch = () => {
     setIsOpenSignup(false);
     dispatch(addActiveScreen("login_form"));
     setIsOpen(true);
-  };
-
-  const handleCloseLoginModal = () => {
-    setIsOpenLogin(false);
-    dispatch(addActiveScreen("create_account"));
   };
 
   const handleCloseResetPasswordModal = () => {
@@ -147,22 +145,36 @@ const NavHeaderSearch = () => {
                 <p>
                   {user.last_name.charAt(0).toUpperCase() +
                     user.last_name.slice(1).toLowerCase()}{" "}
-                  {user.first_name.charAt(0).toUpperCase() +
-                    '.'}
+                  {user.first_name.charAt(0).toUpperCase() + "."}
                 </p>
               </div>
             </div>
           ) : (
-            <CustomButton
-              label="Login/Register"
-              width={"120px"}
-              height="51px"
-              bgColor="transparent"
-              textColor="#FFFFFF"
-              fontWeight={600}
-              fontSize={16}
-              onClick={handleOpenModal}
-            />
+            <div className="nav_button_container">
+              <CustomButton
+                label="Login"
+                width={"50px"}
+                height="51px"
+                bgColor="transparent"
+                textColor="#FFFFFF"
+                fontWeight={600}
+                fontSize={16}
+                onClick={handleLoginOpenModal}
+              />
+
+              <p style={{ color: "white" }}>/</p>
+
+              <CustomButton
+                label="Register"
+                width={"70px"}
+                height="51px"
+                bgColor="transparent"
+                textColor="#FFFFFF"
+                fontWeight={600}
+                fontSize={16}
+                onClick={handleRegisterOpenModal}
+              />
+            </div>
           )}
         </div>
       </div>
@@ -171,7 +183,6 @@ const NavHeaderSearch = () => {
         isOpen={isOpen}
         handleCloseModal={handleCloseModal}
         handleOpenSignupModal={handleOpenSignupModal}
-        handleOpenLoginModal={handleOpenLoginModal}
         handleOpenResetPasswordModal={handleOpenResetPasswordModal}
       />
 
@@ -179,12 +190,6 @@ const NavHeaderSearch = () => {
         isOpen={isOpenSignup}
         closeModal={handleCloseSignupModal}
         label="signup"
-      />
-
-      <CustomModal
-        isOpen={isOpenLogin}
-        closeModal={handleCloseLoginModal}
-        label="login"
       />
 
       <CustomModal

@@ -17,11 +17,9 @@ import {
 import CloseModalContainer from "../close-auth-modal-container/CloseModalContainer";
 import encrypted_ic from "../../../assets/images/svg/encrypted_ic.svg";
 import { AuthModalScreenProps } from "../../../types/types";
-import {
-  addCreateAccountDataByEmail,
-  addCreateAccountDataByPhone,
-} from "../../../slice/createAccountDataSlice";
+import { addCreateAccountDataValues } from "../../../slice/createAccountDataSlice";
 import { showCustomToast } from "../../custom-toast/CustomToast";
+import { RootState } from "../../../store/store";
 
 const CreateAccount = ({
   handleCloseModal,
@@ -39,6 +37,7 @@ const CreateAccount = ({
   const [selectedCode, setSelectedCode] = useState("+234");
 
   const [dropdownToggle, setDropdownToggle] = useState(false);
+  const [focusedTextinput, setFocusedTextinput] = useState(false);
 
   const [signUp, { data, isSuccess, isLoading, isError, error }] =
     useSignUpMutation();
@@ -100,27 +99,20 @@ const CreateAccount = ({
 
   useEffect(() => {
     if (isSuccess) {
-      if (selectedDropdownKey == "email") {
-        const submitvalue = {
-          user: data.data.user,
-          notification_reference: data.data.notification_reference,
-        };
+      const submitvalue = {
+        user_id: data.data.user_id,
+        notification_reference: data.data.notification_reference,
+      };
 
-        dispatch(addCreateAccountDataByEmail(submitvalue));
-      } else if (selectedDropdownKey == "phone") {
-        const submitvalue = {
-          user_id: data.data.user_id,
-          notification_reference: data.data.notification_reference,
-        };
-
-        dispatch(addCreateAccountDataByPhone(submitvalue));
-      }
+      dispatch(addCreateAccountDataValues(submitvalue));
       handleAuthNavigate("verify_account");
     }
 
     if (isError && error) {
       if ("status" in error) {
         if (error.status == 422) {
+          setFocusedTextinput(false)
+
           if (selectedDropdownKey == "email") {
             showCustomToast({
               message: "The email has already been taken.",
@@ -143,14 +135,18 @@ const CreateAccount = ({
     }
   }, [data, isSuccess, isError, error]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const phoneNoWithCountryCode = selectedCode + phoneNo;
+  const handleSubmit = (e?: React.FormEvent) => {
+    e?.preventDefault();
 
-    signUp({
-      username: selectedDropdownKey == "email" ? email : phoneNoWithCountryCode,
-      mode: selectedDropdownKey == "email" ? "email" : "phone_number",
-    });
+    if (selectedDropdownKey) {
+      const phoneNoWithCountryCode = selectedCode + phoneNo;
+
+      signUp({
+        username:
+          selectedDropdownKey == "email" ? email : phoneNoWithCountryCode,
+        mode: selectedDropdownKey == "email" ? "email" : "phone_number",
+      });
+    }
   };
 
   return (
@@ -204,6 +200,8 @@ const CreateAccount = ({
                 setSelectedCode={setSelectedCode}
                 handleTextInput={handleTextInput}
                 placeholder="e.g 8147999999"
+                focused={focusedTextinput}
+                setFocused={setFocusedTextinput}
               />
             ) : (
               <CustomTextInput
