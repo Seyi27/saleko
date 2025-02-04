@@ -17,6 +17,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 import CustomModal from "../custom-modal/CustomModal";
 import { addActiveScreen } from "../../slice/authValueSlice";
+import { removeUser } from "../../slice/userDetailsSlice";
+import { removeCreateAccountDataValues } from "../../slice/createAccountDataSlice";
 
 const NavHeaderSearch = () => {
   const navigate = useNavigate();
@@ -84,6 +86,12 @@ const NavHeaderSearch = () => {
     dispatch(addActiveScreen("create_account"));
   };
 
+  const handleLogOut = () => {
+    dispatch(removeUser());
+    dispatch(removeCreateAccountDataValues());
+    window.location.reload()
+  };
+
   return (
     <div className="body_container nav_header_search_container">
       <div className="body_second_container nav_header_search_second_container">
@@ -142,10 +150,16 @@ const NavHeaderSearch = () => {
               </div>
               <div>
                 <span>Hi {user.first_name}</span>
-                <p>
+                {/* <p>
                   {user.last_name.charAt(0).toUpperCase() +
                     user.last_name.slice(1).toLowerCase()}{" "}
                   {user.first_name.charAt(0).toUpperCase() + "."}
+                </p> */}
+              </div>
+
+              <div className="userdetails_dropdown_container">
+                <p  onClick={handleLogOut}>
+                  Log out
                 </p>
               </div>
             </div>

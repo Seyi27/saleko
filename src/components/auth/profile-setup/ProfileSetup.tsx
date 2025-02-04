@@ -39,14 +39,14 @@ const ProfileSetup = ({
   const [termsChecked, setTermsChecked] = useState(false);
 
   const [focusedTextinput, setFocusedTextinput] = useState(false);
-  
+
   const dispatch = useDispatch();
 
   const selectedDropdownValue = useSelector(
     (state: RootState) => state.authValue.selectedDropdownValue
   );
 
-  // const [selectedDropdownValue, setselectedDropdownValue] = useState("email")
+  // const [selectedDropdownValue, setselectedDropdownValue] = useState("phone")
 
   const [completeSetup, { data, isLoading, isError, error, isSuccess }] =
     useCompleteSignupMutation();
@@ -60,7 +60,7 @@ const ProfileSetup = ({
 
     if (isError && error) {
       if ("status" in error) {
-        setFocusedTextinput(false)
+        setFocusedTextinput(false);
 
         if (error.status == 400 || error.status == 422) {
           showCustomToast({
@@ -74,7 +74,7 @@ const ProfileSetup = ({
           setEmail("");
           setPassword("");
           setConfirmPassword("");
-          setTermsChecked(false)
+          setTermsChecked(false);
         }
       }
     }
@@ -87,30 +87,34 @@ const ProfileSetup = ({
   const handleTextInput = (key: string, e: string) => {
     switch (key) {
       case "firstName":
-        setFirstName(e.trim());
         if (!e.trim()) {
+          setFirstName("");
           setFirstNameError("First Name cannot be empty");
+        } else if (/^[A-Za-z]+$/.test(e.trim())) {
+          setFirstName(e.trim());
+          setFirstNameError("");
         } else {
           setFirstNameError("");
         }
         break;
       case "lastName":
-        setLastName(e.trim());
         if (!e.trim()) {
+          setLastName("");
           setLastNameError("Last Name cannot be empty");
+        } else if (/^[A-Za-z]+$/.test(e.trim())) {
+          setLastName(e.trim());
+          setLastNameError("");
         } else {
           setLastNameError("");
         }
         break;
       case "phone":
-        setPhoneNo(e.trim());
         if (!e.trim()) {
+          setPhoneNo("");
           setPhoneNoError("Phone Number cannot be empty");
-        } else if (!/^\d+$/.test(e.trim())) {
-          // if it is not numbers
-          setPhoneNoError("Phone Number is not valid");
-        } else if (!/^\d{10}$/.test(e.trim())) {
-          setPhoneNoError("Invalid phone number format");
+        } else if (/^\d+$/.test(e.trim())) { // takes only numbers
+          setPhoneNo(e.trim());
+          setPhoneNoError("");
         } else {
           setPhoneNoError("");
         }
@@ -119,8 +123,7 @@ const ProfileSetup = ({
         setEmail(e.trim());
         if (!e.trim()) {
           setEmailError("Email cannot be empty");
-        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.trim())) {
-          // if email is not valid
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.trim())) {// if email is not valid
           setEmailError("Email is not valid");
         } else {
           setEmailError("");

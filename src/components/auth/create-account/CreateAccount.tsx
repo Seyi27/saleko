@@ -57,15 +57,13 @@ const CreateAccount = ({
   const handleTextInput = (key: string, e: string) => {
     switch (key) {
       case "phone":
-        setPhoneNo(e.trim());
-        dispatch(addEmailPhonenumberText(selectedCode + e.trim()));
         if (!e.trim()) {
+          setPhoneNo("");
           setPhoneNoError("Phone Number cannot be empty");
-        } else if (!/^\d+$/.test(e.trim())) {
-          // if it is not numbers
-          setPhoneNoError("Phone Number is not valid");
-        } else if (!/^\d{10}$/.test(e.trim())) {
-          setPhoneNoError("Invalid phone number format");
+        } else if (/^\d+$/.test(e.trim())) { // takes only numbers
+          setPhoneNo(e.trim());
+          setPhoneNoError("");
+          dispatch(addEmailPhonenumberText(selectedCode + e.trim()));
         } else {
           setPhoneNoError("");
         }
