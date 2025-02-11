@@ -13,6 +13,7 @@ import {
 import { AuthModalScreenProps } from "../../../types/types";
 import { useSendOtpCodeMutation } from "../../../services/authApi";
 import { RootState } from "../../../store/store";
+import { showCustomToast } from "../../custom-toast/CustomToast";
 
 const ForgotPasswordRequest = ({
   handleCloseModal,
@@ -30,6 +31,7 @@ const ForgotPasswordRequest = ({
       data: sendOtpCodeData,
       isSuccess: sendOtpCodeSuccess,
       error: sendOtpCodeError,
+      isError: sendOtpCodeIsError,
       isLoading: sendOtpCodeLoading,
     },
   ] = useSendOtpCodeMutation();
@@ -65,6 +67,21 @@ const ForgotPasswordRequest = ({
       );
       handleAuthNavigate("forgot_password_verification");
     }
+
+    if (sendOtpCodeIsError && sendOtpCodeError) {
+      if ("status" in sendOtpCodeError) {
+        setFocusedTextinput(false); // to remove the placeholder when there is an error
+
+        if (sendOtpCodeError.status == 400) {
+          showCustomToast({
+            message: "Username not found",
+            type: "error",
+          });
+
+          setEmailOrPhoneText("");
+        }
+      }
+    } 
   }, [sendOtpCodeSuccess, sendOtpCodeError]);
 
   const handleForgotFormSubmit = (e: React.FormEvent) => {

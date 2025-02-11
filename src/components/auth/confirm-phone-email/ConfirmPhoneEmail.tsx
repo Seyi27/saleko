@@ -26,7 +26,7 @@ const ConfirmPhoneEmail = ({
   const [sendCodeState, setSendCodeState] = useState(false);
   const [countDown, setCountDown] = useState(40);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const selectedDropdownValue = useSelector(
     (state: RootState) => state.authValue.selectedDropdownValue
@@ -48,6 +48,7 @@ const ConfirmPhoneEmail = ({
       data: sendOtpCodeData,
       isSuccess: sendOtpCodeSuccess,
       error: sendOtpCodeError,
+      isError: sendOtpCodeIsError,
       isLoading: sendOtpCodeLoading,
     },
   ] = useSendOtpCodeMutation();
@@ -80,10 +81,23 @@ const ConfirmPhoneEmail = ({
   useEffect(() => {
     if (sendOtpCodeSuccess) {
       dispatch(
-        addNotificationReference({ notification_reference: sendOtpCodeData.data.notification_reference })
+        addNotificationReference({
+          notification_reference: sendOtpCodeData.data.notification_reference,
+        })
       );
       setSendCodeState(false);
       setCountDown(40);
+    }
+
+    if (sendOtpCodeIsError && sendOtpCodeError) {
+      if ("status" in sendOtpCodeError) {
+        // if (sendOtpCodeError.status == 400) {
+        showCustomToast({
+          message: "Kindly check your internet connection.",
+          type: "error",
+        });
+        // }
+      }
     }
   }, [sendOtpCodeSuccess, sendOtpCodeError]);
 

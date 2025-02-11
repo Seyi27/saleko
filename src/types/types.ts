@@ -72,9 +72,9 @@ export type AuthModalScreenProps = {
 }
 
 export type ProductSectionProps = {
-    name: string;
+    name?: string;
     data: Product[];
-    type: 'home' | 'related';
+    type: 'home' | 'related' | 'search';
     visibleRows?: number;
     setVisibleRows?: Dispatch<SetStateAction<number>>;
     setRowData?: Dispatch<SetStateAction<Product[][]>>;

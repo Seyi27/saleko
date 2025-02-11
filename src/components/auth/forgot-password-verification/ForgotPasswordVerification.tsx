@@ -12,7 +12,10 @@ import {
   useVerifyOtpMutation,
 } from "../../../services/authApi";
 import { showCustomToast } from "../../custom-toast/CustomToast";
-import { addFpNotification_reference, addFpTempOtpForPasswordReset } from "../../../slice/authValueSlice";
+import {
+  addFpNotification_reference,
+  addFpTempOtpForPasswordReset,
+} from "../../../slice/authValueSlice";
 
 const ForgotPasswordVerification = ({
   handleCloseModal,
@@ -46,6 +49,7 @@ const ForgotPasswordVerification = ({
       data: sendOtpCodeData,
       isSuccess: sendOtpCodeSuccess,
       error: sendOtpCodeError,
+      isError: sendOtpCodeIsError,
       isLoading: sendOtpCodeLoading,
     },
   ] = useSendOtpCodeMutation();
@@ -54,7 +58,7 @@ const ForgotPasswordVerification = ({
   useEffect(() => {
     if (isSuccess) {
       setPinError(false);
-      dispatch(addFpTempOtpForPasswordReset(data.data.data.otp))
+      dispatch(addFpTempOtpForPasswordReset(data.data.data.otp));
       handleAuthNavigate("forgot_password_reset");
 
       showCustomToast({
@@ -83,6 +87,17 @@ const ForgotPasswordVerification = ({
       );
       setSendCodeState(false);
       setCountDown(40);
+    }
+
+    if (sendOtpCodeIsError && sendOtpCodeError) {
+      if ("status" in sendOtpCodeError) {
+        // if (sendOtpCodeError.status == 400) {
+        showCustomToast({
+          message: "Kindly check your internet connection.",
+          type: "error",
+        });
+        // }
+      }
     }
   }, [sendOtpCodeSuccess, sendOtpCodeError]);
 

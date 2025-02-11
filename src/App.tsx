@@ -8,6 +8,7 @@ import CheckoutPage from "./pages/checkout/CheckoutPage";
 import ScrollToTop from "./helpers/ScrollToTop";
 import NegotiationPage from "./pages/negotiation/NegotiationPage";
 import { Bounce, Slide, ToastContainer } from "react-toastify";
+import SearchPage from "./components/search-page/SearchPage";
 
 function App() {
   return (
@@ -36,6 +37,8 @@ function App() {
         <Route path="/checkout" element={<CheckoutPage />} />
 
         <Route path="/negotiate/:itemId" element={<NegotiationPage />} />
+
+        <Route path="/search" element={<SearchPage />} />
       </Routes>
     </BrowserRouter>
   );

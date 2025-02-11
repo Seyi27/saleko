@@ -15,11 +15,11 @@ const ProductSection = ({
 }: ProductSectionProps) => {
   const displayProductData = data.slice(0, 5); // Limit to the first 6 products
 
-  const rowData = chunkArray(data, 5);
-  console.log("rowData rowData", rowData.slice(0, visibleRows));
+  const chunkArrayRowData = chunkArray(data, 5);
+  console.log("rowData rowData", chunkArrayRowData.slice(0, visibleRows));
 
   useEffect(() => {
-    setRowData?.(rowData);
+    setRowData?.(chunkArrayRowData);
   }, [setRowData]);
 
   let contentbody = null;
@@ -72,7 +72,43 @@ const ProductSection = ({
           <hr style={{ border: "0.5px solid #e5e7eb" }} />
 
           <div>
-            {rowData.slice(0, visibleRows).map((row, rowIndex) => (
+            {chunkArrayRowData.slice(0, visibleRows).map((row, rowIndex) => (
+              <div
+                key={rowIndex}
+                className={`${
+                  row.length < 5
+                    ? "product_section_row_to_remove_space" // for the remaining rows that are lower than 5 in a row
+                    : "product_section_row"
+                }`}
+              >
+                {" "}
+                {/* for if the items in a row is less than 6, so as to remove 'justify-content: space-between;' */}
+                {row.map((item: Product, index: number) => (
+                  <div key={index} className="product_card_container">
+                    <ProductCard item={item} name={name} />
+
+                    {index < row.length - 1 && (
+                      <hr
+                        style={{
+                          border: "0.1px solid #e5e7eb",
+                          height: "100%",
+                        }}
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+      break;
+
+    case "search":
+      contentbody = (
+        <div className="product_section_container">
+          <div>
+            {chunkArrayRowData.map((row, rowIndex) => (
               <div
                 key={rowIndex}
                 className={`${

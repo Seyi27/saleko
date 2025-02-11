@@ -3,8 +3,11 @@ import "./SearchBar.css";
 import { BsSearch } from "react-icons/bs";
 import { FaTrashAlt } from "react-icons/fa";
 import { AiFillCloseCircle } from "react-icons/ai";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [searchValue, setSearchValue] = useState(""); // Tracks the search input
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
@@ -48,6 +51,8 @@ const SearchBar = () => {
     },
   ];
 
+
+
   const fetchData = async (value: string) => {
     await fetch(`http://api.tvmaze.com/search/shows?q=${value}`)
       .then((res) => res.json())
@@ -70,6 +75,10 @@ const SearchBar = () => {
       setSearchHistory((prevHistory) => [...prevHistory, searchValue]);
     }
 
+    if (searchValue.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchValue)}`);
+    }
+
     setShowSuggestions(false); // Hide the suggestions
   };
 
@@ -80,12 +89,22 @@ const SearchBar = () => {
   const handleSuggestionClick = (suggestion: string) => {
     setSearchValue(suggestion); // Set the clicked suggestion to the search bar
     setShowSuggestions(false); // Hide the suggestions
+    navigate(`/search?q=${encodeURIComponent(suggestion)}`);
 
     // Add search value to history if it doesn't already exist
     if (!searchHistory.includes(suggestion)) {
       setSearchHistory((prevHistory) => [...prevHistory, suggestion]);
     }
   };
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const query = searchParams.get("q");
+
+    if (query) {
+      setSearchValue(query);
+    }
+  }, [location.search]);
 
   return (
     <div className="search_bar_container" ref={searchBarRef}>
