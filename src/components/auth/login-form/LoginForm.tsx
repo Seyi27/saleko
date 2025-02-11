@@ -127,7 +127,7 @@ const LoginForm = ({
           All data will be encrypted
         </p>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="">
           {/* Email Address or Phone Number* */}
           <CustomTextInput
             type={"normal"}
@@ -158,7 +158,7 @@ const LoginForm = ({
             <p className="customErrorText">{customErrorText}</p>
           )} */}
 
-          <div style={{ margin: "20px" }} />
+          <div style={{ margin: "15px" }} />
 
           <div
             className="forgot_password"
@@ -167,7 +167,7 @@ const LoginForm = ({
             <p>Forgot Password?</p>
           </div>
 
-          <div style={{ margin: "20px" }} />
+          <div style={{ margin: "15px" }} />
 
           {/* Login Button */}
           <CustomButton
@@ -193,7 +193,7 @@ const LoginForm = ({
           </p>
         </div>
 
-        <div style={{ margin: "30px" }} />
+        <div style={{ margin: "20px" }} />
 
         {/* Form Divider */}
         <div className="form_divider">
@@ -207,7 +207,7 @@ const LoginForm = ({
           />
         </div>
 
-        <div style={{ margin: "20px" }} />
+        <div style={{ margin: "15px" }} />
 
         {/* Continue with Apple */}
         <CustomButton

@@ -9,10 +9,12 @@ import CloseModalContainer from "../close-auth-modal-container/CloseModalContain
 import { AuthModalScreenProps } from "../../../types/types";
 import { RootState, store } from "../../../store/store";
 import {
+  useSendOtpCodeMutation,
   useSignUpMutation,
   useVerifyOtpMutation,
 } from "../../../services/authApi";
 import { showCustomToast } from "../../custom-toast/CustomToast";
+import { addNotificationReference } from "../../../slice/createAccountDataSlice";
 
 const ConfirmPhoneEmail = ({
   handleCloseModal,
@@ -23,6 +25,8 @@ const ConfirmPhoneEmail = ({
   const [disabled, setDisabled] = useState(true);
   const [sendCodeState, setSendCodeState] = useState(false);
   const [countDown, setCountDown] = useState(40);
+
+  const dispatch = useDispatch()
 
   const selectedDropdownValue = useSelector(
     (state: RootState) => state.authValue.selectedDropdownValue
@@ -39,15 +43,16 @@ const ConfirmPhoneEmail = ({
     useVerifyOtpMutation();
 
   const [
-    signUp,
+    sendOtpCode,
     {
-      data: signUpData,
-      isSuccess: signUpSuccess,
-      error: signUpError,
-      isLoading: signUpLoading,
+      data: sendOtpCodeData,
+      isSuccess: sendOtpCodeSuccess,
+      error: sendOtpCodeError,
+      isLoading: sendOtpCodeLoading,
     },
-  ] = useSignUpMutation();
+  ] = useSendOtpCodeMutation();
 
+  // to verify otp
   useEffect(() => {
     if (isSuccess) {
       setPinError(false);
@@ -71,15 +76,18 @@ const ConfirmPhoneEmail = ({
     }
   }, [data, isSuccess, isError, error]);
 
+  // to resend otp
   useEffect(() => {
-    if (signUpSuccess) {
+    if (sendOtpCodeSuccess) {
+      dispatch(
+        addNotificationReference({ notification_reference: sendOtpCodeData.data.notification_reference })
+      );
       setSendCodeState(false);
       setCountDown(40);
     }
-  }, [signUpSuccess, signUpError]);
+  }, [sendOtpCodeSuccess, sendOtpCodeError]);
 
-  console.log("confirm data", data);
-
+  // to handle pin submit
   const handlePinSubmit = () => {
     const verifyOtpBody = {
       otp: pin,
@@ -90,9 +98,9 @@ const ConfirmPhoneEmail = ({
     verifyOtp(verifyOtpBody);
   };
 
+  // to handle otp resend
   const handleResendCode = () => {
-    // to fire the signup endpoint again, in order to generate another otp code
-    signUp({
+    sendOtpCode({
       username: emailPhoneText,
       mode: selectedDropdownValue,
     });
@@ -200,7 +208,7 @@ const ConfirmPhoneEmail = ({
             fontSize={13}
             fontWeight={600}
             onClick={handleResendCode}
-            loader={signUpLoading}
+            loader={sendOtpCodeLoading}
             loaderColor={true}
           />
         ) : (

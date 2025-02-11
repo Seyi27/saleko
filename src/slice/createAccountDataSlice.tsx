@@ -22,6 +22,13 @@ const createAccountDataSlice = createSlice({
       state.notification_reference = action.payload.notification_reference;
     },
 
+    addNotificationReference: (
+      state,
+      action: PayloadAction<{ notification_reference: string | null }>
+    ) => {
+      state.notification_reference = action.payload.notification_reference;
+    },
+
     removeCreateAccountDataValues: (
       state,
     ) => {
@@ -31,7 +38,7 @@ const createAccountDataSlice = createSlice({
   },
 });
 
-export const { addCreateAccountDataValues, removeCreateAccountDataValues } =
+export const { addCreateAccountDataValues, removeCreateAccountDataValues,addNotificationReference } =
   createAccountDataSlice.actions;
 
 export default createAccountDataSlice.reducer;

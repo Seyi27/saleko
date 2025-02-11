@@ -83,7 +83,8 @@ const NavHeaderSearch = () => {
 
   const handleCloseResetPasswordModal = () => {
     setIsOpenResetPassword(false);
-    dispatch(addActiveScreen("create_account"));
+    dispatch(addActiveScreen("login_form"));
+    setIsOpen(true);
   };
 
   const handleLogOut = () => {

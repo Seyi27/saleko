@@ -112,7 +112,8 @@ const ProfileSetup = ({
         if (!e.trim()) {
           setPhoneNo("");
           setPhoneNoError("Phone Number cannot be empty");
-        } else if (/^\d+$/.test(e.trim())) { // takes only numbers
+        } else if (/^\d+$/.test(e.trim())) {
+          // takes only numbers
           setPhoneNo(e.trim());
           setPhoneNoError("");
         } else {
@@ -123,7 +124,8 @@ const ProfileSetup = ({
         setEmail(e.trim());
         if (!e.trim()) {
           setEmailError("Email cannot be empty");
-        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.trim())) {// if email is not valid
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.trim())) {
+          // if email is not valid
           setEmailError("Email is not valid");
         } else {
           setEmailError("");
@@ -202,7 +204,7 @@ const ProfileSetup = ({
       first_name: firstName,
       last_name: lastName,
       username:
-        selectedDropdownValue == "email" ? email : phoneNoWithCountryCode,
+        selectedDropdownValue == "email" ? phoneNoWithCountryCode : email,
       password: password,
       password_confirmation: confirmPassword,
       accept_terms: termsChecked,
@@ -219,7 +221,7 @@ const ProfileSetup = ({
       <div className="profile_setup_form_container">
         <p className="setup_profile_text">Set up your profile</p>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="profile_form">
           {/* First Name */}
           <CustomTextInput
             type={"normal"}
@@ -242,7 +244,7 @@ const ProfileSetup = ({
             handleTextInput={handleTextInput}
           />
 
-          {selectedDropdownValue == "phone" ? (
+          {selectedDropdownValue == "email" ? (
             // Phone Number
             <CustomTextInput
               type={"phoneNo"}

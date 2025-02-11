@@ -4,19 +4,26 @@ import { useLocation, useNavigate } from "react-router-dom";
 import PinInput from "react-pin-input";
 import CustomButton from "../../custom-button/CustomButton";
 import CloseModalContainer from "../close-auth-modal-container/CloseModalContainer";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AuthModalScreenProps } from "../../../types/types";
 import { RootState } from "../../../store/store";
+import {
+  useSendOtpCodeMutation,
+  useVerifyOtpMutation,
+} from "../../../services/authApi";
+import { showCustomToast } from "../../custom-toast/CustomToast";
+import { addFpNotification_reference, addFpTempOtpForPasswordReset } from "../../../slice/authValueSlice";
 
 const ForgotPasswordVerification = ({
   handleCloseModal,
   handleAuthNavigate,
 }: AuthModalScreenProps) => {
+  const dispatch = useDispatch();
   const [pin, setPin] = useState("");
   const [pinError, setPinError] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [sendCodeState, setSendCodeState] = useState(false);
-  const [countDown, setCountDown] = useState(44);
+  const [countDown, setCountDown] = useState(40);
 
   const fpSelectedValueType = useSelector(
     (state: RootState) => state.authValue.fpSelectedValueType
@@ -26,13 +33,76 @@ const ForgotPasswordVerification = ({
     (state: RootState) => state.authValue.fpEmailPhoneText
   );
 
-  const handlePinSubmit = () => {
-    if (pin !== "123456") {
-      setPinError(true);
-    } else {
+  const fpNotificationRef = useSelector(
+    (state: RootState) => state.authValue.fpNotification_reference
+  );
+
+  const [verifyOtp, { data, isSuccess, isError, error, isLoading }] =
+    useVerifyOtpMutation();
+
+  const [
+    sendOtpCode,
+    {
+      data: sendOtpCodeData,
+      isSuccess: sendOtpCodeSuccess,
+      error: sendOtpCodeError,
+      isLoading: sendOtpCodeLoading,
+    },
+  ] = useSendOtpCodeMutation();
+
+  // for verify otp
+  useEffect(() => {
+    if (isSuccess) {
       setPinError(false);
+      dispatch(addFpTempOtpForPasswordReset(data.data.data.otp))
       handleAuthNavigate("forgot_password_reset");
+
+      showCustomToast({
+        message: "Verification successfull",
+        type: "success",
+      });
     }
+    if (isError && error) {
+      if ("status" in error) {
+        if (error.status == 400 || error.status == 422) {
+          setPinError(true);
+          showCustomToast({
+            message: "Invalid Verification Code",
+            type: "error",
+          });
+        }
+      }
+    }
+  }, [data, isSuccess, isError, error]);
+
+  // for resend otp
+  useEffect(() => {
+    if (sendOtpCodeSuccess) {
+      dispatch(
+        addFpNotification_reference(sendOtpCodeData.data.notification_reference)
+      );
+      setSendCodeState(false);
+      setCountDown(40);
+    }
+  }, [sendOtpCodeSuccess, sendOtpCodeError]);
+
+  // submit and verify pin
+  const handlePinSubmit = () => {
+    const verifyOtpBody = {
+      otp: pin,
+      reference_code: fpNotificationRef,
+      sent_to: fpEmailPhoneText,
+    };
+
+    verifyOtp(verifyOtpBody);
+  };
+
+  // to resend otp
+  const handleResendCode = () => {
+    sendOtpCode({
+      username: fpEmailPhoneText,
+      mode: fpSelectedValueType == "email" ? "email" : "phone_number",
+    });
   };
 
   useEffect(() => {
@@ -51,13 +121,17 @@ const ForgotPasswordVerification = ({
       }, 3000);
       return () => clearTimeout(timer);
     }
+
+    if (countDown == 0) {
+      setSendCodeState(true);
+    }
   }, [countDown]);
 
   return (
     <>
       <CloseModalContainer
         handleCloseModal={handleCloseModal}
-        handleAuthNavigate={()=>handleAuthNavigate("forgot_password_request")}
+        handleAuthNavigate={() => handleAuthNavigate("forgot_password_request")}
       />
 
       <div className="fp_verify_phone_email_container">
@@ -67,7 +141,8 @@ const ForgotPasswordVerification = ({
         </p>
         <p className="fp_verify_code_sent_text">
           Enter the code sent to the{" "}
-          {fpSelectedValueType == "phone" ? "number" : "email"} {fpEmailPhoneText}
+          {fpSelectedValueType == "phone" ? "number" : "email"}{" "}
+          {fpEmailPhoneText}
         </p>
 
         <div className="fp_verify_code_container">
@@ -82,6 +157,18 @@ const ForgotPasswordVerification = ({
             onChange={(value, index) => {
               setPinError(false);
               setPin(value);
+              if (value.length === 6) {
+                setDisabled(false);
+                setSendCodeState(true);
+              } else {
+                setDisabled(true);
+              }
+            }}
+            onComplete={(value) => {
+              setPinError(false);
+              setPin(value);
+              setDisabled(false); // Enable the button after completion
+              setSendCodeState(true);
             }}
             type="numeric"
             inputMode="number"
@@ -97,7 +184,6 @@ const ForgotPasswordVerification = ({
               borderRadius: "5px",
             }}
             //   inputFocusStyle={{ borderColor: "blue" }}
-            onComplete={(value, index) => {}}
             autoSelect={true}
             regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
           />
@@ -116,6 +202,7 @@ const ForgotPasswordVerification = ({
           fontSize={16}
           fontWeight={600}
           disabled={disabled}
+          loader={isLoading}
           onClick={handlePinSubmit}
         />
 
@@ -128,6 +215,9 @@ const ForgotPasswordVerification = ({
             textColor="#084C3F"
             fontSize={13}
             fontWeight={600}
+            loader={sendOtpCodeLoading}
+            onClick={handleResendCode}
+            loaderColor={true}
           />
         ) : (
           <div style={{ marginTop: "40px" }}>

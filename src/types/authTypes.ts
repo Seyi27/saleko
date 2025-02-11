@@ -8,6 +8,13 @@ export type SignUpType = {
     mode: string
 }
 
+export type ResetPassword = {
+    otp: string,
+    password: string,
+    password_confirmation: string,
+    username: string
+}
+
 export type VerifyOtpType = {
     otp: string,
     reference_code: string | null,

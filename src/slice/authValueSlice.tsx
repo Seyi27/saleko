@@ -6,6 +6,8 @@ interface authValueSliceState{
   emailPhonenumberText: string,
   fpSelectedValueType: string | undefined,
   fpEmailPhoneText: string,
+  fpNotification_reference: string,
+  fpTempOtpForPasswordReset: string
 }
 
 const initialState: authValueSliceState = {
@@ -14,6 +16,8 @@ const initialState: authValueSliceState = {
   emailPhonenumberText: "",
   fpSelectedValueType: "", // For forgot password
   fpEmailPhoneText: "", // For forgot password
+  fpNotification_reference:"",
+  fpTempOtpForPasswordReset:""
 };
 
 const authValueSlice = createSlice({
@@ -35,6 +39,12 @@ const authValueSlice = createSlice({
     addFpEmailPhoneText: (state, action: PayloadAction<string>) => {
       state.fpEmailPhoneText = action.payload;
     },
+    addFpNotification_reference: (state, action: PayloadAction<string>) => {
+      state.fpNotification_reference = action.payload;
+    },
+    addFpTempOtpForPasswordReset: (state, action: PayloadAction<string>) => {
+      state.fpTempOtpForPasswordReset = action.payload;
+    },
   },
 });
 
@@ -43,7 +53,9 @@ export const {
   addEmailPhonenumberText,
   addFpSelectedValueType,
   addFpEmailPhoneText,
-  addActiveScreen
+  addActiveScreen,
+  addFpNotification_reference,
+  addFpTempOtpForPasswordReset
 } = authValueSlice.actions;
 
 export default authValueSlice.reducer;

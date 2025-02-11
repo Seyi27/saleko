@@ -1,6 +1,12 @@
 import React from "react";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { CompleteSignup, LoginType, SignUpType, VerifyOtpType } from "../types/authTypes";
+import {
+  CompleteSignup,
+  LoginType,
+  ResetPassword,
+  SignUpType,
+  VerifyOtpType,
+} from "../types/authTypes";
 
 const baseUrl = "https://staging.saleko.ng";
 
@@ -33,10 +39,12 @@ export const authApi = createApi({
         };
       },
     }),
-    forgotPassword: builder.mutation({
-      query: (body) => {
+    resetPassword: builder.mutation({
+      query: (body: ResetPassword) => {
         return {
-          url: "",
+          url: "/api/auth-svc/auth/reset-password",
+          method: "post",
+          body,
         };
       },
     }),
@@ -44,6 +52,15 @@ export const authApi = createApi({
       query: (body: VerifyOtpType) => {
         return {
           url: "/api/auth-svc/otp/verify",
+          method: "post",
+          body,
+        };
+      },
+    }),
+    sendOtpCode: builder.mutation({
+      query: (body: SignUpType) => {
+        return {
+          url: "/api/auth-svc/otp/send",
           method: "post",
           body,
         };
@@ -64,7 +81,8 @@ export const authApi = createApi({
 export const {
   useLoginMutation,
   useSignUpMutation,
-  useForgotPasswordMutation,
+  useResetPasswordMutation,
   useVerifyOtpMutation,
-  useCompleteSignupMutation
+  useCompleteSignupMutation,
+  useSendOtpCodeMutation,
 } = authApi;

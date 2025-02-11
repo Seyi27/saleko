@@ -4,20 +4,35 @@ import CustomButton from "../../custom-button/CustomButton";
 import { useNavigate } from "react-router-dom";
 import CustomTextInput from "../../custom-textInput/CustomTextInput";
 import CloseModalContainer from "../close-auth-modal-container/CloseModalContainer";
-import { useDispatch } from "react-redux";
-import { addFpEmailPhoneText, addFpSelectedValueType } from "../../../slice/authValueSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addFpEmailPhoneText,
+  addFpNotification_reference,
+  addFpSelectedValueType,
+} from "../../../slice/authValueSlice";
 import { AuthModalScreenProps } from "../../../types/types";
+import { useSendOtpCodeMutation } from "../../../services/authApi";
+import { RootState } from "../../../store/store";
 
 const ForgotPasswordRequest = ({
   handleCloseModal,
   handleAuthNavigate,
 }: AuthModalScreenProps) => {
+  const dispatch = useDispatch();
   const [emailOrPhoneText, setEmailOrPhoneText] = useState("");
   const [emailOrPhoneTextError, setEmailOrPhoneTextError] = useState("");
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [focusedTextinput, setFocusedTextinput] = useState(false);
 
-  const dispatch = useDispatch();
+  const [
+    sendOtpCode,
+    {
+      data: sendOtpCodeData,
+      isSuccess: sendOtpCodeSuccess,
+      error: sendOtpCodeError,
+      isLoading: sendOtpCodeLoading,
+    },
+  ] = useSendOtpCodeMutation();
 
   const handleTextInput = (key: string, e: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -25,7 +40,7 @@ const ForgotPasswordRequest = ({
     const phoneRegex = /^\+234\d{10}$/;
 
     setEmailOrPhoneText(e.trim());
-    dispatch(addFpEmailPhoneText(e.trim()))
+    dispatch(addFpEmailPhoneText(e.trim()));
     if (!e.trim()) {
       setEmailOrPhoneTextError("Field cannot be empty");
     } else if (!emailRegex.test(e.trim()) && !phoneRegex.test(e.trim())) {
@@ -43,7 +58,18 @@ const ForgotPasswordRequest = ({
     }
   }, [emailOrPhoneText, emailOrPhoneTextError]);
 
+  useEffect(() => {
+    if (sendOtpCodeSuccess) {
+      dispatch(
+        addFpNotification_reference(sendOtpCodeData.data.notification_reference)
+      );
+      handleAuthNavigate("forgot_password_verification");
+    }
+  }, [sendOtpCodeSuccess, sendOtpCodeError]);
+
   const handleForgotFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^\+234\d{10}$/;
     let thisSelectedValue;
@@ -58,17 +84,18 @@ const ForgotPasswordRequest = ({
       console.log("it is");
     }
 
-    dispatch(addFpSelectedValueType(thisSelectedValue))
-
-    e.preventDefault();
-    handleAuthNavigate("forgot_password_verification");
+    dispatch(addFpSelectedValueType(thisSelectedValue));
+    sendOtpCode({
+      username: emailOrPhoneText,
+      mode: thisSelectedValue == "email" ? "email" : "phone_number",
+    });
   };
 
   return (
     <>
       <CloseModalContainer
         handleCloseModal={handleCloseModal}
-        handleAuthNavigate={()=>handleAuthNavigate("login_form")}
+        handleAuthNavigate={() => handleAuthNavigate("login_form")}
       />
 
       <div className="forgot_password_request_container">
@@ -77,7 +104,7 @@ const ForgotPasswordRequest = ({
           No worries, we’ll send you reset instructions.
         </p>
 
-        <form onSubmit={handleForgotFormSubmit}>
+        <form onSubmit={handleForgotFormSubmit} className="fp_request_form">
           <CustomTextInput
             type={"normal"}
             name={"emailOrPhoneText"}
@@ -104,6 +131,7 @@ const ForgotPasswordRequest = ({
             fontWeight={600}
             disabled={buttonDisabled}
             onClick={handleForgotFormSubmit}
+            loader={sendOtpCodeLoading}
           />
         </form>
       </div>

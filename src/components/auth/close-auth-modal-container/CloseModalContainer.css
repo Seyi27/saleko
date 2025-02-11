@@ -1,24 +1,23 @@
 .close_modal_container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .close_modal_back_container {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    cursor: pointer;
-  }
-  
-  .close_modal_back_container span{
-    font-size: 14px;
-    color: #084C3F;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-  .saleko_green_logo{
-    width: 100px;
-    height: 30px;
-    object-fit: contain;
-  }
-  
+.close_modal_back_container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.close_modal_back_container span {
+  font-size: 14px;
+  color: #084c3f;
+}
+
+.saleko_green_logo {
+  width: 100px;
+  height: 30px;
+  object-fit: contain;
+}
