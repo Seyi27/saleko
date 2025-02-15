@@ -1,26 +1,33 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./NavCategories.css";
 import { BsChevronDown, BsChevronRight, BsFire, BsGrid } from "react-icons/bs";
 import CategoriesIcon from "../../assets/images/svg/CategoriesIcon";
-import { categoriesData } from "../../helpers/Data";
-import { CategoryData } from "../../types/types";
+import { CategoryDataProp } from "../../types/types";
+import { useFetchCategoriesQuery } from "../../services/appApi";
+import saleko_green from "../../assets/images/svg/saleko_green.svg";
 
 const NavCategories = () => {
   const [visibleDropdown, setVisibleDropdown] = useState(false);
-  const [hoveredCategory, setHoveredCategory] = useState<
-    CategoryData | undefined
-  >(categoriesData[0]);
+  const [categoryData, setCategoryData] = useState<CategoryDataProp[]>([]);
+  const [hoveredCategory, setHoveredCategory] = useState<CategoryDataProp>();
 
-  const handleDropdownHover = (name: string) => {
-    const hoverResult = categoriesData.find(
-      (dataName) => dataName.name === name
-    );
-    setHoveredCategory(hoverResult);
-  };
+  const { data, isSuccess, isError, error, isLoading } =
+    useFetchCategoriesQuery({});
+
+  useEffect(() => {
+    if (data?.data?.[0]?.children) {
+      setCategoryData(data.data[0].children);
+      setHoveredCategory(data.data[0].children[0]);
+    }
+  }, [data]);
+
+  console.log("categoryData", categoryData);
 
   return (
     <div>
-      {visibleDropdown && <div className="category_background_overlay"></div>}
+      {visibleDropdown && categoryData?.length > 0 && (
+        <div className="category_background_overlay"></div>
+      )}
 
       <div className="body_container nav_categories_container">
         <div className="body_second_container nav_categories_second_container">
@@ -38,28 +45,24 @@ const NavCategories = () => {
             <p>
               <BsFire color="red" /> Hot Deals
             </p>
-            <p>Fashion</p>
-            <p>Beauty & Personal Care</p>
-            <p>Electronics</p>
-            <p>Household Items & Kitchen Utensils</p>
-            <p>Computer & Accessories</p>
-            <p>Phones & Tablets Items</p>
-            <p>Food & Drinks</p>
+            {categoryData.slice(0,7).map((item, index) => (
+              <p>{item.name}</p>
+            ))}
           </div>
 
-
-          {visibleDropdown && (
+          {visibleDropdown && categoryData?.length > 0 && (
             <div
               className="category_dropdown"
               onMouseEnter={() => setVisibleDropdown(true)}
               onMouseLeave={() => setVisibleDropdown(false)}
             >
+              {/* left column */}
               <div className="category_dropdown_left_column">
-                {categoriesData.map((item, index) => (
+                {categoryData?.map((item, index) => (
                   <div
                     key={index}
                     className="category_item_container"
-                    onMouseEnter={() => handleDropdownHover(item.name)}
+                    onMouseEnter={() => setHoveredCategory(item)}
                   >
                     <span className="category_item">{item.name}</span>
                     <BsChevronRight size={10} />
@@ -69,6 +72,7 @@ const NavCategories = () => {
 
               <hr style={{ border: "0.5px solid #e5e7eb", height: "98%" }} />
 
+              {/* right column */}
               <div className="category_dropdown_right_column">
                 <div className="category_dropdown_right_column_header">
                   <p>{hoveredCategory?.name}</p>
@@ -76,13 +80,13 @@ const NavCategories = () => {
                 </div>
 
                 <div className="category_dropdown_right_column_item_container">
-                  {hoveredCategory?.subcategories?.map((item, index) => (
+                  {hoveredCategory?.children?.map((item, index) => (
                     <div
                       className="category_dropdown_right_column_item_inner_container"
                       key={index}
                     >
                       <img
-                        src={item.image}
+                        src={saleko_green}
                         className="category_dropdown_right_item_image"
                       />
                       <p>{item.name}</p>

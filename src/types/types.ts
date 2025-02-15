@@ -45,7 +45,7 @@ export type CustomTextInputProps = {
     selectedCode?: string,
     setSelectedCode?: Dispatch<SetStateAction<string>>
     placeholder?: string,
-    focused?:boolean
+    focused?: boolean
     setFocused?: Dispatch<SetStateAction<boolean>>
 }
 
@@ -135,18 +135,8 @@ export type Store = {
     orders: string
 }
 
-export type CategoryData = {
-    id: number;
-    name: string;
-    subcategories?: CategoryDataSubcategories[]
-}
-
-export type CategoryDataSubcategories = {
-    image: string;
-    name: string
-}
-
 /*************** Market Place data ******************* */
+
 export type MarketplaceDataProps = {
     marketId: number;
     name: string;
@@ -159,7 +149,7 @@ export type MarketplaceDataProps = {
 export type NegotiationModalProp = {
     isOpen: boolean
     closeModal: () => void
-    item?: Product 
+    item?: Product
 }
 
 /************ Transaction Pin Modal Prop ****************** */
@@ -169,3 +159,16 @@ export type TransactionPinModalProp = {
     closeModal: () => void,
     setOrderConfirmedModal: Dispatch<SetStateAction<boolean>>,
 }
+
+/************ Categories Prop ****************** */
+
+export type CategoryDataProp = {
+    id: number;
+    name: string;
+    imageUrl: string;
+    slug: string;
+    position: number;
+    parentId: number | null;
+    status: boolean;
+    children: CategoryDataProp[]; // Recursive type to represent nested categories
+};

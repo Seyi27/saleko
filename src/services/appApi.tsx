@@ -23,8 +23,16 @@ export const appApi = createApi({
         url: `/api/main-svc/market/single/${marketId}`,
       }),
     }),
+    fetchCategories: builder.query({
+      query: () => ({
+        url: "/api/main-svc/productcategory/fetch-visible-categories",
+      }),
+    }),
   }),
 });
 
-export const { useMarketplaceApiQuery, useLazySingleMarketplaceApiQuery } =
-  appApi;
+export const {
+  useMarketplaceApiQuery,
+  useLazySingleMarketplaceApiQuery,
+  useFetchCategoriesQuery,
+} = appApi;
