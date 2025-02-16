@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../../../slice/userDetailsSlice";
 import { ToastContainer, toast } from "react-toastify";
 import { showCustomToast } from "../../custom-toast/CustomToast";
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 
 const LoginForm = ({
   handleCloseModal,
@@ -44,7 +45,7 @@ const LoginForm = ({
 
     if (isError && error) {
       if ("status" in error) {
-        setFocusedTextinput(false) // to remove the placeholder when there is an error
+        setFocusedTextinput(false); // to remove the placeholder when there is an error
 
         if (error.status == 401 || error.status == 422) {
           // setCustomErrorText("Incorrect password");
@@ -115,18 +116,38 @@ const LoginForm = ({
     e.preventDefault();
   };
 
+  const googleLogin = useGoogleLogin({
+    onSuccess: (codeResponse) => console.log("codeResponse", codeResponse),
+    onError: (errorResponse) => console.log("errorResponse", errorResponse),
+    flow: "auth-code",
+  });
+
+  const handleSuccess = async (response: any) => {
+    console.log("Google Login Success:", response);
+
+    // Send the token to the backend
+    const res = await fetch(`https://staging.saleko.ng/api/auth-svc/auth/social/callback/google?token=${response.credential}`, {
+      method: "GET",
+      // headers: {
+      //   "Content-Type": "application/json",
+      // },
+      // body: JSON.stringify({ token: response.credential }),
+    });
+
+    const data = await res.json();
+    console.log("Backend Response:", data);
+  };
+
   return (
     <>
       <CloseModalContainer cancelIconOnly handleCloseModal={handleCloseModal} />
 
       <div className="login_form_container">
         <p className="login_text">Login</p>
-
         <p className="data_encrypted_text">
           <img src={encrypted_ic} />
           All data will be encrypted
         </p>
-
         <form onSubmit={handleSubmit} className="">
           {/* Email Address or Phone Number* */}
           <CustomTextInput
@@ -183,7 +204,6 @@ const LoginForm = ({
             loader={isLoading}
           />
         </form>
-
         <div className="have_an_account_container">
           <p>
             Don’t have an account?{" "}
@@ -192,9 +212,7 @@ const LoginForm = ({
             </span>
           </p>
         </div>
-
         <div style={{ margin: "20px" }} />
-
         {/* Form Divider */}
         <div className="form_divider">
           <hr
@@ -206,9 +224,7 @@ const LoginForm = ({
             style={{ width: "100%", marginRight: "20px", marginLeft: "20px" }}
           />
         </div>
-
         <div style={{ margin: "15px" }} />
-
         {/* Continue with Apple */}
         <CustomButton
           label="Continue with Apple"
@@ -219,9 +235,7 @@ const LoginForm = ({
           borderWidth="1px"
           icon={<FaApple size={16} />}
         />
-
         <div style={{ margin: "20px" }} />
-
         {/* Continue with Google */}
         <CustomButton
           label="Continue with Google"
@@ -231,6 +245,17 @@ const LoginForm = ({
           borderColor="#DFDFDF"
           borderWidth="1px"
           icon={<FcGoogle size={16} />}
+          // onClick={()=> googleLogin()}
+        />
+
+        <GoogleLogin
+          onSuccess={(credentialResponse) => {
+            console.log("credentialResponse", credentialResponse.credential);
+            handleSuccess(credentialResponse);
+          }}
+          onError={() => {
+            console.log("Login Failed");
+          }}
         />
       </div>
     </>
