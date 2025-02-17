@@ -75,6 +75,14 @@ export const authApi = createApi({
         };
       },
     }),
+    googleAuthCallback: builder.mutation({
+      query: (token: string) => {
+        return {
+          url: `/api/auth-svc/auth/social/callback/google?token=${token}`,
+          method: "get",
+        };
+      },
+    }),
   }),
 });
 
@@ -85,4 +93,5 @@ export const {
   useVerifyOtpMutation,
   useCompleteSignupMutation,
   useSendOtpCodeMutation,
+  useGoogleAuthCallbackMutation
 } = authApi;

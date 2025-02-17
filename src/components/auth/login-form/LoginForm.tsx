@@ -7,7 +7,10 @@ import CustomTextInput from "../../custom-textInput/CustomTextInput";
 import CloseModalContainer from "../close-auth-modal-container/CloseModalContainer";
 import encrypted_ic from "../../../assets/images/svg/encrypted_ic.svg";
 import { AuthModalScreenProps } from "../../../types/types";
-import { useLoginMutation } from "../../../services/authApi";
+import {
+  useGoogleAuthCallbackMutation,
+  useLoginMutation,
+} from "../../../services/authApi";
 import { useDispatch } from "react-redux";
 import { addUser, removeUser } from "../../../slice/userDetailsSlice";
 import { ToastContainer, toast } from "react-toastify";
@@ -32,6 +35,17 @@ const LoginForm = ({
 
   const [login, { data, isSuccess, isError, error, isLoading }] =
     useLoginMutation();
+
+  const [
+    googleAuthCallback,
+    {
+      data: googleData,
+      isSuccess: googleIsSuccess,
+      isError: googleIsError,
+      error: googleError,
+      isLoading: googleIsLoading,
+    },
+  ] = useGoogleAuthCallbackMutation();
 
   console.log("login data", data);
 
@@ -117,25 +131,29 @@ const LoginForm = ({
   };
 
   const googleLogin = useGoogleLogin({
-    onSuccess: (codeResponse) => console.log("codeResponse", codeResponse),
-    onError: (errorResponse) => console.log("errorResponse", errorResponse),
-    flow: "auth-code",
+    onSuccess: (codeResponse) => {
+      handleGoogleSuccess(codeResponse.access_token);
+    },
+    onError: (errorResponse) => {
+      showCustomToast({
+        message: "Error! Please check your credentials and try again..",
+        type: "error",
+      });
+    },
+    flow: "implicit",
   });
 
-  const handleSuccess = async (response: any) => {
-    console.log("Google Login Success:", response);
-
-    // Send the token to the backend
-    const res = await fetch(`https://staging.saleko.ng/api/auth-svc/auth/social/callback/google?token=${response.credential}`, {
-      method: "GET",
-      // headers: {
-      //   "Content-Type": "application/json",
-      // },
-      // body: JSON.stringify({ token: response.credential }),
-    });
-
-    const data = await res.json();
-    console.log("Backend Response:", data);
+  const handleGoogleSuccess = async (response: string) => {
+    try {
+      const res = await googleAuthCallback(response).unwrap(); // forces the mutation to return a raw response or throw an error.
+      dispatch(addUser(res.data));
+      handleCloseModal();
+    } catch (error) {
+      showCustomToast({
+        message: "Error! Please check your network connection and try again..",
+        type: "error",
+      });
+    }
   };
 
   return (
@@ -245,17 +263,7 @@ const LoginForm = ({
           borderColor="#DFDFDF"
           borderWidth="1px"
           icon={<FcGoogle size={16} />}
-          // onClick={()=> googleLogin()}
-        />
-
-        <GoogleLogin
-          onSuccess={(credentialResponse) => {
-            console.log("credentialResponse", credentialResponse.credential);
-            handleSuccess(credentialResponse);
-          }}
-          onError={() => {
-            console.log("Login Failed");
-          }}
+          onClick={() => googleLogin()}
         />
       </div>
     </>

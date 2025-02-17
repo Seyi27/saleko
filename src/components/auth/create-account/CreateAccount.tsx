@@ -6,7 +6,10 @@ import { FcGoogle } from "react-icons/fc";
 import { countryCallingCodes } from "../../../helpers/CountryCallingCodes";
 import { useNavigate } from "react-router-dom";
 import CustomTextInput from "../../custom-textInput/CustomTextInput";
-import { useSignUpMutation } from "../../../services/authApi";
+import {
+  useGoogleAuthCallbackMutation,
+  useSignUpMutation,
+} from "../../../services/authApi";
 import { Audio, ColorRing, TailSpin } from "react-loader-spinner";
 import { BsChevronLeft, BsX } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,6 +23,8 @@ import { AuthModalScreenProps } from "../../../types/types";
 import { addCreateAccountDataValues } from "../../../slice/createAccountDataSlice";
 import { showCustomToast } from "../../custom-toast/CustomToast";
 import { RootState } from "../../../store/store";
+import { useGoogleLogin } from "@react-oauth/google";
+import { addUser } from "../../../slice/userDetailsSlice";
 
 const CreateAccount = ({
   handleCloseModal,
@@ -42,6 +47,17 @@ const CreateAccount = ({
   const [signUp, { data, isSuccess, isLoading, isError, error }] =
     useSignUpMutation();
 
+  const [
+    googleAuthCallback,
+    {
+      data: googleData,
+      isSuccess: googleIsSuccess,
+      isError: googleIsError,
+      error: googleError,
+      isLoading: googleIsLoading,
+    },
+  ] = useGoogleAuthCallbackMutation();
+
   const dispatch = useDispatch();
 
   const handleDropdownChange = (key: string, value: string) => {
@@ -60,7 +76,8 @@ const CreateAccount = ({
         if (!e.trim()) {
           setPhoneNo("");
           setPhoneNoError("Phone Number cannot be empty");
-        } else if (/^\d+$/.test(e.trim())) { // takes only numbers
+        } else if (/^\d+$/.test(e.trim())) {
+          // takes only numbers
           setPhoneNo(e.trim());
           setPhoneNoError("");
           dispatch(addEmailPhonenumberText(selectedCode + e.trim()));
@@ -109,7 +126,7 @@ const CreateAccount = ({
     if (isError && error) {
       if ("status" in error) {
         if (error.status == 422) {
-          setFocusedTextinput(false)
+          setFocusedTextinput(false);
 
           if (selectedDropdownKey == "email") {
             showCustomToast({
@@ -143,6 +160,32 @@ const CreateAccount = ({
         username:
           selectedDropdownKey == "email" ? email : phoneNoWithCountryCode,
         mode: selectedDropdownKey == "email" ? "email" : "phone_number",
+      });
+    }
+  };
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: (codeResponse) => {
+      handleGoogleSuccess(codeResponse.access_token);
+    },
+    onError: (errorResponse) => {
+      showCustomToast({
+        message: "Error! Please check your credentials and try again..",
+        type: "error",
+      });
+    },
+    flow: "implicit",
+  });
+
+  const handleGoogleSuccess = async (response: string) => {
+    try {
+      const res = await googleAuthCallback(response).unwrap(); // forces the mutation to return a raw response or throw an error.
+      dispatch(addUser(res.data));
+      handleCloseModal();
+    } catch (error) {
+      showCustomToast({
+        message: "Error! Please check your network connection and try again..",
+        type: "error",
       });
     }
   };
@@ -277,6 +320,7 @@ const CreateAccount = ({
             borderColor="#DFDFDF"
             borderWidth="1px"
             icon={<FcGoogle size={16} />}
+            onClick={() => googleLogin()}
           />
         </form>
       </div>
