@@ -179,7 +179,11 @@ const CreateAccount = ({
 
   const handleGoogleSuccess = async (response: string) => {
     try {
-      const res = await googleAuthCallback(response).unwrap(); // forces the mutation to return a raw response or throw an error.
+      const googleCallbackBody = {
+        channel: "web",
+        token: response,
+      };
+      const res = await googleAuthCallback(googleCallbackBody).unwrap(); // forces the mutation to return a raw response or throw an error.
       dispatch(addUser(res.data));
       handleCloseModal();
     } catch (error) {

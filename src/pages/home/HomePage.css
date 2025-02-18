@@ -4,13 +4,6 @@
   z-index: 1000;
 }
 
-.slide_container {
-  display: flex;
-  height: 359px;
-  padding-top: 200px;
-  gap: 10px;
-}
-
 .frame_container_right {
   display: flex;
   flex-direction: column;

@@ -7,9 +7,8 @@ import {
   HomeFrame2,
   HomeFrame3,
   HomeFrame4,
-  HomeFrame5,
-  HomeFrame6,
 } from "../../assets/images";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
 const HomeCarouselComponent = () => {
   const slides = [
@@ -25,12 +24,6 @@ const HomeCarouselComponent = () => {
     {
       image: HomeFrame4,
     },
-    {
-      image: HomeFrame5,
-    },
-    {
-      image: HomeFrame6,
-    },
   ];
 
   return (
@@ -40,18 +33,32 @@ const HomeCarouselComponent = () => {
         interval={2000}
         infiniteLoop
         showIndicators={true}
-        showArrows={false}
+        showArrows={true}
         showThumbs={false}
         showStatus={false}
         stopOnHover={false}
         className="custom_carousel"
+        renderArrowPrev={(clickHandler, hasPrev) =>
+          hasPrev && (
+            <button className="custom-arrow left" onClick={clickHandler}>
+              <BsChevronLeft size={24} />
+            </button>
+          )
+        }
+        renderArrowNext={(clickHandler, hasNext) =>
+          hasNext && (
+            <button className="custom-arrow right" onClick={clickHandler}>
+              <BsChevronRight size={24} />
+            </button>
+          )
+        }
       >
         {slides.map((slide, index) => (
           <div key={index}>
             <img
               src={slide.image}
               alt={`Slide ${index + 1}`}
-              className="image_slides"
+              // className="image_slides"
             />
           </div>
         ))}

@@ -1,10 +1,9 @@
-.home_carousel_container{
-  width: 70%;
-}
+/* .home_carousel_container{
+} */
 
-.custom_carousel .carousel .slider-wrapper {
+/* .custom_carousel .carousel .slider-wrapper {
   width: 100% !important;
-}
+} */
 
 /* Center the indicators between images */
 .custom_carousel .carousel .control-dots {
@@ -26,8 +25,37 @@
   background-color: #26A37C; /* Highlight color */
 }
 
-.image_slides{
-  height: 359px;
+/* .image_slides{
+  height: 100%;
   width: 100%;
-  object-fit: cover;
+  object-fit: contain;
+} */
+
+.custom-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  border-radius: 50%;
+}
+
+.custom-arrow.left {
+  left: 10px;
+}
+
+.custom-arrow.right {
+  right: 10px;
+}
+
+.custom-arrow:hover {
+  background: rgba(0, 0, 0, 0.8);
 }

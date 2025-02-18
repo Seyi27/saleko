@@ -8,7 +8,7 @@ export type SignUpType = {
     mode: string
 }
 
-export type ResetPassword = {
+export type ResetPasswordType = {
     otp: string,
     password: string,
     password_confirmation: string,
@@ -21,11 +21,16 @@ export type VerifyOtpType = {
     sent_to: string
 }
 
-export type CompleteSignup = {
+export type CompleteSignupType = {
     first_name: string,
     last_name: string,
     username: string,
     password: string,
     password_confirmation: string,
     accept_terms: boolean
+}
+
+export type googleAuthCallbackType = {
+    channel: string,
+    token: string
 }

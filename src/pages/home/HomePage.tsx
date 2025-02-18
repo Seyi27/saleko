@@ -39,40 +39,52 @@ const HomePage = () => {
 
       <div className="body_container">
         <div className="body_second_container">
-          <div className="slide_container">
+          <div style={{ paddingTop: "200px" }}>
             <HomeCarouselComponent />
-
-            <div className="frame_container_right">
-              {/* <img src={Frame1} className="frame_image" />
-              <img src={Frame2} className="frame_image" /> */}
-
-              <div className="frame_image" />
-              <img src={NewArrivalGif}  />
-            </div>
           </div>
 
-          <ProductSection name={"Negotiable Products"} data={negotiableData} type="home"/>
+          <ProductSection
+            name={"Negotiable Products"}
+            data={negotiableData}
+            type="home"
+          />
 
-          <ProductSection name={"New Arrivals"} data={productData} type="home"/>
+          <ProductSection
+            name={"New Arrivals"}
+            data={productData}
+            type="home"
+          />
 
-          <ProductSection name={"Fashion"} data={productData} type="home"/>
+          <ProductSection name={"Fashion"} data={productData} type="home" />
 
           <div className="flex_image_container">
             <HomeFrame7 />
             <HomeFrame8 />
           </div>
 
-          <ProductSection name={"Electronics"} data={productData} type="home"/>
+          <ProductSection name={"Electronics"} data={productData} type="home" />
 
-          <ProductSection name={"Phones & Tablets Items"} data={productData} type="home"/>
+          <ProductSection
+            name={"Phones & Tablets Items"}
+            data={productData}
+            type="home"
+          />
 
           <div className="frame_image_9">
             <HomeFrame9 />
           </div>
 
-          <ProductSection name={"Computer & Accessories"} data={productData} type="home"/>
+          <ProductSection
+            name={"Computer & Accessories"}
+            data={productData}
+            type="home"
+          />
 
-          <ProductSection name={"Beauty & Personal Care"} data={productData} type="home"/>
+          <ProductSection
+            name={"Beauty & Personal Care"}
+            data={productData}
+            type="home"
+          />
 
           <BestSellerSection name={"Best Seller"} data={bestSellerData} />
 

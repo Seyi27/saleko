@@ -1,9 +1,10 @@
 import React from "react";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
-  CompleteSignup,
+  CompleteSignupType,
+  googleAuthCallbackType,
   LoginType,
-  ResetPassword,
+  ResetPasswordType,
   SignUpType,
   VerifyOtpType,
 } from "../types/authTypes";
@@ -40,7 +41,7 @@ export const authApi = createApi({
       },
     }),
     resetPassword: builder.mutation({
-      query: (body: ResetPassword) => {
+      query: (body: ResetPasswordType) => {
         return {
           url: "/api/auth-svc/auth/reset-password",
           method: "post",
@@ -67,7 +68,7 @@ export const authApi = createApi({
       },
     }),
     completeSignup: builder.mutation({
-      query: (body: CompleteSignup) => {
+      query: (body: CompleteSignupType) => {
         return {
           url: "/api/auth-svc/auth/complete-signup",
           method: "post",
@@ -76,10 +77,11 @@ export const authApi = createApi({
       },
     }),
     googleAuthCallback: builder.mutation({
-      query: (token: string) => {
+      query: (body: googleAuthCallbackType) => {
         return {
-          url: `/api/auth-svc/auth/social/callback/google?token=${token}`,
-          method: "get",
+          url: '/api/auth-svc/auth/social/callback/google',
+          method: "post",
+          body
         };
       },
     }),
