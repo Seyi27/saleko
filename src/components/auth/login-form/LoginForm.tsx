@@ -252,7 +252,7 @@ const LoginForm = ({
         <AppleSignin
           authOptions={{
             clientId: "com.saleko.salekoweb", // Service ID from Apple Developer
-            redirectURI: "https://www.google.com",
+            redirectURI: "https://saleko.vercel.app/",
             scope: "email name", // Permissions required
             // usePopup: true, // Open in popup
           }}
