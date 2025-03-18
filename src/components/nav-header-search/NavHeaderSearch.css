@@ -20,22 +20,14 @@
   gap: 10px;
 }
 
+.nav_saleko_logo {
+  display: none;
+}
+
 .search_and_dropdown_container {
   display: flex;
   align-items: center;
   gap: 10px;
-}
-
-.select_dropdown_container {
-  width: auto; /* 201px */
-  height: 42px;
-  background-color: #ffffff;
-  display: flex;
-  align-items: center;
-  border-radius: 20px;
-  padding-left: 10px;
-  padding-right: 10px;
-  border: 0;
 }
 
 .nav_header_search_right_container {
@@ -137,4 +129,57 @@
 
 .userdetails_container:hover .userdetails_dropdown_container {
   display: block;
+}
+
+.nav_menu_ic {
+  display: none;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .nav_header_search_container {
+    top: 0;
+    height: 80px;
+  }
+
+  .nav_header_search_second_container {
+    justify-content: space-between;
+    padding: 10px;
+  }
+
+  .nav_header_search_left_container {
+    display: none;
+  }
+  
+  .search_and_dropdown_container {
+    margin-right: 8px;
+  }
+
+  .nav_saleko_logo {
+    display: block;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .heart_icon {
+    display: none;
+  }
+
+  .userIcon_name {
+    display: none;
+  }
+
+  .nav_menu_ic {
+    display: block;
+  }
+
+  .login_register_text {
+    color: white;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+  }
 }

@@ -8,6 +8,7 @@ import userDetailsReducer from "../slice/userDetailsSlice";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import { persistReducer } from "redux-persist";
 import persistStore from "redux-persist/es/persistStore";
+import { productsApi } from "../services/productsApi";
 
 const reducer = combineReducers({
   authValue: authValueReducer,
@@ -16,6 +17,7 @@ const reducer = combineReducers({
 
   [authApi.reducerPath]: authApi.reducer,
   [appApi.reducerPath]: appApi.reducer,
+  [productsApi.reducerPath]: productsApi.reducer,
 });
 
 const persistConfig = {
@@ -34,7 +36,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(authApi.middleware, appApi.middleware),
+    }).concat(authApi.middleware, appApi.middleware, productsApi.middleware),
 });
 
 export const persistor = persistStore(store);

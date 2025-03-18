@@ -1,5 +1,10 @@
+.product_card_main_container {
+  width: 180px;
+  height: 380px;
+}
+
 .image_card {
-  width: 210px; 
+  width: 100%;
   height: 191px;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
@@ -10,7 +15,8 @@
   cursor: pointer;
 }
 
-.product_link{ /* for the Link from react-router-dom*/
+.product_link {
+  /* for the Link from react-router-dom*/
   text-decoration: none;
   color: inherit;
 }
@@ -64,9 +70,12 @@
 }
 
 .product_name {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 400;
   padding-top: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .rating_container {
@@ -81,6 +90,7 @@
 
 .product_price_container {
   padding-top: 10px;
+  font-family: "SourceCodePro", sans-serif;
 }
 
 .product_price {
@@ -116,17 +126,17 @@
   color: #084c3f;
 }
 
-.product_button:hover{
-    background-color: #084c3f;
-    color: white;
+.product_button:hover {
+  background-color: #084c3f;
+  color: white;
 }
 
-.product_button_cart_icon{
-    color: #084c3f;
+.product_button_cart_icon {
+  color: #084c3f;
 }
 
-.product_button:hover .product_button_cart_icon{
-    color: white;
+.product_button:hover .product_button_cart_icon {
+  color: white;
 }
 
 /* classnames: negotiate_icon, icon_path are called in NegotiateIcon.tsx */
@@ -136,4 +146,13 @@
 
 .product_button:hover .negotiate_icon .icon_path {
   stroke: white; /* Change the stroke color when hovered */
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .product_card_main_container {
+    width: 39vw;
+    height: 380px;
+    padding-bottom: 15px;
+  }
 }

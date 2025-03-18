@@ -44,19 +44,9 @@ const CreateAccount = ({
   const [dropdownToggle, setDropdownToggle] = useState(false);
   const [focusedTextinput, setFocusedTextinput] = useState(false);
 
-  const [signUp, { data, isSuccess, isLoading, isError, error }] =
-    useSignUpMutation();
+  const [signUp, { isLoading }] = useSignUpMutation();
 
-  const [
-    googleAuthCallback,
-    {
-      data: googleData,
-      isSuccess: googleIsSuccess,
-      isError: googleIsError,
-      error: googleError,
-      isLoading: googleIsLoading,
-    },
-  ] = useGoogleAuthCallbackMutation();
+  const [googleAuthCallback] = useGoogleAuthCallbackMutation();
 
   const dispatch = useDispatch();
 
@@ -67,8 +57,6 @@ const CreateAccount = ({
 
     dispatch(addSelectedDropdownValue(key));
   };
-
-  console.log("data data", data);
 
   const handleTextInput = (key: string, e: string) => {
     switch (key) {
@@ -112,55 +100,47 @@ const CreateAccount = ({
     }
   }, [selectedDropdownKey, emailError, phoneNoError, email, phoneNo]);
 
-  useEffect(() => {
-    if (isSuccess) {
-      const submitvalue = {
-        user_id: data.data.user_id,
-        notification_reference: data.data.notification_reference,
-      };
-
-      dispatch(addCreateAccountDataValues(submitvalue));
-      handleAuthNavigate("verify_account");
-    }
-
-    if (isError && error) {
-      if ("status" in error) {
-        if (error.status == 422) {
-          setFocusedTextinput(false);
-
-          if (selectedDropdownKey == "email") {
-            showCustomToast({
-              message: "The email has already been taken.",
-              type: "error",
-            });
-          } else if (selectedDropdownKey == "phone") {
-            showCustomToast({
-              message: "The phone number has already been taken.",
-              type: "error",
-            });
-          }
-
-          if (selectedDropdownKey == "email") {
-            setEmail("");
-          } else {
-            setPhoneNo("");
-          }
-        }
-      }
-    }
-  }, [data, isSuccess, isError, error]);
-
-  const handleSubmit = (e?: React.FormEvent) => {
+  const handleSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault();
 
-    if (selectedDropdownKey) {
-      const phoneNoWithCountryCode = selectedCode + phoneNo;
+    try {
+      if (selectedDropdownKey) {
+        const phoneNoWithCountryCode = selectedCode + phoneNo;
 
-      signUp({
-        username:
-          selectedDropdownKey == "email" ? email : phoneNoWithCountryCode,
-        mode: selectedDropdownKey == "email" ? "email" : "phone_number",
-      });
+        const response = await signUp({
+          username:
+            selectedDropdownKey == "email" ? email : phoneNoWithCountryCode,
+          mode: selectedDropdownKey == "email" ? "email" : "phone_number",
+        }).unwrap();
+
+        if (response) {
+          const submitvalue = {
+            user_id: response.data.user_id,
+            notification_reference: response.data.notification_reference,
+          };
+
+          dispatch(addCreateAccountDataValues(submitvalue));
+          handleAuthNavigate("verify_account");
+        }
+      }
+    } catch (error: any) {
+      if (error?.status === 422) {
+        setFocusedTextinput(false);
+
+        if (selectedDropdownKey == "email") {
+          showCustomToast({
+            message: "The email has already been taken.",
+            type: "error",
+          });
+          setEmail("");
+        } else if (selectedDropdownKey == "phone") {
+          showCustomToast({
+            message: "The phone number has already been taken.",
+            type: "error",
+          });
+          setPhoneNo("");
+        }
+      }
     }
   };
 
@@ -310,7 +290,8 @@ const CreateAccount = ({
             bgColor="white"
             borderColor="#DFDFDF"
             borderWidth="1px"
-            icon={<FaApple size={16} />}
+            fontSize={14}
+            icon={<FaApple size={24} />}
           />
 
           <div style={{ margin: "20px" }} />
@@ -323,7 +304,8 @@ const CreateAccount = ({
             bgColor="white"
             borderColor="#DFDFDF"
             borderWidth="1px"
-            icon={<FcGoogle size={16} />}
+            fontSize={14}
+            icon={<FcGoogle size={24} />}
             onClick={() => googleLogin()}
           />
         </form>

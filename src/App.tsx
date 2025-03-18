@@ -8,7 +8,13 @@ import CheckoutPage from "./pages/checkout/CheckoutPage";
 import ScrollToTop from "./helpers/ScrollToTop";
 import NegotiationPage from "./pages/negotiation/NegotiationPage";
 import { Bounce, Slide, ToastContainer } from "react-toastify";
-import SearchPage from "./components/search-page/SearchPage";
+import SearchPage from "./pages/search/SearchPage";
+import StoreListPage from "./pages/store-list/StoreListPage";
+import StoreDetailsPage from "./pages/store-details/StoreDetailsPage";
+import PrivacyPolicyPage from "./pages/privacy-policy/PrivacyPolicyPage";
+import TermsAndConditionsPage from "./pages/terms-and-conditions/TermsAndConditionsPage";
+import AboutUsPage from "./pages/about-us/AboutUsPage";
+import ContactUsPage from "./pages/contact-us/ContactUsPage";
 
 function App() {
   return (
@@ -39,6 +45,18 @@ function App() {
         <Route path="/negotiate/:itemId" element={<NegotiationPage />} />
 
         <Route path="/search" element={<SearchPage />} />
+
+        <Route path="/store-list" element={<StoreListPage />} />
+
+        <Route path="/store-details/:storeId" element={<StoreDetailsPage />} />
+
+        <Route path="/about-us" element={<AboutUsPage />} />
+
+        <Route path="/terms-and-conditions" element={<TermsAndConditionsPage />} />
+
+        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+
+        <Route path="/contact-us" element={<ContactUsPage />} />
       </Routes>
     </BrowserRouter>
   );

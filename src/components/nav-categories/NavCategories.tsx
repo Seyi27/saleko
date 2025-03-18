@@ -21,12 +21,10 @@ const NavCategories = () => {
     }
   }, [data]);
 
-  console.log("categoryData", categoryData);
-
   return (
     <div>
       {visibleDropdown && categoryData?.length > 0 && (
-        <div className="category_background_overlay"></div>
+        <div className="background_overlay"></div>
       )}
 
       <div className="body_container nav_categories_container">

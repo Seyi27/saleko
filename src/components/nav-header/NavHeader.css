@@ -19,3 +19,10 @@
   color: #ffffff;
   font-size: 30px;
 }
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .nav_header_container {
+    display: none;
+  }
+}

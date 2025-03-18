@@ -5,3 +5,7 @@ export const chunkArray = (data: any, size: number) => {
   }
   return chunk;
 };
+
+export const formatPrice = (price: number): string => {
+  return price.toLocaleString("en-US");
+};

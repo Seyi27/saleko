@@ -34,21 +34,19 @@
 .best_seller_section_row {
   display: flex;
   justify-content: space-between;
-  border: 1px solid #e5e7eb;
   border-radius: 10px;
-  padding: 20px;
   margin-top: 20px;
 }
 
 /*********************************/
 
 .best_seller_section_second_row {
-  border: 7px solid red;
+  border: 3px solid #DC2626;
   width: 100%;
   border-radius: 10px;
   padding: 15px;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .best_seller_second_row_image_card {
@@ -122,6 +120,7 @@
 .best_seller_second_row_price {
   font-size: 21px;
   font-weight: 700;
+  font-family: "SourceSerif4", sans-serif;
 }
 
 .best_seller_second_row_former_price {
@@ -176,4 +175,17 @@
   color: white;
   font-size: 14px;
   font-weight: 700;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .best_seller_section_row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .best_seller_section_second_row{
+    width: 90%;
+    margin: 20px;
+  }
 }

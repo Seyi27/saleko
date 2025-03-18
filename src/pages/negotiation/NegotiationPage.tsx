@@ -13,9 +13,9 @@ import {
 } from "react-icons/bs";
 import CustomButton from "../../components/custom-button/CustomButton";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { Product } from "../../types/types";
 import { productData } from "../../helpers/Data";
 import CustomModal from "../../components/custom-modal/CustomModal";
+import { Product } from "../../types/productTypes";
 
 const NegotiationPage = () => {
   const [bidPrice, setBidPrice] = useState("");
@@ -159,7 +159,7 @@ const NegotiationPage = () => {
 
                     <div style={{ marginTop: "25px" }}>
                       <img
-                        src={productDetailsData?.image[0]}
+                        src={productDetailsData?.productImages?.[0].medium_image_url}
                         className="negotiated_item_image"
                       />
 

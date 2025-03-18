@@ -1,0 +1,31 @@
+.privacy_container {
+  padding-top: 200px;
+}
+
+.privacy_title {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.privacy_content {
+  border: 1px solid #e7e9eb;
+  border-radius: 26px;
+  padding: 15px;
+}
+
+.privacy_content p {
+  color: #8e8e8e;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.privacy_content b {
+  color: black;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .privacy_container {
+    padding: 150px 20px 0;
+  }
+}

@@ -114,8 +114,8 @@ const AuthModal = ({
   };
 
   return (
-    <div className="auth-modal-overlay" onClick={handleOverlayClick}>
-      <div className="auth-modal-content">
+    <div className="auth_modal_overlay" onClick={handleOverlayClick}>
+      <div className="auth_modal_content">
         {renderModal()}
       </div>
     </div>

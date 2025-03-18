@@ -1,0 +1,30 @@
+.review_message_container {
+  margin-bottom: 30px;
+}
+
+.review_message_container h3 {
+  margin: 0;
+  padding-bottom: 10px;
+}
+
+.review_message_container p {
+  margin: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 14px;
+  color: #667085;
+  line-height: 20px;
+}
+
+.review_message_container div span:first-child {
+  font-size: 14px;
+  color: #667085;
+  line-height: 20px;
+}
+
+.review_message_container div span:last-child {
+  font-size: 14px;
+  color: #084c3f;
+  font-weight: 600;
+  line-height: 20px;
+}

@@ -3,6 +3,7 @@ import "./CartItem.css";
 import { ProductCardProp } from "../../types/types";
 import store_ic from "../../assets/images/svg/store_ic_outline.svg";
 import { BsHeart, BsTrash3 } from "react-icons/bs";
+import { formatPrice } from "../../helpers/helper";
 
 const CartItem = ({ item }: ProductCardProp) => {
   const [count, setCount] = useState(0);
@@ -19,7 +20,7 @@ const CartItem = ({ item }: ProductCardProp) => {
 
   return (
     <div className="cart_item_parent_container">
-      <img src={item.image[0]} className="cart_item_image" />
+      <img src={item.productImages?.[0].small_image_url} className="cart_item_image" />
 
       <div className="parent_row_container">
         {/* Top row */}
@@ -35,7 +36,7 @@ const CartItem = ({ item }: ProductCardProp) => {
             <p className="cart_item_units">In Stock (500 units)</p>
           </div>
 
-          <p className="cart_item_price">₦{item.price}</p>
+          <p className="cart_item_price">₦{formatPrice(item.price)}</p>
         </div>
 
         {/* Bottom row */}

@@ -16,6 +16,8 @@ import { addUser, removeUser } from "../../../slice/userDetailsSlice";
 import { ToastContainer, toast } from "react-toastify";
 import { showCustomToast } from "../../custom-toast/CustomToast";
 import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import AppleLogin from "react-apple-login";
+import AppleSignin from "react-apple-signin-auth";
 
 const LoginForm = ({
   handleCloseModal,
@@ -33,48 +35,9 @@ const LoginForm = ({
 
   const dispatch = useDispatch();
 
-  const [login, { data, isSuccess, isError, error, isLoading }] =
-    useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
 
-  const [
-    googleAuthCallback,
-    {
-      data: googleData,
-      isSuccess: googleIsSuccess,
-      isError: googleIsError,
-      error: googleError,
-      isLoading: googleIsLoading,
-    },
-  ] = useGoogleAuthCallbackMutation();
-
-  console.log("login data", data);
-
-  useEffect(() => {
-    if (isSuccess) {
-      handleCloseModal();
-      dispatch(addUser(data.data));
-      setText("");
-      setPassword("");
-    }
-
-    if (isError && error) {
-      if ("status" in error) {
-        setFocusedTextinput(false); // to remove the placeholder when there is an error
-
-        if (error.status == 401 || error.status == 422) {
-          // setCustomErrorText("Incorrect password");
-
-          showCustomToast({
-            message: "Error! Please check your credentials and try again..",
-            type: "error",
-          });
-
-          setText("");
-          setPassword("");
-        }
-      }
-    }
-  }, [data, isSuccess, isError]);
+  const [googleAuthCallback] = useGoogleAuthCallbackMutation();
 
   const handleTextInput = (key: string, e: string) => {
     switch (key) {
@@ -121,13 +84,44 @@ const LoginForm = ({
     checkFormValidity();
   }, [text, password, textError, passwordError]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    login({
-      username: text,
-      password: password,
-    });
-
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    try {
+      const response = await login({
+        username: text,
+        password: password,
+      }).unwrap();
+
+      if (response) {
+        handleCloseModal();
+        dispatch(addUser(response.data));
+        setText("");
+        setPassword("");
+      }
+    } catch (error: any) {
+      if (error?.status === 401) {
+        showCustomToast({
+          message: error.data.message,
+          type: "error",
+        });
+      } else if (error?.status === 422) {
+        showCustomToast({
+          message: "Error! Please check your credentials and try again..",
+          type: "error",
+        });
+      } else {
+        showCustomToast({
+          message:
+            "Error! Please check you internet connection and try again..",
+          type: "error",
+        });
+      }
+
+      setText("");
+      setPassword("");
+      setFocusedTextinput(false); // to remove the placeholder when there is an error
+    }
   };
 
   const googleLogin = useGoogleLogin({
@@ -150,8 +144,10 @@ const LoginForm = ({
         token: response,
       };
       const res = await googleAuthCallback(googleCallbackBody).unwrap(); // forces the mutation to return a raw response or throw an error.
-      dispatch(addUser(res.data));
-      handleCloseModal();
+      if (res) {
+        dispatch(addUser(res.data));
+        handleCloseModal();
+      }
     } catch (error) {
       showCustomToast({
         message: "Error! Please check your network connection and try again..",
@@ -226,6 +222,7 @@ const LoginForm = ({
             loader={isLoading}
           />
         </form>
+
         <div className="have_an_account_container">
           <p>
             Don’t have an account?{" "}
@@ -234,7 +231,9 @@ const LoginForm = ({
             </span>
           </p>
         </div>
+
         <div style={{ margin: "20px" }} />
+
         {/* Form Divider */}
         <div className="form_divider">
           <hr
@@ -246,18 +245,41 @@ const LoginForm = ({
             style={{ width: "100%", marginRight: "20px", marginLeft: "20px" }}
           />
         </div>
+
         <div style={{ margin: "15px" }} />
+
         {/* Continue with Apple */}
-        <CustomButton
-          label="Continue with Apple"
-          width={"100%"}
-          height="55px"
-          bgColor="white"
-          borderColor="#DFDFDF"
-          borderWidth="1px"
-          icon={<FaApple size={16} />}
+        <AppleSignin
+          authOptions={{
+            clientId: "com.saleko.salekoweb", // Service ID from Apple Developer
+            redirectURI: "https://www.google.com",
+            scope: "email name", // Permissions required
+            // usePopup: true, // Open in popup
+          }}
+          uiType="dark" // REQUIRED: "dark", "light", or "white"
+          onSuccess={(response: any) =>
+            console.log("Apple SignIn Success:", response)
+          }
+          onError={(error: any) => console.error("Apple SignIn Error:", error)}
+          render={(props: any) => {
+            return (
+              <CustomButton
+                label="Continue with Apple"
+                width={"100%"}
+                height="55px"
+                bgColor="white"
+                borderColor="#DFDFDF"
+                borderWidth="1px"
+                fontSize={14}
+                icon={<FaApple size={24} />}
+                onClick={props.onClick} // Ensure Apple Sign-In is triggered
+              />
+            );
+          }}
         />
+
         <div style={{ margin: "20px" }} />
+
         {/* Continue with Google */}
         <CustomButton
           label="Continue with Google"
@@ -266,9 +288,15 @@ const LoginForm = ({
           bgColor="white"
           borderColor="#DFDFDF"
           borderWidth="1px"
-          icon={<FcGoogle size={16} />}
+          fontSize={14}
+          icon={<FcGoogle size={24} />}
           onClick={() => googleLogin()}
         />
+
+        {/* <AppleLogin
+          clientId="com.saleko.salekoweb"
+          redirectURI="https://www.google.com"
+        /> */}
       </div>
     </>
   );

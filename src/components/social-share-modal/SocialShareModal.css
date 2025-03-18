@@ -1,0 +1,62 @@
+.social_share_modal_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Make sure it's above other content */
+}
+
+.social_share_modal_content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 11px;
+  width: 400px;
+  position: relative;
+}
+
+.social_share_modal_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.social_share_modal_header p {
+  font-size: 14px;
+  margin: 0;
+  font-weight: bold;
+}
+
+.social_share_logo_links_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.social_share_copy_link_container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #aeaeae;
+  border-radius: 10px;
+  padding: 2px;
+  width: 100%;
+}
+
+.social_share_copy_link_input {
+  flex: 1;
+  border: none;
+  outline: 0;
+  font-size: 13px;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .social_share_modal_content {
+    width: 350px;
+  }
+}

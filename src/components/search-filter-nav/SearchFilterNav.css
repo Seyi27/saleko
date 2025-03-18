@@ -10,9 +10,13 @@
 
 .search_filter_nav_second_container {
   display: flex;
+}
+
+.search_filter_nav_item_wrapper{
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 30px;
+  gap: 20px;
   position: relative;
 }
 
@@ -24,6 +28,7 @@
   background-color: #f7f5f5;
   border-radius: 15px;
   padding: 5px 7px 5px 7px;
+  position: relative;
 }
 
 .search_item_container:hover {
@@ -47,4 +52,77 @@
   font-weight: 600;
   color: black;
   margin: 0;
+}
+
+.filter_dropdown_container {
+  position: absolute;
+  top: 52px;
+  width: 100%;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 26.4px 3px #aaaaaa40;
+}
+
+.filter_category_container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+.filter_category_item {
+  border: 1px solid #d3d3d3;
+  border-radius: 30px;
+  padding: 7px;
+  cursor: pointer;
+}
+
+.selected_filter_category_item {
+  border: 2px solid black;
+  border-radius: 30px;
+  padding: 7px;
+  cursor: pointer;
+}
+
+.filter_category_item_name {
+  color: #4b4b4b;
+  font-size: 14px;
+}
+
+.selected_filter_category_item_name {
+  font-size: 14px;
+  color: black;
+  font-weight: bold;
+}
+
+.filter_dropdown_btn_container {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  gap: 10px;
+  padding: 20px;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .search_filter_nav_container {
+    top: 80px;
+    padding: 0 10px;
+  }
+
+  .search_filter_nav_item_wrapper {
+    width: 100%;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevents items from wrapping */
+    justify-content: flex-start;
+  }
+
+  /* Hide scrollbar for a cleaner UI */
+  .search_filter_nav_item_wrapper::-webkit-scrollbar {
+    display: none; /* Hide scrollbar in Chrome, Safari */
+  }
+
+  .filter_dropdown_container{
+    width: 90%;
+  }
 }

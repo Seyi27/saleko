@@ -5,7 +5,6 @@ import { Link, useNavigate } from "react-router-dom";
 import NavHeader from "../../components/nav-header/NavHeader";
 import NavHeaderSearch from "../../components/nav-header-search/NavHeaderSearch";
 import NavCategories from "../../components/nav-categories/NavCategories";
-import { Product } from "../../types/types";
 import CustomButton from "../../components/custom-button/CustomButton";
 import { productData } from "../../helpers/Data";
 import Footer from "../../components/footer/Footer";
@@ -22,11 +21,12 @@ import CheckoutCartItem from "../../components/checkout-cart-item/CheckoutCartIt
 import coupon_code_ic from "../../assets/images/svg/coupon_code_ic.svg";
 import CustomInputModal from "../../components/transaction-pin-modal/TransactionPinModal";
 import CustomModal from "../../components/custom-modal/CustomModal";
+import { Product } from "../../types/productTypes";
 
 const CheckoutPage = () => {
   const data = productData.slice(0, 4);
   const [visibleRows, setVisibleRows] = useState(2);
-  const [rowData, setRowData] = useState<Product[][]>([]);
+  const [rowData, setRowData] = useState<Product[] | undefined>();
   const [activeDeliveryOption, setActiveDeliveryOption] = useState("Door step");
   const [selectedPayment, setSelectedPayment] = useState("");
   const [couponCode, setCouponCode] = useState("");
@@ -299,24 +299,25 @@ const CheckoutPage = () => {
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div>
-              <ProductSection
-                name={"Recommended Products"}
-                data={productData}
-                type="related"
-                visibleRows={visibleRows}
-                setRowData={setRowData}
-                viewAll
-              />
+              {/* Recommended Products */}
+              <div>
+                <ProductSection
+                  name={"Recommended Products"}
+                  data={productData}
+                  type="related"
+                  visibleRows={visibleRows}
+                  setRowData={setRowData}
+                  viewAll
+                />
 
-              {/* {visibleRows < rowData.length && (
+                {/* {visibleRows < rowData.length && (
               <button className="view_more_buton" onClick={handleMoreButton}>
                 View More
                 <BsChevronDown size={12} color={"white"} />
               </button>
             )} */}
+              </div>
             </div>
           </div>
         </div>

@@ -6,6 +6,7 @@ import { BsArrowRight, BsHeart, BsHeartFill } from "react-icons/bs";
 import { Rating } from "react-simple-star-rating";
 import { BiCartAdd } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
+import { formatPrice } from "../../helpers/helper";
 
 const BestSellerSection = ({ name, data }: BestSellerSectionProps) => {
   const displayBestSellerData = data.slice(0, 7); // Limit to the first 6 products

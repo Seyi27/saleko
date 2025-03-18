@@ -1,0 +1,80 @@
+.market_dropdown_main_container {
+  position: relative;
+}
+
+.select_market_dropdown_container {
+  width: auto;
+  height: 42px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  border-radius: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 0;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.select_market_dropdown_container p {
+  font-size: 14px;
+  color: #8E8E8E;
+}
+
+.market_dropdown {
+  position: absolute;
+  top: 50px;
+  right: -100px;
+  background-color: #ffffff;
+  width: 800px;
+  height: 500px;
+  z-index: 1;
+  padding: 20px;
+  border-radius: 10px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.market_dropdown_title {
+  color: #084c3f;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.market_dropdown_content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+}
+
+.market_dropdown_item {
+  width: 80px;
+  cursor: pointer;
+}
+
+.market_dropdown_item_image {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 20px;
+}
+
+.market_dropdown_item_name {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .select_dropdown_container {
+    display: none;
+  }
+
+  .market_dropdown_main_container{
+    display: none;
+  }
+}

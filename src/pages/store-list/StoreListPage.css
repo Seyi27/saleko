@@ -1,0 +1,55 @@
+.store_list_main_container {
+  padding-top: 200px;
+}
+
+.store_list_img {
+  width: 100%;
+}
+
+.store_list_search_input_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 500px;
+  padding: 10px 10px 10px 25px;
+  border: 1.15px solid #e7e9ea;
+  border-radius: 20px;
+  margin: 25px 0;
+}
+
+.store_list_search_input {
+  flex: 1;
+  border: 0;
+  outline: 0;
+  color: #606b6b;
+  width: 100%;
+}
+
+.store_cardlist_section {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 26px;
+}
+
+.store_list_img2 {
+  width: 100%;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .store_list_main_container {
+    padding: 150px 20px 0;
+  }
+
+  .store_list_search_input_container {
+    width: 90%;
+  }
+
+  .store_cardlist_section{
+    width: 100%;
+    justify-content: space-between;
+    gap: 0;
+  }
+}

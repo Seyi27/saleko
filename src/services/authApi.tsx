@@ -9,17 +9,16 @@ import {
   VerifyOtpType,
 } from "../types/authTypes";
 
-const baseUrl = "https://staging.saleko.ng";
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 export const authApi = createApi({
   reducerPath: "auth",
   baseQuery: fetchBaseQuery({
     baseUrl: baseUrl,
-    // prepareHeaders: (headers, { getState }) => {
-    //   headers.set("Accept", "application/json");
-    //   headers.set("Content-Type", "application/json");
-    //   return headers;
-    // },
+    prepareHeaders: (headers, { getState }) => {
+      headers.set("Content-Type", "application/json");
+      return headers;
+    },
   }),
   endpoints: (builder) => ({
     login: builder.mutation({

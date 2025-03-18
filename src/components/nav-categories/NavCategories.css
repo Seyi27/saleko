@@ -61,16 +61,6 @@
   justify-content: flex-start;
 }
 
-.category_background_overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
-  z-index: 1; /* former value: 2 */ /* z-index : 1 so that navHeader can overlap it */
-}
-
 .category_dropdown_left_column {
   height: 100%;
   overflow-y: auto;
@@ -135,4 +125,42 @@
 
 .category_dropdown_right_column_item_inner_container p {
   font-size: 11px;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .nav_categories_container {
+    top: 80px;
+    height: 50px;
+  }
+
+  .categories_icon_container > p {
+    font-size: 14px;
+    color: #ffffff;
+  }
+
+  .categories_icon_container{
+    display: none;
+  }
+
+  .categories_items_container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adjust spacing */
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevents items from wrapping */
+  }
+  
+  /* Hide scrollbar for a cleaner UI */
+  .categories_items_container::-webkit-scrollbar {
+    display: none; /* Hide scrollbar in Chrome, Safari */
+  }
+  
+  .categories_items_container p {
+    flex-shrink: 0; /* Prevents items from shrinking */
+    font-size: 13px;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 5px 10px;
+  }
 }

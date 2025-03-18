@@ -33,8 +33,7 @@ const ForgotPasswordReset = ({
     (state: RootState) => state.authValue.fpTempOtpForPasswordReset
   );
 
-  const [resetPassword, { data, isSuccess, isError, error, isLoading }] =
-    useResetPasswordMutation();
+  const [resetPassword, { isLoading }] = useResetPasswordMutation();
 
   const handlePasswordInput = (key: string, e: string) => {
     switch (key) {
@@ -74,41 +73,36 @@ const ForgotPasswordReset = ({
     }
   }, [password, passwordError, confirmPassword, confirmPasswordError]);
 
-  // for reset password
-  useEffect(() => {
-    if (isSuccess) {
-      handleCloseModal();
-      handleOpenResetPasswordModal?.();
-
-      showCustomToast({
-        message: "Password reset successfull",
-        type: "success",
-      });
-    }
-
-    if (isError && error) {
-      if ("status" in error) {
-        if (error.status == 400 || error.status == 422) {
-          showCustomToast({
-            message: "Kindly try again...",
-            type: "error",
-          });
-        }
-      }
-    }
-  }, [data, isSuccess, isError, error]);
-
-  const handleResetPasswordSubmit = (e: React.FormEvent) => {
+  const handleResetPasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const resetPasswordBody = {
-      otp: fpTempOtp,
-      password: password,
-      password_confirmation: confirmPassword,
-      username: fpEmailPhoneText,
-    };
+    try {
+      const resetPasswordBody = {
+        otp: fpTempOtp,
+        password: password,
+        password_confirmation: confirmPassword,
+        username: fpEmailPhoneText,
+      };
 
-    resetPassword(resetPasswordBody);
+      const response = await resetPassword(resetPasswordBody).unwrap();
+
+      if (response) {
+        handleCloseModal();
+        handleOpenResetPasswordModal?.();
+
+        showCustomToast({
+          message: "Password reset successfull",
+          type: "success",
+        });
+      }
+    } catch (error: any) {
+      if (error?.status === 400 || error?.status === 422) {
+        showCustomToast({
+          message: "Kindly try again...",
+          type: "error",
+        });
+      }
+    }
   };
 
   return (

@@ -40,94 +40,10 @@ const ForgotPasswordVerification = ({
     (state: RootState) => state.authValue.fpNotification_reference
   );
 
-  const [verifyOtp, { data, isSuccess, isError, error, isLoading }] =
-    useVerifyOtpMutation();
+  const [verifyOtp, { isLoading }] = useVerifyOtpMutation();
 
-  const [
-    sendOtpCode,
-    {
-      data: sendOtpCodeData,
-      isSuccess: sendOtpCodeSuccess,
-      error: sendOtpCodeError,
-      isError: sendOtpCodeIsError,
-      isLoading: sendOtpCodeLoading,
-    },
-  ] = useSendOtpCodeMutation();
-
-  // for verify otp
-  useEffect(() => {
-    if (isSuccess) {
-      setPinError(false);
-      dispatch(addFpTempOtpForPasswordReset(data.data.data.otp));
-      handleAuthNavigate("forgot_password_reset");
-
-      showCustomToast({
-        message: "Verification successfull",
-        type: "success",
-      });
-    }
-    if (isError && error) {
-      if ("status" in error) {
-        if (error.status == 400 || error.status == 422) {
-          setPinError(true);
-          showCustomToast({
-            message: "Invalid Verification Code",
-            type: "error",
-          });
-        }
-      }
-    }
-  }, [data, isSuccess, isError, error]);
-
-  // for resend otp
-  useEffect(() => {
-    if (sendOtpCodeSuccess) {
-      dispatch(
-        addFpNotification_reference(sendOtpCodeData.data.notification_reference)
-      );
-      setSendCodeState(false);
-      setCountDown(40);
-    }
-
-    if (sendOtpCodeIsError && sendOtpCodeError) {
-      if ("status" in sendOtpCodeError) {
-        // if (sendOtpCodeError.status == 400) {
-        showCustomToast({
-          message: "Kindly check your internet connection.",
-          type: "error",
-        });
-        // }
-      }
-    }
-  }, [sendOtpCodeSuccess, sendOtpCodeError]);
-
-  // submit and verify pin
-  const handlePinSubmit = () => {
-    const verifyOtpBody = {
-      otp: pin,
-      reference_code: fpNotificationRef,
-      sent_to: fpEmailPhoneText,
-    };
-
-    verifyOtp(verifyOtpBody);
-  };
-
-  // to resend otp
-  const handleResendCode = () => {
-    sendOtpCode({
-      username: fpEmailPhoneText,
-      mode: fpSelectedValueType == "email" ? "email" : "phone_number",
-    });
-  };
-
-  useEffect(() => {
-    if (pin.length !== 6) {
-      setDisabled(true);
-    } else {
-      setDisabled(false);
-      setSendCodeState(true);
-    }
-  }, [pin]);
+  const [sendOtpCode, { isLoading: sendOtpCodeLoading }] =
+    useSendOtpCodeMutation();
 
   useEffect(() => {
     if (countDown > 0) {
@@ -141,6 +57,61 @@ const ForgotPasswordVerification = ({
       setSendCodeState(true);
     }
   }, [countDown]);
+
+  // submit and verify pin
+  const handlePinSubmit = async () => {
+    try {
+      const verifyOtpBody = {
+        otp: pin,
+        reference_code: fpNotificationRef,
+        sent_to: fpEmailPhoneText,
+      };
+
+      const response = await verifyOtp(verifyOtpBody).unwrap();
+
+      if (response) {
+        setPinError(false);
+        dispatch(addFpTempOtpForPasswordReset(response.data.data.otp));
+        handleAuthNavigate("forgot_password_reset");
+
+        showCustomToast({
+          message: "Verification successfull",
+          type: "success",
+        });
+      }
+    } catch (error: any) {
+      if (error?.status === 400 || error?.status === 422) {
+        setPinError(true);
+        showCustomToast({
+          message: "Invalid Verification Code",
+          type: "error",
+        });
+      }
+    }
+  };
+
+  // to resend otp
+  const handleResendCode = async () => {
+    try {
+      const response = await sendOtpCode({
+        username: fpEmailPhoneText,
+        mode: fpSelectedValueType == "email" ? "email" : "phone_number",
+      }).unwrap();
+
+      if (response) {
+        dispatch(
+          addFpNotification_reference(response.data.data.notification_reference)
+        );
+        setSendCodeState(false);
+        setCountDown(40);
+      }
+    } catch (error) {
+      showCustomToast({
+        message: "Kindly check your internet connection.",
+        type: "error",
+      });
+    }
+  };
 
   return (
     <>

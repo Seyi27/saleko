@@ -2,27 +2,25 @@ import React from "react";
 import "./HomeCarouselComponent.css";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import {
-  HomeFrame1,
-  HomeFrame2,
-  HomeFrame3,
-  HomeFrame4,
-} from "../../assets/images";
+import saleko_img1 from '../../assets/images/all_Images/saleko_img1.jpg'
+import saleko_img2 from '../../assets/images/all_Images/saleko_img2.jpg'
+import saleko_img3 from '../../assets/images/all_Images/saleko_img3.jpg'
+import saleko_img4 from '../../assets/images/all_Images/saleko_img4.jpg'
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
 const HomeCarouselComponent = () => {
   const slides = [
     {
-      image: HomeFrame1,
+      image: saleko_img1,
     },
     {
-      image: HomeFrame2,
+      image: saleko_img2,
     },
     {
-      image: HomeFrame3,
+      image: saleko_img3,
     },
     {
-      image: HomeFrame4,
+      image: saleko_img4,
     },
   ];
 

@@ -14,6 +14,7 @@ import MastercardIcon from "../../assets/images/svg/MastercardIcon";
 import VerveIcon from "../../assets/images/svg/VerveIcon";
 import PaystackIcon from "../../assets/images/svg/PaystackIcon";
 import MonnifyIcon from "../../assets/images/svg/MonnifyIcon";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -75,36 +76,72 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="other_footer_details">
-            <h4>About Us</h4>
-            <p>Contact us</p>
-            <p>Privacy policy</p>
-            <p>Terms and condition</p>
-            <p>Watch our video guide</p>
+          <div className="footer_info_container">
+            <div className="footer_info_section">
+              <Link to={"/about-us"} className="footer_info_item">
+                About Us
+              </Link>
+              <Link to={"/contact-us"} className="footer_info_item">
+                Contact us
+              </Link>
+              <Link to={"/privacy-policy"} className="footer_info_item">
+                Privacy policy
+              </Link>
+              <Link to={"/terms-and-conditions"} className="footer_info_item">
+                Terms and condition
+              </Link>
+              <Link to={"/"} className="footer_info_item">
+                Watch our video guide
+              </Link>
+            </div>
+
+            <div className="footer_info_section">
+              <Link to={"/"} className="footer_info_item">
+                Markets
+              </Link>
+              <Link to={"/"} className="footer_info_item">
+                Create buyer profile{" "}
+              </Link>
+              <Link to={"/"} className="footer_info_item">
+                How to shop on saleko{" "}
+              </Link>
+              <Link to={"/"} className="footer_info_item">
+                Track my order{" "}
+              </Link>
+            </div>
+
+            <div className="footer_info_section">
+              <Link to={"/"} className="footer_info_item">
+                Become a Seller
+              </Link>
+              <Link to={"/"} className="footer_info_item">
+                Seller guide{" "}
+              </Link>
+              <Link to={"/"} className="footer_info_item">
+                Advertise with us{" "}
+              </Link>
+              <Link to={"/"} className="footer_info_item">
+                Apply for a loan{" "}
+              </Link>{" "}
+            </div>
+
+            <div className="footer_info_section">
+              <Link to={"/"} className="footer_info_item">
+                FAQs
+              </Link>
+              <Link to={"/"} className="footer_info_item">
+                Disputes{" "}
+              </Link>
+              <Link to={"/"} className="footer_info_item">
+                Escrow Service{" "}
+              </Link>
+              <Link to={"/"} className="footer_info_item">
+                Pickup Locations{" "}
+              </Link>{" "}
+            </div>
           </div>
 
-          <div className="other_footer_details">
-            <h4>Markets</h4>
-            <p>Create buyer profile</p>
-            <p>How to shop on saleko</p>
-            <p>Track my order</p>
-          </div>
-
-          <div className="other_footer_details">
-            <h4>Become a Seller</h4>
-            <p>Seller guide</p>
-            <p>Advertise with us</p>
-            <p>Apply for a loan</p>
-          </div>
-
-          <div className="other_footer_details">
-            <h4>FAQs</h4>
-            <p>Disputes</p>
-            <p>Escrow Service</p>
-            <p>Pickup Locations</p>
-          </div>
-
-          <div className="other_footer_details">
+          <div className="footer_info_section">
             <div className="contact_details_container">
               <PhoneIcon />
               <div>

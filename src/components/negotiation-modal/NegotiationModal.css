@@ -44,7 +44,7 @@
 }
 
 .negotiate_item_details_body p:last-child {
-  color: #4B4B4B;
+  color: #4b4b4b;
 }
 
 .negotiation_item_image {
@@ -75,6 +75,13 @@
   font-size: 12px;
 }
 
-.error_textInput{
+.error_textInput {
   border: 1px solid red;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .negotiation_modal_content {
+    width: 350px;
+  }
 }

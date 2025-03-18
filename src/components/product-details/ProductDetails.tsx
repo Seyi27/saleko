@@ -14,7 +14,6 @@ import {
   BsStarFill,
 } from "react-icons/bs";
 import { features, productData, productReviews } from "../../helpers/Data";
-import { Product } from "../../types/types";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { check_ic, img1 } from "../../assets/images";
@@ -28,12 +27,16 @@ import { BiCart } from "react-icons/bi";
 import ImageSlider from "../image-slider/ImageSlider";
 import CustomModal from "../custom-modal/CustomModal";
 import NegotiationModal from "../negotiation-modal/NegotiationModal";
+import { Product } from "../../types/productTypes";
+import { formatPrice } from "../../helpers/helper";
+import NegotiateIcon from "../../assets/images/svg/NegotiateIcon";
+import ReviewMessage from "../review-message/ReviewMessage";
 
 const ProductDetails = () => {
   const [productDetailsData, setProductDetailsData] = useState<Product>();
   const [activeTab, setActiveTab] = useState("description");
   const [visibleRows, setVisibleRows] = useState(2);
-  const [rowData, setRowData] = useState<Product[][]>([]);
+  const [rowData, setRowData] = useState<Product[] | undefined>();
   const { productId } = useParams();
 
   const [favouriteClicked, setFavouriteClicked] = useState(false);
@@ -101,10 +104,10 @@ const ProductDetails = () => {
           <div className="body_second_container">
             <div className="product_details_container">
               <div className="breadcrumbs_container">
-                <Link to={""} className="inactive_link">
+                <Link to={"/"} className="product_details_inactive_link">
                   Home
                 </Link>
-                <BsChevronRight color="#A3A9C2" size={13} />
+                {/* <BsChevronRight color="#A3A9C2" size={13} />
                 <Link to={""} className="inactive_link">
                   {productDetailsData?.category}
                 </Link>
@@ -112,10 +115,10 @@ const ProductDetails = () => {
 
                 <Link to={""} className="inactive_link">
                   {productDetailsData?.subCategory[0]}
-                </Link>
+                </Link> */}
                 <BsChevronRight color="#A3A9C2" size={13} />
 
-                <Link to={""} className="active_link">
+                <Link to={""} className="product_details_active_link">
                   {productDetailsData?.name}
                 </Link>
               </div>
@@ -124,16 +127,21 @@ const ProductDetails = () => {
                 {/* left image container */}
                 <div className="product_image_left_container">
                   <div className="product_details_image_column">
-                    {productDetailsData?.image.map((img, index) => (
-                      <img src={img} className="product_details_image" />
+                    {productDetailsData?.productImages?.map((img, index) => (
+                      <img
+                        src={img.small_image_url}
+                        className="product_details_image"
+                      />
                     ))}
                   </div>
 
-                  {productDetailsData?.image ? (
-                    <ImageSlider images={productDetailsData?.image} />
+                  {productDetailsData?.productImages ? (
+                    <ImageSlider images={productDetailsData.productImages} />
                   ) : (
                     <img
-                      src={productDetailsData?.image[0]}
+                      src={
+                        productDetailsData?.productImages?.[0].medium_image_url
+                      }
                       className="product_details_big_image"
                     />
                   )}
@@ -171,11 +179,7 @@ const ProductDetails = () => {
                   </div>
 
                   <div style={{ marginBottom: "5px" }}>
-                    <Rating
-                      readonly
-                      initialValue={productDetailsData?.rating}
-                      size={12}
-                    />
+                    <Rating readonly initialValue={3} size={12} />
                     {"   "}
                     <span className="verified_reviews_text">
                       (24 verified reviews)
@@ -183,93 +187,63 @@ const ProductDetails = () => {
                   </div>
 
                   <div className="product_brand_category_container">
-                    <div>
+                    <div className="product_brand_wrapper">
                       <span>Brand:</span>
-                      <span> Chanel</span>
+                      <span>Chanel</span>
                     </div>
 
-                    <hr
-                      style={{
-                        border: "0.8px solid #084C3F",
-                        height: "12px",
-                        margin: 0,
-                      }}
-                    />
+                    <hr className="product_brand_mini_divider" />
 
-                    <div>
+                    <div className="product_brand_wrapper">
                       <span>Category:</span>
-                      <span> Fashion</span>
+                      <span>Fashion</span>
                     </div>
 
-                    <hr
-                      style={{
-                        border: "0.8px solid #084C3F",
-                        height: "12px",
-                        margin: 0,
-                      }}
-                    />
+                    <hr className="product_brand_mini_divider" />
 
-                    <div>
+                    <div className="product_brand_wrapper">
                       <span>In Stock:</span>
-                      <span> 206 UNITS LEFT</span>
+                      <span>206 UNITS LEFT</span>
                     </div>
 
-                    <hr
-                      style={{
-                        border: "0.8px solid #084C3F",
-                        height: "12px",
-                        margin: 0,
-                      }}
-                    />
-                    <div>
+                    <hr className="product_brand_mini_divider" />
+
+                    <div className="product_brand_wrapper">
                       <span>SKU:</span>
-                      <span> ifwx</span>
+                      <span>{productDetailsData?.sku}</span>
                     </div>
                   </div>
 
-                  <hr
-                    style={{
-                      border: "1px solid #E4E4E4",
-                      width: "100%",
-                      marginTop: "15px",
-                      marginBottom: "15px",
-                    }}
-                  />
+                  <hr className="product_details_divider" />
 
                   {/* Price container */}
-                  <div className="product_details_price_container">
-                    <div className="product_details_price">
+                  <div className="product_details_price_main_wrapper">
+                    <div className="product_details_price_container">
                       <p
-                        className={`product_details_price_figure ${
-                          productDetailsData?.former_price ? "price_red" : ""
-                        }`}
+                        // className={`product_details_price_figure ${
+                        //   productDetailsData?.former_price ? "price_red" : ""
+                        // }`}
+                        className={"product_details_price_figure"}
                       >
-                        ₦{productDetailsData?.price}
+                        ₦{formatPrice(productDetailsData?.price ?? 0)}
                       </p>
-                      {productDetailsData?.former_price && (
+                      {/* {productDetailsData?.former_price && (
                         <p className="product_details_former_price">
                           ₦{productDetailsData?.former_price}
                         </p>
-                      )}
+                      )} */}
                     </div>
-                    {productDetailsData?.former_price && (
+                    {/* {productDetailsData?.former_price && (
                       <div className="product_price_percentage_container">
                         <span className="product_price_percentage_off">
                           10% off
                         </span>
                         <span>Offer ends April, 27</span>
                       </div>
-                    )}
+                    )} */}
                   </div>
 
-                  <hr
-                    style={{
-                      border: "1px solid #E4E4E4",
-                      width: "100%",
-                      marginTop: "15px",
-                      marginBottom: "15px",
-                    }}
-                  />
+                  <hr className="product_details_divider" />
 
                   {/* Choose Color */}
                   <div className="choose_color_section">
@@ -298,14 +272,7 @@ const ProductDetails = () => {
                     </div>
                   </div>
 
-                  <hr
-                    style={{
-                      border: "1px solid #E4E4E4",
-                      width: "100%",
-                      marginTop: "15px",
-                      marginBottom: "15px",
-                    }}
-                  />
+                  <hr className="product_details_divider" />
 
                   {/* Choose Size */}
                   <div className="choose_color_section">
@@ -339,26 +306,27 @@ const ProductDetails = () => {
                     }}
                   />
 
-                  {/* add to Cart container */}
+                  {/* count and add to cart container */}
                   <div className="count_container">
                     <div className="count_increase_decrease_container">
                       <div
                         onClick={countDecrement}
-                        style={{ cursor: "pointer" }}
+                        className="counter_operator"
                       >
                         -
                       </div>
-                      <div className="count_container">{count}</div>
+                      <div className="counter_value">{count}</div>
                       <div
                         onClick={countIncrement}
-                        style={{ cursor: "pointer" }}
+                        className="counter_operator"
                       >
                         +
                       </div>
                     </div>
+
                     <CustomButton
                       label="Add To Cart"
-                      width={"350px"}
+                      width={"100%"}
                       height="55px"
                       bgColor="#084c3f"
                       borderColor="#DFDFDF"
@@ -382,6 +350,7 @@ const ProductDetails = () => {
                         textColor="#084c3f"
                         fontSize={14}
                         fontWeight={600}
+                        icon={<NegotiateIcon />}
                         onClick={() => setOpenNegotiationModal(true)}
                       />
                     </div>
@@ -389,7 +358,7 @@ const ProductDetails = () => {
                 </div>
               </div>
 
-              {/* Description, Delivery Details and Reviews Tabs */}
+              {/* Description and Reviews Tabs */}
               <div>
                 <div className="description_nav">
                   <p
@@ -399,14 +368,6 @@ const ProductDetails = () => {
                     onClick={() => handleActiveState("description")}
                   >
                     Description
-                  </p>
-                  <p
-                    className={`description_nav_item ${
-                      activeTab === "delivery" ? "active_nav_item" : ""
-                    }`}
-                    onClick={() => handleActiveState("delivery")}
-                  >
-                    Delivery Details
                   </p>
                   <p
                     className={`description_nav_item ${
@@ -426,23 +387,14 @@ const ProductDetails = () => {
                         Product Description
                       </h3>
 
-                      <p className="product_description_text">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing
-                        elit. Vel eaque totam quo omnis iusto et, cum iure
-                        tempore ratione, molestias enim, nulla facilis quia?
-                        Ipsa in quos deleniti rerum laudantium. Lorem ipsum
-                        dolor sit amet consectetur adipisicing elit. Enim neque
-                        placeat at delectus nulla quae qui, repudiandae,
-                        voluptate ullam fuga vero excepturi nemo aspernatur
-                        dolorem corporis totam veniam. Voluptatum, temporibus.
-                        Lorem ipsum dolor sit, amet consectetur adipisicing
-                        elit. Sed ipsam possimus neque. Numquam ab deleniti
-                        voluptate aperiam magnam ut dolorum eos. Cumque laborum
-                        assumenda corporis. Quidem accusantium veniam voluptate
-                        est!
-                      </p>
+                      <p
+                        className="product_description_text"
+                        dangerouslySetInnerHTML={{
+                          __html: productDetailsData?.description || "",
+                        }}
+                      ></p>
 
-                      <h3 className="product_description_header">Features</h3>
+                      {/* <h3 className="product_description_header">Features</h3>
                       {features.map((feature, index) => (
                         <div className="feature_row">
                           <img src={check_ic} />
@@ -450,12 +402,9 @@ const ProductDetails = () => {
                             {feature.feature}
                           </p>
                         </div>
-                      ))}
+                      ))} */}
                     </div>
                   )}
-
-                  {/* Tab: Delivery */}
-                  {activeTab === "delivery" && <></>}
 
                   {/* Tab: Reviews */}
                   {activeTab === "reviews" && (
@@ -465,25 +414,16 @@ const ProductDetails = () => {
 
                         <div className="customer_reviews_breakdown_container">
                           <div className="customer_reviews_left_side">
-                            <p className="customer_reviews_rating">
-                              {productDetailsData?.rating}/5
-                            </p>
-                            <Rating
-                              readonly
-                              initialValue={productDetailsData?.rating}
-                              size={30}
-                            />
+                            <p className="customer_reviews_rating">3/5</p>
+                            <Rating readonly initialValue={3} size={30} />
                             <p className="customer_verified_reviews">
                               (24 verified reviews)
                             </p>
                           </div>
 
-                          <hr
-                            style={{
-                              border: "0.8px solid #e5e7eb",
-                              height: "100px",
-                            }}
-                          />
+                          <hr className="customer_reviews_vertical_divider" />
+
+                          <hr className="customer_reviews_horizontal_divider" />
 
                           <div>
                             {ratingReview
@@ -493,7 +433,7 @@ const ProductDetails = () => {
                               .map((rating, index) => (
                                 <div
                                   key={index}
-                                  className="rating_review_container"
+                                  className="customer_rating_review_item"
                                 >
                                   <BsStarFill size={12} color={"#FFB119"} />
                                   {ratingReview.length - index}
@@ -507,25 +447,9 @@ const ProductDetails = () => {
 
                       <div style={{ paddingTop: "50px" }}>
                         {productReviews.map((review, index) => (
-                          <div className="customer_review_message">
-                            <h3>Title: {review.title}</h3>
-                            <Rating
-                              readonly
-                              initialValue={review.rating}
-                              size={22}
-                            />
-                            <p>{review.review}</p>
-                            <div>
-                              <span>{review.date} - </span>
-                              <span>by {review.person}</span>
-                            </div>
-
-                            <hr
-                              style={{
-                                border: "0.5px solid #e5e7eb",
-                              }}
-                            />
-                          </div>
+                          <React.Fragment key={index}>
+                            <ReviewMessage item={review} />
+                          </React.Fragment>
                         ))}
                       </div>
                     </div>
@@ -541,7 +465,7 @@ const ProductDetails = () => {
                     setRowData={setRowData}
                   />
 
-                  {visibleRows < rowData.length && (
+                  {/* {visibleRows < (rowData?.length ?? 0) && (
                     <button
                       className="view_more_buton"
                       onClick={handleMoreButton}
@@ -549,7 +473,7 @@ const ProductDetails = () => {
                       View More
                       <BsChevronDown size={12} color={"white"} />
                     </button>
-                  )}
+                  )} */}
                 </div>
               </div>
             </div>

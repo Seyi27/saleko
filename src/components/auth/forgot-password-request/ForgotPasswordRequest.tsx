@@ -25,16 +25,8 @@ const ForgotPasswordRequest = ({
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [focusedTextinput, setFocusedTextinput] = useState(false);
 
-  const [
-    sendOtpCode,
-    {
-      data: sendOtpCodeData,
-      isSuccess: sendOtpCodeSuccess,
-      error: sendOtpCodeError,
-      isError: sendOtpCodeIsError,
-      isLoading: sendOtpCodeLoading,
-    },
-  ] = useSendOtpCodeMutation();
+  const [sendOtpCode, { isLoading: sendOtpCodeLoading }] =
+    useSendOtpCodeMutation();
 
   const handleTextInput = (key: string, e: string) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -60,31 +52,7 @@ const ForgotPasswordRequest = ({
     }
   }, [emailOrPhoneText, emailOrPhoneTextError]);
 
-  useEffect(() => {
-    if (sendOtpCodeSuccess) {
-      dispatch(
-        addFpNotification_reference(sendOtpCodeData.data.notification_reference)
-      );
-      handleAuthNavigate("forgot_password_verification");
-    }
-
-    if (sendOtpCodeIsError && sendOtpCodeError) {
-      if ("status" in sendOtpCodeError) {
-        setFocusedTextinput(false); // to remove the placeholder when there is an error
-
-        if (sendOtpCodeError.status == 400) {
-          showCustomToast({
-            message: "Username not found",
-            type: "error",
-          });
-
-          setEmailOrPhoneText("");
-        }
-      }
-    } 
-  }, [sendOtpCodeSuccess, sendOtpCodeError]);
-
-  const handleForgotFormSubmit = (e: React.FormEvent) => {
+  const handleForgotFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -101,11 +69,31 @@ const ForgotPasswordRequest = ({
       console.log("it is");
     }
 
-    dispatch(addFpSelectedValueType(thisSelectedValue));
-    sendOtpCode({
-      username: emailOrPhoneText,
-      mode: thisSelectedValue == "email" ? "email" : "phone_number",
-    });
+    try {
+      dispatch(addFpSelectedValueType(thisSelectedValue));
+
+      const response = await sendOtpCode({
+        username: emailOrPhoneText,
+        mode: thisSelectedValue == "email" ? "email" : "phone_number",
+      }).unwrap();
+
+      if (response) {
+        dispatch(
+          addFpNotification_reference(response.data.notification_reference)
+        );
+        handleAuthNavigate("forgot_password_verification");
+      }
+    } catch (error: any) {
+      if (error?.status === 400) {
+        showCustomToast({
+          message: "Username not found",
+          type: "error",
+        });
+
+        setEmailOrPhoneText("");
+        setFocusedTextinput(false); // to remove the placeholder when there is an error
+      }
+    }
   };
 
   return (

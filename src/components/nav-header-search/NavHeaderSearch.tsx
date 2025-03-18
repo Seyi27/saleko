@@ -19,17 +19,11 @@ import CustomModal from "../custom-modal/CustomModal";
 import { addActiveScreen } from "../../slice/authValueSlice";
 import { removeUser } from "../../slice/userDetailsSlice";
 import { removeCreateAccountDataValues } from "../../slice/createAccountDataSlice";
+import SalekoWhiteLogo from "../../assets/images/svg/SalekoWhiteLogo";
+import MarketDropdown from "../market-dropdown/MarketDropdown";
+import menu_svg from "../../assets/images/svg/menu_ic.svg";
 
 const NavHeaderSearch = () => {
-  const navigate = useNavigate();
-  const [selectedMarket, setSelectedMarket] = useState("");
-  const [marketData, setMarketData] = useState<
-    MarketplaceDataProps[] | undefined
-  >();
-  const { data, isSuccess, isLoading, isError, error } = useMarketplaceApiQuery(
-    {}
-  );
-
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenSignup, setIsOpenSignup] = useState(false);
   const [isOpenResetPassword, setIsOpenResetPassword] = useState(false);
@@ -37,17 +31,6 @@ const NavHeaderSearch = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((state: RootState) => state.userDetails.user);
-
-  useEffect(() => {
-    if (isSuccess) {
-      setMarketData(data.data);
-    }
-    // singleMarketplaceApi(7)
-  }, [data, isSuccess]);
-
-  const handleSelectionChange = (e: any) => {
-    setSelectedMarket(e.target.value);
-  };
 
   // handle login modal
   const handleLoginOpenModal = () => {
@@ -90,7 +73,7 @@ const NavHeaderSearch = () => {
   const handleLogOut = () => {
     dispatch(removeUser());
     dispatch(removeCreateAccountDataValues());
-    window.location.reload()
+    window.location.reload();
   };
 
   return (
@@ -101,41 +84,28 @@ const NavHeaderSearch = () => {
           <GoogleStore />
         </div>
 
+        <Link to={"/"} className="nav_saleko_logo">
+          <SalekoWhiteLogo />
+        </Link>
+
         {/* Search Input and dropdown */}
         <div className="search_and_dropdown_container">
           <SearchBar />
 
-          <div className="select_dropdown_container">
-            <StoreIconLogo />
-
-            <select
-              id="country-code"
-              value={selectedMarket}
-              onChange={handleSelectionChange}
-              style={{
-                padding: "5px",
-                margin: "10px 0",
-                color: "#8E8E8E",
-                border: "none",
-                outline: "none",
-              }}
-            >
-              {marketData?.map((market, index) => (
-                <option key={index} value={market.name}>
-                  {market.name}
-                </option>
-              ))}
-            </select>
-          </div>
+          <MarketDropdown />
         </div>
 
         {/* Favorite and Add to cart */}
         <div
           className="nav_header_search_right_container"
-          style={{ gap: "20px" }}
+          style={{ gap: "15px" }}
         >
+          <div className="nav_menu_ic">
+            <img src={menu_svg} />
+          </div>
+
           <div className="nav_header_search_right_container">
-            <div className="right_icon">
+            <div className="right_icon heart_icon">
               <BsHeart color="#084c3f" />
             </div>
             <Link to={"/cart"} className="right_icon">
@@ -145,51 +115,68 @@ const NavHeaderSearch = () => {
           </div>
 
           {user ? (
-            <div className="userdetails_container">
-              <div className="userIcon_container">
-                <BsPersonFill color="#9c9c9c" size={20} />
-              </div>
-              <div>
-                <span>Hi {user.first_name}</span>
-                {/* <p>
+            <>
+              {window.innerWidth > 600 ? (
+                <div className="userdetails_container">
+                  <div className="userIcon_container">
+                    <BsPersonFill color="#9c9c9c" size={20} />
+                  </div>
+                  <div className="userIcon_name">
+                    <span>Hi {user.first_name}</span>
+                    {/* <p>
                   {user.last_name.charAt(0).toUpperCase() +
                     user.last_name.slice(1).toLowerCase()}{" "}
                   {user.first_name.charAt(0).toUpperCase() + "."}
                 </p> */}
-              </div>
+                  </div>
 
-              <div className="userdetails_dropdown_container">
-                <p  onClick={handleLogOut}>
-                  Log out
-                </p>
-              </div>
-            </div>
+                  <div className="userdetails_dropdown_container">
+                    <p onClick={handleLogOut}>Log out</p>
+                  </div>
+                </div>
+              ) : (
+                <div className="userIcon_container">
+                  <BsPersonFill color="#9c9c9c" size={20} />
+                </div>
+              )}
+            </>
           ) : (
-            <div className="nav_button_container">
-              <CustomButton
-                label="Login"
-                width={"50px"}
-                height="51px"
-                bgColor="transparent"
-                textColor="#FFFFFF"
-                fontWeight={600}
-                fontSize={16}
-                onClick={handleLoginOpenModal}
-              />
+            <>
+              {window.innerWidth > 600 ? (
+                <div className="nav_button_container">
+                  <CustomButton
+                    label="Login"
+                    width={"50px"}
+                    height="51px"
+                    bgColor="transparent"
+                    textColor="#FFFFFF"
+                    fontWeight={600}
+                    fontSize={16}
+                    onClick={handleLoginOpenModal}
+                  />
 
-              <p style={{ color: "white" }}>/</p>
+                  <p style={{ color: "white" }}>/</p>
 
-              <CustomButton
-                label="Register"
-                width={"70px"}
-                height="51px"
-                bgColor="transparent"
-                textColor="#FFFFFF"
-                fontWeight={600}
-                fontSize={16}
-                onClick={handleRegisterOpenModal}
-              />
-            </div>
+                  <CustomButton
+                    label="Register"
+                    width={"70px"}
+                    height="51px"
+                    bgColor="transparent"
+                    textColor="#FFFFFF"
+                    fontWeight={600}
+                    fontSize={16}
+                    onClick={handleRegisterOpenModal}
+                  />
+                </div>
+              ) : (
+                <p
+                  className="login_register_text"
+                  onClick={handleLoginOpenModal}
+                >
+                  Login / Register
+                </p>
+              )}
+            </>
           )}
         </div>
       </div>

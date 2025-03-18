@@ -5,6 +5,7 @@ import CustomTextInput from "../custom-textInput/CustomTextInput";
 import CustomButton from "../custom-button/CustomButton";
 import { useNavigate } from "react-router-dom";
 import { NegotiationModalProp } from "../../types/types";
+import { formatPrice } from "../../helpers/helper";
 
 const NegotiationModal = ({
   isOpen,
@@ -90,12 +91,12 @@ const NegotiationModal = ({
         <hr style={{ border: "0.5px solid #C1C7DE" }} />
 
         <div className="negotiate_item_details_container">
-          <img src={item?.image[0]} className="negotiation_item_image" />
+          <img src={item?.productImages?.[0].medium_image_url} className="negotiation_item_image" />
 
           <div className="negotiate_item_details_body">
             <p>{item?.name}</p>
 
-            <p>Original Price: ₦{item?.price}</p>
+            <p>Original Price: ₦{formatPrice(item?.price ?? 0)}</p>
           </div>
         </div>
 

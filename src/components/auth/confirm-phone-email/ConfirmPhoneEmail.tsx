@@ -39,86 +39,10 @@ const ConfirmPhoneEmail = ({
     (state: RootState) => state.createAccountData.notification_reference
   );
 
-  const [verifyOtp, { data, isSuccess, isError, error, isLoading }] =
-    useVerifyOtpMutation();
+  const [verifyOtp, { isLoading }] = useVerifyOtpMutation();
 
-  const [
-    sendOtpCode,
-    {
-      data: sendOtpCodeData,
-      isSuccess: sendOtpCodeSuccess,
-      error: sendOtpCodeError,
-      isError: sendOtpCodeIsError,
-      isLoading: sendOtpCodeLoading,
-    },
-  ] = useSendOtpCodeMutation();
-
-  // to verify otp
-  useEffect(() => {
-    if (isSuccess) {
-      setPinError(false);
-      handleAuthNavigate("profile_setup");
-
-      showCustomToast({
-        message: "Verification successfull",
-        type: "success",
-      });
-    }
-    if (isError && error) {
-      if ("status" in error) {
-        if (error.status == 400 || error.status == 422) {
-          setPinError(true);
-          showCustomToast({
-            message: "Invalid Verification Code",
-            type: "error",
-          });
-        }
-      }
-    }
-  }, [data, isSuccess, isError, error]);
-
-  // to resend otp
-  useEffect(() => {
-    if (sendOtpCodeSuccess) {
-      dispatch(
-        addNotificationReference({
-          notification_reference: sendOtpCodeData.data.notification_reference,
-        })
-      );
-      setSendCodeState(false);
-      setCountDown(40);
-    }
-
-    if (sendOtpCodeIsError && sendOtpCodeError) {
-      if ("status" in sendOtpCodeError) {
-        // if (sendOtpCodeError.status == 400) {
-        showCustomToast({
-          message: "Kindly check your internet connection.",
-          type: "error",
-        });
-        // }
-      }
-    }
-  }, [sendOtpCodeSuccess, sendOtpCodeError]);
-
-  // to handle pin submit
-  const handlePinSubmit = () => {
-    const verifyOtpBody = {
-      otp: pin,
-      reference_code: userNotificationRef,
-      sent_to: emailPhoneText,
-    };
-
-    verifyOtp(verifyOtpBody);
-  };
-
-  // to handle otp resend
-  const handleResendCode = () => {
-    sendOtpCode({
-      username: emailPhoneText,
-      mode: selectedDropdownValue,
-    });
-  };
+  const [sendOtpCode, { isLoading: sendOtpCodeLoading }] =
+    useSendOtpCodeMutation();
 
   useEffect(() => {
     if (countDown > 0) {
@@ -132,6 +56,60 @@ const ConfirmPhoneEmail = ({
       setSendCodeState(true);
     }
   }, [countDown]);
+
+  const handlePinSubmit = async () => {
+    try {
+      const verifyOtpBody = {
+        otp: pin,
+        reference_code: userNotificationRef,
+        sent_to: emailPhoneText,
+      };
+
+      const response = await verifyOtp(verifyOtpBody).unwrap();
+
+      if (response) {
+        setPinError(false);
+        handleAuthNavigate("profile_setup");
+
+        showCustomToast({
+          message: "Verification successfull",
+          type: "success",
+        });
+      }
+    } catch (error: any) {
+      if (error?.status === 400 || error?.status === 422) {
+        setPinError(true);
+        showCustomToast({
+          message: "Invalid Verification Code",
+          type: "error",
+        });
+      }
+    }
+  };
+
+  const handleResendCode = async () => {
+    try {
+      const response = await sendOtpCode({
+        username: emailPhoneText,
+        mode: selectedDropdownValue,
+      }).unwrap();
+
+      if (response) {
+        dispatch(
+          addNotificationReference({
+            notification_reference: response.data.notification_reference,
+          })
+        );
+        setSendCodeState(false);
+        setCountDown(40);
+      }
+    } catch (error: any) {
+      showCustomToast({
+        message: "Kindly check your internet connection.",
+        type: "error",
+      });
+    }
+  };
 
   return (
     <>

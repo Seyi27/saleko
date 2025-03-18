@@ -8,9 +8,12 @@ import { BiCartAdd } from "react-icons/bi";
 import NegotiateIcon from "../../assets/images/svg/NegotiateIcon";
 import { Link, useNavigate } from "react-router-dom";
 import NegotiationModal from "../negotiation-modal/NegotiationModal";
+import { formatPrice } from "../../helpers/helper";
+import no_image from '../../assets/images/all_Images/no_image.png'
+import saleko_green from "../../assets/images/svg/saleko_green.svg";
 
 const ProductCard = ({ name, item }: ProductCardProp) => {
-  const [rating, setRating] = useState(item.rating);
+  const [rating, setRating] = useState(3);
   const [favouriteClicked, setFavouriteClicked] = useState(false);
 
   const [openNegotiationModal, setOpenNegotiationModal] = useState(false);
@@ -23,17 +26,20 @@ const ProductCard = ({ name, item }: ProductCardProp) => {
 
   return (
     <>
-      <div>
+      <div className="product_card_main_container">
         <div className="image_card">
           <div onClick={handleItemClick} className="product_link">
-            <img src={item.image[0]} className="product_image" />
+            <img
+              src={item.productImages?.length ? item.productImages[0].medium_image_url : saleko_green}
+              className="product_image"
+            />
           </div>
 
-          {item.former_price ? (
+          {/* {item.former_price ? (
             <span className="percentage_off">10% off</span>
           ) : (
             <span className="new_container">New</span>
-          )}
+          )} */}
 
           <div className="favorite_icon">
             {favouriteClicked ? (
@@ -57,21 +63,22 @@ const ProductCard = ({ name, item }: ProductCardProp) => {
             <p className="product_name">{item.name}</p>
             <div className="rating_container">
               <Rating readonly initialValue={rating} size={12} />
-              <span>{item.rating}</span>
+              <span>3</span> {/* rating */}
             </div>
             <div className="product_price_container">
               <span
-                className={`product_price ${
-                  item.former_price && "product_price_red"
-                }`}
+                // className={`product_price ${
+                //   item.former_price && "product_price_red"
+                // }`}
+                className="product_price"
               >
-                ₦{item.price}
+                ₦{formatPrice(item.price)}
               </span>
-              {item.former_price && (
+              {/* {item.former_price && (
                 <span className="product_former_price">
                   ₦{item.former_price}
                 </span>
-              )}
+              )} */}
             </div>
           </div>
         </Link>

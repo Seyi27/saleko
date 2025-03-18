@@ -6,6 +6,7 @@ import { SalekoSuccessGif } from "../../assets/images";
 import order_confirmed_img from "../../assets/images/svg/order_confirmed_img.svg";
 import order_confirmed_check from "../../assets/images/svg/order_confimed_check.svg";
 import { BsX } from "react-icons/bs";
+import { formatPrice } from "../../helpers/helper";
 
 const CustomModal = ({
   isOpen,
@@ -140,7 +141,7 @@ const CustomModal = ({
 
             <div className="confirm_negotiation_item_body_container">
               <img
-                src={item?.image[0]}
+                src={item?.productImages?.[0].medium_image_url}
                 className="confirm_negotiation_item_image"
               />
 
@@ -159,7 +160,7 @@ const CustomModal = ({
                       margin: 0,
                     }}
                   >
-                    ₦{item?.price}
+                    ₦{formatPrice(item?.price ?? 0)}
                   </p>
                   <p style={{ color: "red", margin: 0 }}>₦650,000</p>
                 </div>

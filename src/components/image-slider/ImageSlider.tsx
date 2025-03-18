@@ -21,7 +21,7 @@ const ImageSlider = ({ images }: any) => {
     <div className="slider_container">
       <div className="slider">
         <img
-          src={images[currentIndex]}
+          src={images[currentIndex].large_image_url}
           alt={`Slide ${currentIndex}`}
           className="slider_image"
         />

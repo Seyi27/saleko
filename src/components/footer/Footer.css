@@ -12,8 +12,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 70px;
-  padding-bottom: 70px;
+  padding: 70px 0 70px 0;
 }
 
 .footer_saleko_logo_container > p {
@@ -104,17 +103,28 @@
   cursor: pointer;
 }
 
-.other_footer_details > h4 {
-  font-size: 14px;
+.footer_info_container {
+  display: flex;
+  align-items: flex-start;
+  gap: 50px;
+  flex-wrap: wrap;
 }
 
-.other_footer_details p {
+/* .footer_info_section > p {
+  font-size: 14px;
+  font-weight: bold;
+} */
+
+.footer_info_item{
   font-size: 13px;
   color: #4b5563;
   cursor: pointer;
+  text-decoration: none;
+  display: block;
+  margin: 15px 0;
 }
 
-.other_footer_details p:hover {
+.footer_info_item:hover {
   color: #084c3f;
 }
 
@@ -135,13 +145,50 @@
   justify-content: space-between;
 }
 
-.bottom_footer_details_image{
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.bottom_footer_details_image {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .bottom_footer_details p {
   font-size: 13px;
   color: #4b5563;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .footer_container {
+    padding: 20px;
+  }
+
+  .footer_saleko_container {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 30px 0 30px 0;
+    gap: 20px;
+  }
+
+  .footer_input {
+    width: 250px;
+  }
+
+  .footer_details_container {
+    flex-direction: column;
+  }
+
+  .footer_info_container {
+    gap: 10px;
+    padding: 20px 0 20px 0;
+    justify-content: space-between;
+  }
+
+  .bottom_footer_details {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .bottom_footer_details_image {
+    padding-bottom: 15px;
+  }
 }

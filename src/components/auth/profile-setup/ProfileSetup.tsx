@@ -48,37 +48,7 @@ const ProfileSetup = ({
 
   // const [selectedDropdownValue, setselectedDropdownValue] = useState("phone")
 
-  const [completeSetup, { data, isLoading, isError, error, isSuccess }] =
-    useCompleteSignupMutation();
-
-  useEffect(() => {
-    if (isSuccess) {
-      handleOpenSignupModal?.();
-      handleCloseModal();
-      dispatch(addActiveScreen("login_form"));
-    }
-
-    if (isError && error) {
-      if ("status" in error) {
-        setFocusedTextinput(false);
-
-        if (error.status == 400 || error.status == 422) {
-          showCustomToast({
-            message: "Your username is not verified.",
-            type: "error",
-          });
-
-          setFirstName("");
-          setLastName("");
-          setPhoneNo("");
-          setEmail("");
-          setPassword("");
-          setConfirmPassword("");
-          setTermsChecked(false);
-        }
-      }
-    }
-  }, [data, isSuccess, isError]);
+  const [completeSetup, { isLoading }] = useCompleteSignupMutation();
 
   const handleCheckboxChange = () => {
     setTermsChecked(!termsChecked);
@@ -196,19 +166,44 @@ const ProfileSetup = ({
     confirmPasswordError,
   ]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const phoneNoWithCountryCode = selectedCode + phoneNo;
 
-    completeSetup({
-      first_name: firstName,
-      last_name: lastName,
-      username:
-        selectedDropdownValue == "email" ? phoneNoWithCountryCode : email,
-      password: password,
-      password_confirmation: confirmPassword,
-      accept_terms: termsChecked,
-    });
+    try {
+      const phoneNoWithCountryCode = selectedCode + phoneNo;
+
+      const response = await completeSetup({
+        first_name: firstName,
+        last_name: lastName,
+        username:
+          selectedDropdownValue == "email" ? phoneNoWithCountryCode : email,
+        password: password,
+        password_confirmation: confirmPassword,
+        accept_terms: termsChecked,
+      }).unwrap();
+
+      if (response) {
+        handleOpenSignupModal?.();
+        handleCloseModal();
+        dispatch(addActiveScreen("login_form"));
+      }
+    } catch (error: any) {
+      if (error?.status === 400 || error?.status === 422) {
+        showCustomToast({
+          message: "Your username is not verified.",
+          type: "error",
+        });
+
+        setFirstName("");
+        setLastName("");
+        setPhoneNo("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+        setTermsChecked(false);
+        setFocusedTextinput(false);
+      }
+    }
   };
 
   return (

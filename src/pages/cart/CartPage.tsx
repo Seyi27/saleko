@@ -9,15 +9,15 @@ import CartItem from "../../components/cart-item/CartItem";
 import { productData } from "../../helpers/Data";
 import Footer from "../../components/footer/Footer";
 import ProductSection from "../../components/product-section/ProductSection";
-import { Product } from "../../types/types";
 import { BsChevronDown } from "react-icons/bs";
 import empty_cart from "../../assets/images/svg/empty_cart.svg";
+import { Product } from "../../types/productTypes";
 
 const CartPage = () => {
   //   const data = productData.slice(0, 4);
   const data: Product[] = [];
   const [visibleRows, setVisibleRows] = useState(2);
-  const [rowData, setRowData] = useState<Product[][]>([]);
+  const [rowData, setRowData] = useState<Product[] | undefined>();
   const navigate = useNavigate();
 
   const handleMoreButton = () => {

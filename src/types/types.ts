@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
+import { Product } from "./productTypes";
 
 export type CustomButtonProps = {
     width?: string;
@@ -73,11 +74,11 @@ export type AuthModalScreenProps = {
 
 export type ProductSectionProps = {
     name?: string;
-    data: Product[];
+    data: Product[] | undefined;
     type: 'home' | 'related' | 'search';
     visibleRows?: number;
     setVisibleRows?: Dispatch<SetStateAction<number>>;
-    setRowData?: Dispatch<SetStateAction<Product[][]>>;
+    setRowData?: Dispatch<SetStateAction<Product[] | undefined>>;
     viewAll?: boolean
 }
 
@@ -86,20 +87,20 @@ export type ProductCardProp = {
     item: Product;
 }
 
-export type Product = {
-    id: number;
-    name: string;
-    description: string;
-    price: string;
-    former_price?: string;
-    image: string[];
-    category: string;
-    subCategory: string[];
-    sizes: string[];
-    date: string;
-    rating: number;
-    bestseller: boolean;
-}
+// export type Product = {
+//     id: number;
+//     name: string;
+//     description: string;
+//     price: string;
+//     former_price?: string;
+//     image: string[];
+//     category: string;
+//     subCategory: string[];
+//     sizes: string[];
+//     date: string;
+//     rating: number;
+//     bestseller: boolean;
+// }
 
 export type BestSellerSectionProps = {
     name: string;
@@ -121,18 +122,19 @@ export type BestSeller = {
     targetDate: string
 }
 
-export type StoreSectionProps = {
+export type TopStoreSectionProps = {
     name: string;
-    data: Store[];
+    data: {
+        name: string,
+        orders: string
+    }[];
 }
 
-export type StoreCardProp = {
-    item: Store;
-}
-
-export type Store = {
-    name: string,
-    orders: string
+export type TopStoreCardProp = {
+    item: {
+        name: string,
+        orders: string
+    };
 }
 
 /*************** Market Place data ******************* */
@@ -172,3 +174,30 @@ export type CategoryDataProp = {
     status: boolean;
     children: CategoryDataProp[]; // Recursive type to represent nested categories
 };
+
+/************ Seller Card Prop ****************** */
+
+export type StoreListCardItemProp = {
+    item: StoreListCardProp;
+}
+
+export type StoreListCardProp = {
+    id: number;
+    store_name: string;
+    store_market: string;
+    category: string;
+}
+
+/************ Review Message Prop ****************** */
+
+export type ReviewMessageItemProp = {
+    item: ReviewMessageProp;
+}
+
+export type ReviewMessageProp = {
+    title: string,
+    rating: number,
+    review: string,
+    date: string,
+    person: string,
+}
