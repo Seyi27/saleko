@@ -2,7 +2,7 @@ import React from "react";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   CompleteSignupType,
-  googleAuthCallbackType,
+  googleAppleAuthCallbackType,
   LoginType,
   ResetPasswordType,
   SignUpType,
@@ -76,9 +76,18 @@ export const authApi = createApi({
       },
     }),
     googleAuthCallback: builder.mutation({
-      query: (body: googleAuthCallbackType) => {
+      query: (body: googleAppleAuthCallbackType) => {
         return {
           url: '/api/auth-svc/auth/social/callback/google',
+          method: "post",
+          body
+        };
+      },
+    }),
+    appleAuthCallback: builder.mutation({
+      query: (body: googleAppleAuthCallbackType) => {
+        return {
+          url: '/api/auth-svc/auth/social/callback/apple',
           method: "post",
           body
         };
@@ -94,5 +103,6 @@ export const {
   useVerifyOtpMutation,
   useCompleteSignupMutation,
   useSendOtpCodeMutation,
-  useGoogleAuthCallbackMutation
+  useGoogleAuthCallbackMutation,
+  useAppleAuthCallbackMutation
 } = authApi;

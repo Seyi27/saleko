@@ -1,9 +1,9 @@
 import React from "react";
 import "./TermsAndConditionsPage.css";
-import NavHeader from "../../components/nav-header/NavHeader";
-import NavHeaderSearch from "../../components/nav-header-search/NavHeaderSearch";
-import NavCategories from "../../components/nav-categories/NavCategories";
-import Footer from "../../components/footer/Footer";
+import NavHeader from "../../../components/nav-header/NavHeader";
+import NavHeaderSearch from "../../../components/nav-header-search/NavHeaderSearch";
+import NavCategories from "../../../components/nav-categories/NavCategories";
+import Footer from "../../../components/footer/Footer";
 
 const TermsAndConditionsPage = () => {
   return (

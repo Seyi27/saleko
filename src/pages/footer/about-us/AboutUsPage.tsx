@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./AboutUsPage.css";
-import NavHeader from "../../components/nav-header/NavHeader";
-import NavHeaderSearch from "../../components/nav-header-search/NavHeaderSearch";
-import NavCategories from "../../components/nav-categories/NavCategories";
-import Footer from "../../components/footer/Footer";
-import about_saleko_img from "../../assets/images/svg/about_saleko_img.svg";
-import brand_story_img from "../../assets/images/svg/brand_story_img.svg";
-import vision_mission from "../../assets/images/svg/vision_mission_img.svg";
-import saleko_core_img from "../../assets/images/svg/saleko_core_img.svg";
-import for_sellers_img from "../../assets/images/svg/for_sellers_img.svg";
-import for_buyers_img from "../../assets/images/svg/for_buyers_img.svg";
+import about_saleko_img from "../../../assets/images/svg/about_saleko_img.svg";
+import brand_story_img from "../../../assets/images/svg/brand_story_img.svg";
+import vision_mission from "../../../assets/images/svg/vision_mission_img.svg";
+import saleko_core_img from "../../../assets/images/svg/saleko_core_img.svg";
+import for_sellers_img from "../../../assets/images/svg/for_sellers_img.svg";
+import for_buyers_img from "../../../assets/images/svg/for_buyers_img.svg";
 import { Link, Element, scrollSpy } from "react-scroll";
+import NavHeader from "../../../components/nav-header/NavHeader";
+import NavHeaderSearch from "../../../components/nav-header-search/NavHeaderSearch";
+import NavCategories from "../../../components/nav-categories/NavCategories";
+import Footer from "../../../components/footer/Footer";
 
 const AboutUsPage = () => {
   const [offset, setOffset] = useState(-180);

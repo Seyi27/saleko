@@ -34,8 +34,9 @@ import { TailSpin } from "react-loader-spinner";
 import saleko_img5 from "../../assets/images/all_Images/saleko_img5.png";
 import saleko_img6 from "../../assets/images/all_Images/saleko_img6.png";
 import saleko_img7 from "../../assets/images/all_Images/saleko_img7.png";
-import saleko_home_mobile from '../../assets/images/svg/saleko_home_mobile.svg'
+import saleko_home_mobile from "../../assets/images/svg/saleko_home_mobile.svg";
 import TopStoreSection from "../../components/top-store-section/TopStoreSection";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 const HomePage = () => {
   const [featuredProductsData, setFeaturedProductsData] = useState<Product[]>();
@@ -110,7 +111,7 @@ const HomePage = () => {
               <HomeCarouselComponent />
             </div>
           ) : (
-            <img src={saleko_home_mobile} className="alt_carousel_image"/>
+            <img src={saleko_home_mobile} className="alt_carousel_image" />
           )}
 
           {/* Featured Products */}

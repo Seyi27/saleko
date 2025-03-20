@@ -30,7 +30,7 @@ export type CompleteSignupType = {
     accept_terms: boolean
 }
 
-export type googleAuthCallbackType = {
+export type googleAppleAuthCallbackType = {
     channel: string,
     token: string
 }

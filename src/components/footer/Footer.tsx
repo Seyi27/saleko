@@ -102,7 +102,7 @@ const Footer = () => {
               <Link to={"/"} className="footer_info_item">
                 Create buyer profile{" "}
               </Link>
-              <Link to={"/"} className="footer_info_item">
+              <Link to={"/how-to-shop-on-saleko"} className="footer_info_item">
                 How to shop on saleko{" "}
               </Link>
               <Link to={"/"} className="footer_info_item">
@@ -111,7 +111,7 @@ const Footer = () => {
             </div>
 
             <div className="footer_info_section">
-              <Link to={"/"} className="footer_info_item">
+              <Link to={"/become-a-seller"} className="footer_info_item">
                 Become a Seller
               </Link>
               <Link to={"/"} className="footer_info_item">
@@ -129,10 +129,10 @@ const Footer = () => {
               <Link to={"/"} className="footer_info_item">
                 FAQs
               </Link>
-              <Link to={"/"} className="footer_info_item">
+              <Link to={"/disputes"} className="footer_info_item">
                 Disputes{" "}
               </Link>
-              <Link to={"/"} className="footer_info_item">
+              <Link to={"/escrow-service"} className="footer_info_item">
                 Escrow Service{" "}
               </Link>
               <Link to={"/"} className="footer_info_item">

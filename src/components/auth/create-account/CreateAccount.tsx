@@ -7,6 +7,7 @@ import { countryCallingCodes } from "../../../helpers/CountryCallingCodes";
 import { useNavigate } from "react-router-dom";
 import CustomTextInput from "../../custom-textInput/CustomTextInput";
 import {
+  useAppleAuthCallbackMutation,
   useGoogleAuthCallbackMutation,
   useSignUpMutation,
 } from "../../../services/authApi";
@@ -25,6 +26,8 @@ import { showCustomToast } from "../../custom-toast/CustomToast";
 import { RootState } from "../../../store/store";
 import { useGoogleLogin } from "@react-oauth/google";
 import { addUser } from "../../../slice/userDetailsSlice";
+import { getAuth, OAuthProvider, signInWithPopup, signInWithRedirect } from "firebase/auth";
+import { firebaseApp } from "../../../firebase";
 
 const CreateAccount = ({
   handleCloseModal,
@@ -47,6 +50,8 @@ const CreateAccount = ({
   const [signUp, { isLoading }] = useSignUpMutation();
 
   const [googleAuthCallback] = useGoogleAuthCallbackMutation();
+
+  const [appleAuthCallback] = useAppleAuthCallbackMutation();
 
   const dispatch = useDispatch();
 
@@ -174,6 +179,38 @@ const CreateAccount = ({
     }
   };
 
+  const handleAppleSignIn = async () => {
+    const auth = getAuth(firebaseApp);
+    const provider = new OAuthProvider("apple.com");
+
+    try {
+      const result = await signInWithPopup(auth, provider);
+
+      // Retrieve the accessToken
+      const credential = OAuthProvider.credentialFromResult(result);
+      const idToken = credential?.idToken; // Use this for backend verification
+
+      if (idToken) {
+        const appleCallbackBody = {
+          channel: "web",
+          token: idToken,
+        };
+
+        const res = await appleAuthCallback(appleCallbackBody).unwrap();
+
+        if (res) {
+          dispatch(addUser(res.data));
+          handleCloseModal();
+        }
+      }
+    } catch (error) {
+      showCustomToast({
+        message: "Error! Please check your network connection and try again..",
+        type: "error",
+      });
+    }
+  };
+
   return (
     <>
       <CloseModalContainer cancelIconOnly handleCloseModal={handleCloseModal} />
@@ -292,6 +329,7 @@ const CreateAccount = ({
             borderWidth="1px"
             fontSize={14}
             icon={<FaApple size={24} />}
+            onClick={handleAppleSignIn}
           />
 
           <div style={{ margin: "20px" }} />

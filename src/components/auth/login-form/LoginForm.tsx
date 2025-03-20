@@ -8,6 +8,7 @@ import CloseModalContainer from "../close-auth-modal-container/CloseModalContain
 import encrypted_ic from "../../../assets/images/svg/encrypted_ic.svg";
 import { AuthModalScreenProps } from "../../../types/types";
 import {
+  useAppleAuthCallbackMutation,
   useGoogleAuthCallbackMutation,
   useLoginMutation,
 } from "../../../services/authApi";
@@ -18,6 +19,8 @@ import { showCustomToast } from "../../custom-toast/CustomToast";
 import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import AppleLogin from "react-apple-login";
 import AppleSignin from "react-apple-signin-auth";
+import { getAuth, signInWithPopup, OAuthProvider, signInWithRedirect } from "firebase/auth";
+import { firebaseApp } from "../../../firebase";
 
 const LoginForm = ({
   handleCloseModal,
@@ -38,6 +41,8 @@ const LoginForm = ({
   const [login, { isLoading }] = useLoginMutation();
 
   const [googleAuthCallback] = useGoogleAuthCallbackMutation();
+
+  const [appleAuthCallback] = useAppleAuthCallbackMutation();
 
   const handleTextInput = (key: string, e: string) => {
     switch (key) {
@@ -156,6 +161,38 @@ const LoginForm = ({
     }
   };
 
+  const handleAppleSignIn = async () => {
+    const auth = getAuth(firebaseApp);
+    const provider = new OAuthProvider("apple.com");
+
+    try {
+      const result = await signInWithPopup(auth, provider);
+
+      // Retrieve the accessToken
+      const credential = OAuthProvider.credentialFromResult(result);
+      const idToken = credential?.idToken; // Use this for backend verification
+
+      if (idToken) {
+        const appleCallbackBody = {
+          channel: "web",
+          token: idToken,
+        };
+
+        const res = await appleAuthCallback(appleCallbackBody).unwrap();
+
+        if (res) {
+          dispatch(addUser(res.data));
+          handleCloseModal();
+        }
+      }
+    } catch (error) {
+      showCustomToast({
+        message: "Error! Please check your network connection and try again..",
+        type: "error",
+      });
+    }
+  };
+
   return (
     <>
       <CloseModalContainer cancelIconOnly handleCloseModal={handleCloseModal} />
@@ -249,14 +286,14 @@ const LoginForm = ({
         <div style={{ margin: "15px" }} />
 
         {/* Continue with Apple */}
-        <AppleSignin
+        {/* <AppleSignin
           authOptions={{
             clientId: "com.saleko.salekoweb", // Service ID from Apple Developer
-            redirectURI: "https://saleko.vercel.app/",
+            redirectURI: "https://newdev.saleko.ng",
             scope: "email name", // Permissions required
-            // usePopup: true, // Open in popup
+            usePopup: false,
           }}
-          uiType="dark" // REQUIRED: "dark", "light", or "white"
+          uiType="dark" // "dark", "light", or "white"
           onSuccess={(response: any) =>
             console.log("Apple SignIn Success:", response)
           }
@@ -276,6 +313,19 @@ const LoginForm = ({
               />
             );
           }}
+        /> */}
+
+        {/* Continue with Apple */}
+        <CustomButton
+          label="Continue with Apple"
+          width={"100%"}
+          height="55px"
+          bgColor="white"
+          borderColor="#DFDFDF"
+          borderWidth="1px"
+          fontSize={14}
+          icon={<FaApple size={24} />}
+          onClick={handleAppleSignIn} // Ensure Apple Sign-In is triggered
         />
 
         <div style={{ margin: "20px" }} />
@@ -295,7 +345,10 @@ const LoginForm = ({
 
         {/* <AppleLogin
           clientId="com.saleko.salekoweb"
-          redirectURI="https://www.google.com"
+          redirectURI="https://newdev.saleko.ng"
+          responseType={"code"} 
+          responseMode={"query"}  
+          usePopup={false} 
         /> */}
       </div>
     </>

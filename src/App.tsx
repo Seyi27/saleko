@@ -11,10 +11,14 @@ import { Bounce, Slide, ToastContainer } from "react-toastify";
 import SearchPage from "./pages/search/SearchPage";
 import StoreListPage from "./pages/store-list/StoreListPage";
 import StoreDetailsPage from "./pages/store-details/StoreDetailsPage";
-import PrivacyPolicyPage from "./pages/privacy-policy/PrivacyPolicyPage";
-import TermsAndConditionsPage from "./pages/terms-and-conditions/TermsAndConditionsPage";
-import AboutUsPage from "./pages/about-us/AboutUsPage";
-import ContactUsPage from "./pages/contact-us/ContactUsPage";
+import ContactUsPage from "./pages/footer/contact-us/ContactUsPage";
+import EscrowServicePage from "./pages/footer/escrow-service/EscrowServicePage";
+import DisputesPage from "./pages/footer/disputes/DisputesPage";
+import AboutUsPage from "./pages/footer/about-us/AboutUsPage";
+import TermsAndConditionsPage from "./pages/footer/terms-and-conditions/TermsAndConditionsPage";
+import PrivacyPolicyPage from "./pages/footer/privacy-policy/PrivacyPolicyPage";
+import BecomeASellerPage from "./pages/footer/become-a-seller/BecomeASellerPage";
+import HowToShopOnSaleko from "./pages/footer/how-to-sell-on-saleko/HowToShopOnSaleko";
 
 function App() {
   return (
@@ -57,6 +61,15 @@ function App() {
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
 
         <Route path="/contact-us" element={<ContactUsPage />} />
+
+        <Route path="/escrow-service" element={<EscrowServicePage />} />
+
+        <Route path="/disputes" element={<DisputesPage />} />
+
+        <Route path="/become-a-seller" element={<BecomeASellerPage />} />
+
+        <Route path="/how-to-shop-on-saleko" element={<HowToShopOnSaleko />} />
+
       </Routes>
     </BrowserRouter>
   );
