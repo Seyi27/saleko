@@ -186,6 +186,7 @@ const LoginForm = ({
         }
       }
     } catch (error) {
+      console.error("error from firebase", error)
       showCustomToast({
         message: "Error! Please check your network connection and try again..",
         type: "error",
