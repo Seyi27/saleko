@@ -6,6 +6,7 @@ import CustomButton from "../custom-button/CustomButton";
 import { useNavigate } from "react-router-dom";
 import { NegotiationModalProp } from "../../types/types";
 import { formatPrice } from "../../helpers/helper";
+import saleko_green from "../../assets/images/svg/saleko_green.svg";
 
 const NegotiationModal = ({
   isOpen,
@@ -64,7 +65,9 @@ const NegotiationModal = ({
           setAmount(e.trim());
           setAmountError(""); // Clear the error
         } else {
-          setAmountError("The Quote product price field must be numeric and may contain decimal points");
+          setAmountError(
+            "The Quote product price field must be numeric and may contain decimal points"
+          );
         }
         break;
 
@@ -77,7 +80,7 @@ const NegotiationModal = ({
     const data = {
       negotiated_quantity: quantity,
     };
-    navigate(`/negotiate/${item?.id}`, { state: data });
+    navigate(`/negotiate/${item?.sku}`, { state: data });
   };
 
   return (
@@ -91,12 +94,15 @@ const NegotiationModal = ({
         <hr style={{ border: "0.5px solid #C1C7DE" }} />
 
         <div className="negotiate_item_details_container">
-          <img src={item?.productImages?.[0].medium_image_url} className="negotiation_item_image" />
+          <img
+            src={item?.image_urls?.[0].local_url ?? saleko_green}
+            className="negotiation_item_image"
+          />
 
           <div className="negotiate_item_details_body">
             <p>{item?.name}</p>
 
-            <p>Original Price: ₦{formatPrice(item?.price ?? 0)}</p>
+            <p>Original Price: ₦{formatPrice(Number(item?.price) || 0)}</p>
           </div>
         </div>
 
@@ -108,7 +114,9 @@ const NegotiationModal = ({
             </p>
 
             <input
-              className={`negotiation_text_input ${quantityError && 'error_textInput'}`}
+              className={`negotiation_text_input ${
+                quantityError && "error_textInput"
+              }`}
               placeholder="Enter number of products e.g 5"
               value={quantity}
               inputMode="numeric"
@@ -128,7 +136,9 @@ const NegotiationModal = ({
             </p>
 
             <input
-              className={`negotiation_text_input ${amountError && 'error_textInput'}`}
+              className={`negotiation_text_input ${
+                amountError && "error_textInput"
+              }`}
               placeholder="e.g 400,000"
               value={amount}
               onChange={(e) => handleTextInput("amount", e.target.value)}

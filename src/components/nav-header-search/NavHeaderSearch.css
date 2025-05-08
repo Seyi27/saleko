@@ -49,14 +49,12 @@
 }
 
 .cart_number {
-  width: 10px;
-  height: 10px;
   position: absolute;
   top: -5px;
   right: -10px;
   background-color: white;
   color: #084c3f;
-  font-size: 12px;
+  font-size: 11px;
   padding: 2px;
   border: 3px solid #084c3f;
   border-radius: 50px;
@@ -99,6 +97,7 @@
   display: flex;
   align-items: center;
   gap: 3px;
+  position: relative;
 }
 
 .userdetails_dropdown_container {
@@ -122,37 +121,66 @@
   padding: 10px;
 }
 
-.userdetails_dropdown_container p:hover {
-  /* background-color: #e3e1e1; */
-  font-weight: 600;
-}
-
-.userdetails_container:hover .userdetails_dropdown_container {
-  display: block;
-}
-
 .nav_menu_ic {
   display: none;
+}
+
+.tool_tip_container {
+  position: absolute;
+  top: 60px;
+  right: 150px;
+  background-color: black;
+  width: 250px;
+  padding: 10px;
+  border-radius: 10px;
+  line-height: 15px;
+}
+
+/* Optional: Chat bubble tail */
+.tool_tip_container::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  border-width: 0 10px 10px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+
+.tool_tip_close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.tool_tip_text {
+  color: white;
+  font-size: 13px;
+  margin: 0;
+  padding: 25px 0 10px 0;
 }
 
 /* For phones */
 @media only screen and (max-width: 600px) {
   .nav_header_search_container {
     top: 0;
-    height: 80px;
+    height: 60px;
+    z-index: 3; /* so search can overlap on mobile */
   }
 
   .nav_header_search_second_container {
+    width: 100%;
     justify-content: space-between;
-    padding: 10px;
+    padding: 0 15px;
   }
 
   .nav_header_search_left_container {
     display: none;
   }
-  
+
   .search_and_dropdown_container {
-    margin-right: 8px;
+    display: none;
   }
 
   .nav_saleko_logo {
@@ -172,14 +200,21 @@
     display: none;
   }
 
+  .mobile_saleko_left_container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
   .nav_menu_ic {
     display: block;
   }
 
-  .login_register_text {
+  .mobile_login_register_text {
     color: white;
     text-align: center;
     font-size: 12px;
     font-weight: bold;
+    width: 50px;
   }
 }

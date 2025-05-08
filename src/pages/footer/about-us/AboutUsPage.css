@@ -80,6 +80,7 @@
   font-size: 14px;
   text-align: justify;
   line-height: 20px;
+  color: #4b4b4b;
 }
 
 .about_us_image_container {
@@ -89,7 +90,7 @@
 /* For phones */
 @media only screen and (max-width: 600px) {
   .about_us_container {
-    padding: 150px 20px 0;
+    padding: 180px 20px 0;
   }
 
   .about_us_content_wrapper {

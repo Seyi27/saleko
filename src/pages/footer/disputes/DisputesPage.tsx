@@ -5,91 +5,78 @@ import NavHeader from "../../../components/nav-header/NavHeader";
 import NavHeaderSearch from "../../../components/nav-header-search/NavHeaderSearch";
 import NavCategories from "../../../components/nav-categories/NavCategories";
 import Footer from "../../../components/footer/Footer";
+import PageWrapper from "../../../components/page-wrapper/PageWrapper";
 
 const DisputesPage = () => {
   return (
-    <>
-      <NavHeader />
+    <PageWrapper classname="disputes_container">
+      <p className="disputes_title">Disputes</p>
 
-      <NavHeaderSearch />
+      <div style={{ padding: "5px" }} />
 
-      <NavCategories />
+      <div className="disputes_body_wrapper">
+        <p className="disputes_text">
+          Shop on Saleko with confidence, knowing that we've got you covered in
+          the event of any disputes with your purchase. Saleko offers a robust
+          and transparent dispute resolution process, which is designed to help
+          you resolve any issues that may arise with your purchase.
+        </p>
 
-      <div className="body_container">
-        <div className="body_second_container disputes_container">
-          <p className="disputes_title">Disputes</p>
+        <p className="disputes_text">
+          Our dispute resolution process is easy to access and use:
+        </p>
 
-          <div style={{ padding: "5px" }} />
+        <div style={{ padding: "10px" }} />
 
-          <div className="disputes_body_wrapper">
-            <p className="disputes_text">
-              Shop on Saleko with confidence, knowing that we've got you covered
-              in the event of any disputes with your purchase. Saleko offers a
-              robust and transparent dispute resolution process, which is
-              designed to help you resolve any issues that may arise with your
-              purchase.
-            </p>
+        {/* Step 1 */}
+        <div className="disputes_step_section">
+          <p className="disputes_title_header">Step 1 </p>
 
-            <p className="disputes_text">
-              Our dispute resolution process is easy to access and use:
-            </p>
+          <hr className="disputes_underline" />
 
-            <div style={{ padding: "10px" }} />
+          <p className="disputes_text">
+            Log in to your Saleko buyer profile and click on the "My Orders"
+            tab.
+          </p>
 
-            {/* Step 1 */}
-            <div className="disputes_step_section">
-              <p className="disputes_title_header">Step 1 </p>
+          <img src={footer_home_img} className="disputes_image" />
+        </div>
 
-              <hr className="disputes_underline" />
+        <div style={{ padding: "15px" }} />
 
-              <p className="disputes_text">
-                Log in to your Saleko buyer profile and click on the "My Orders"
-                tab.
-              </p>
+        {/* Step 2 */}
+        <div className="disputes_step_section">
+          <p className="disputes_title_header">Step 2</p>
 
-              <img src={footer_home_img} className="disputes_image" />
-            </div>
+          <hr className="disputes_underline" />
 
-            <div style={{ padding: "15px" }} />
+          <p className="disputes_text">
+            Select the specific order you're experiencing issues with from your
+            list of existing orders. You can use the Order Number to help.
+          </p>
 
-            {/* Step 2 */}
-            <div className="disputes_step_section">
-              <p className="disputes_title_header">Step 2</p>
+          <img src={footer_home_img} className="disputes_image" />
+        </div>
 
-              <hr className="disputes_underline" />
+        <div style={{ padding: "15px" }} />
 
-              <p className="disputes_text">
-                Select the specific order you're experiencing issues with from
-                your list of existing orders. You can use the Order Number to
-                help.
-              </p>
+        {/* Step 3 */}
+        <div className="disputes_step_section">
+          <p className="disputes_title_header">Step 3</p>
 
-              <img src={footer_home_img} className="disputes_image" />
-            </div>
+          <hr className="disputes_underline" />
 
-            <div style={{ padding: "15px" }} />
+          <p className="disputes_text">
+            Click on the "Help" icon located at the top right-hand corner of the
+            page, and follow the prompts to submit your dispute claim.
+          </p>
 
-            {/* Step 3 */}
-            <div className="disputes_step_section">
-              <p className="disputes_title_header">Step 3</p>
-
-              <hr className="disputes_underline" />
-
-              <p className="disputes_text">
-                Click on the "Help" icon located at the top right-hand corner of
-                the page, and follow the prompts to submit your dispute claim.
-              </p>
-
-              <img src={footer_home_img} className="disputes_image" />
-            </div>
-          </div>
-
-          <div style={{ padding: "15px" }} />
+          <img src={footer_home_img} className="disputes_image" />
         </div>
       </div>
 
-      <Footer />
-    </>
+      <div style={{ padding: "15px" }} />
+    </PageWrapper>
   );
 };
 

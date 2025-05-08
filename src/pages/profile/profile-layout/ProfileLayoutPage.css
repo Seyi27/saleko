@@ -1,0 +1,23 @@
+.profile_layout_wrapper {
+  padding-top: 200px;
+}
+
+.profile_layout_body_container {
+  display: flex;
+  gap: 20px;
+}
+
+.profile_sidebar_outter_wrapper {
+  width: 400px;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .profile_layout_wrapper {
+    padding: 180px 20px 0;
+  }
+
+  .profile_sidebar_outter_wrapper {
+    display: none;
+  }
+}

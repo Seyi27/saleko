@@ -8,6 +8,7 @@ import Footer from "../../../components/footer/Footer";
 import secure_platform from "../../../assets/images/svg/secure_platform.svg";
 import global_reach from "../../../assets/images/svg/global_reach.svg";
 import bargaining_feature from "../../../assets/images/svg/bargaining_feature.svg";
+import PageWrapper from "../../../components/page-wrapper/PageWrapper";
 
 const BecomeASellerPage = () => {
   const sellerSteps = [
@@ -76,121 +77,102 @@ how to improve your selling performance.`,
   ];
 
   return (
-    <>
-      <NavHeader />
+    <PageWrapper classname="become_seller_container">
+      <p className="become_seller_title">Seller Profile</p>
+      <p className="become_seller_text">
+        Ready to start selling on Saleko? Follow these simple steps:
+      </p>
 
-      <NavHeaderSearch />
+      <div style={{ padding: "5px" }} />
 
-      <NavCategories />
+      {/* Become a seller */}
+      <div className="become_seller_body_wrapper">
+        <p className="become_seller_header_text">Steps to Become a Seller</p>
 
-      <div className="body_container">
-        <div className="body_second_container become_seller_container">
-          <p className="become_seller_title">Seller Profile</p>
-          <p className="become_seller_text">
-            Ready to start selling on Saleko? Follow these simple steps:
-          </p>
+        <div className="become_seller_underline" />
 
-          <div style={{ padding: "5px" }} />
+        <div style={{ padding: "10px" }} />
 
-          {/* Become a seller */}
-          <div className="become_seller_body_wrapper">
-            <p className="become_seller_header_text">
-              Steps to Become a Seller
-            </p>
-
-            <div className="become_seller_underline" />
-
+        {sellerSteps.map((stepItem, index) => (
+          <>
             <div style={{ padding: "10px" }} />
 
-            {sellerSteps.map((stepItem, index) => (
-              <>
-                <div style={{ padding: "10px" }} />
+            <div
+              className={`seller_item_section ${
+                index % 2 !== 0 ? "seller_item_section_reverse" : ""
+              }`}
+              key={index}
+            >
+              <div className="seller_item_text_container">
+                <p className="seller_item_step">{stepItem.step}</p>
 
-                <div
-                  className={`seller_item_section ${
-                    index % 2 !== 0 ? "seller_item_section_reverse" : ""
-                  }`}
-                  key={index}
-                >
-                  <div className="seller_item_text_container">
-                    <p className="seller_item_step">{stepItem.step}</p>
+                <p className="seller_item_platform">{stepItem.platform}</p>
 
-                    <p className="seller_item_platform">{stepItem.platform}</p>
-
-                    <p className="become_seller_text seller_item_description">
-                      {stepItem.description}
-                    </p>
-                  </div>
-
-                  <img src={stepItem.imageUrl} className="seller_item_image" />
-                </div>
-
-                {index < sellerSteps.length - 1 && (
-                  <div className="become_seller_underline" />
-                )}
-              </>
-            ))}
-          </div>
-
-          <div style={{ padding: "15px" }} />
-
-          {/* Benefits of Selling on Saleko */}
-          <div className="benefits_selling_container">
-            <p className="benefits_selling_title">
-              Benefits of Selling on Saleko
-            </p>
-            <p className="benefits_selling_text become_seller_text">
-              As a seller on Saleko, you'll be able to enjoy a variety of
-              benefits, including the ability to negotiate prices with our
-              merchants on Saleko, access to special deals and promotions, the
-              ability to track your order history, and the convenience of
-              shopping online from the comfort of your own home.
-            </p>
-
-            <div style={{ padding: "15px" }} />
-
-            <div className="benefits_selling_item_container">
-              {/* Global Reach */}
-              <div className="benefits_selling_item">
-                <img src={bargaining_feature} />
-                <p className="benefits_selling_item_header">Global Reach</p>
-
-                <p className="become_seller_text benefits_selling_item_text">
-                  Showcase your products to customers worldwide
+                <p className="become_seller_text seller_item_description">
+                  {stepItem.description}
                 </p>
               </div>
 
-              {/* Bargaining Feature */}
-              <div className="benefits_selling_item">
-                <img src={global_reach} />
-                <p className="benefits_selling_item_header">
-                  Bargaining Feature
-                </p>
-
-                <p className="become_seller_text benefits_selling_item_text">
-                  Authentic Nigerian market experience with price negotiation
-                </p>
-              </div>
-
-              {/* Secure Platform */}
-              <div className="benefits_selling_item">
-                <img src={secure_platform} />
-                <p className="benefits_selling_item_header">Secure Platform</p>
-
-                <p className="become_seller_text benefits_selling_item_text">
-                  Safe and secure ecosystem built on trust and confidence
-                </p>
-              </div>
+              <img src={stepItem.imageUrl} className="seller_item_image" />
             </div>
 
-            <div style={{ padding: "20px" }} />
-
-          </div>
-        </div>
+            {index < sellerSteps.length - 1 && (
+              <div className="become_seller_underline" />
+            )}
+          </>
+        ))}
       </div>
 
-      <Footer />
-    </>
+      <div style={{ padding: "15px" }} />
+
+      {/* Benefits of Selling on Saleko */}
+      <div className="benefits_selling_container">
+        <p className="benefits_selling_title">Benefits of Selling on Saleko</p>
+        <p className="benefits_selling_text become_seller_text">
+          As a seller on Saleko, you'll be able to enjoy a variety of benefits,
+          including the ability to negotiate prices with our merchants on
+          Saleko, access to special deals and promotions, the ability to track
+          your order history, and the convenience of shopping online from the
+          comfort of your own home.
+        </p>
+
+        <div style={{ padding: "15px" }} />
+
+        <div className="benefits_selling_item_container">
+          {/* Global Reach */}
+          <div className="benefits_selling_item">
+            <img src={bargaining_feature} />
+            <p className="benefits_selling_item_header">Global Reach</p>
+
+            <p className="become_seller_text benefits_selling_item_text">
+              Showcase your products to customers worldwide
+            </p>
+          </div>
+
+          {/* Bargaining Feature */}
+          <div className="benefits_selling_item">
+            <img src={global_reach} />
+            <p className="benefits_selling_item_header">Bargaining Feature</p>
+
+            <p className="become_seller_text benefits_selling_item_text">
+              Authentic Nigerian market experience with price negotiation
+            </p>
+          </div>
+
+          {/* Secure Platform */}
+          <div className="benefits_selling_item">
+            <img src={secure_platform} />
+            <p className="benefits_selling_item_header">Secure Platform</p>
+
+            <p className="become_seller_text benefits_selling_item_text">
+              Safe and secure ecosystem built on trust and confidence
+            </p>
+          </div>
+        </div>
+
+        <div style={{ padding: "20px" }} />
+      </div>
+    </PageWrapper>
   );
 };
 

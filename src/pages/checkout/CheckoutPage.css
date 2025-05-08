@@ -135,6 +135,15 @@
   font-weight: 700;
 }
 
+/******** delivery address *********/
+.delivery_address p {
+  color: #084c3f;
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 600;
+}
+
 /************ Payment **********/
 
 .payment_border_container {
@@ -180,6 +189,7 @@
   border: 1px solid #e7e9eb;
   border-radius: 10px;
   padding: 10px;
+  width: 400px;
 }
 
 .checkout_cart_header_container {
@@ -253,10 +263,18 @@
 /* For phones */
 @media only screen and (max-width: 600px) {
   .checkout_main_container {
-    padding: 150px 20px 0;
+    padding: 180px 20px 0;
   }
 
-  .checkout_body_container{
+  .checkout_body_container {
     flex-direction: column;
+  }
+
+  .delivery_option_card {
+    width: 100%;
+  }
+
+  .checkout_cart_summary {
+    width: 93%;
   }
 }

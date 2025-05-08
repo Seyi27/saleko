@@ -7,6 +7,8 @@ import order_confirmed_img from "../../assets/images/svg/order_confirmed_img.svg
 import order_confirmed_check from "../../assets/images/svg/order_confimed_check.svg";
 import { BsX } from "react-icons/bs";
 import { formatPrice } from "../../helpers/helper";
+import saleko_green from "../../assets/images/svg/saleko_green.svg";
+
 
 const CustomModal = ({
   isOpen,
@@ -137,11 +139,13 @@ const CustomModal = ({
           <hr style={{ border: "0.5px solid #C1C7DE" }} />
 
           <div>
-            <p className="confirm_negotiation_accept_price_text">Are you sure you want to accept this negotiated price?</p>
+            <p className="confirm_negotiation_accept_price_text">
+              Are you sure you want to accept this negotiated price?
+            </p>
 
             <div className="confirm_negotiation_item_body_container">
               <img
-                src={item?.productImages?.[0].medium_image_url}
+                src={item?.image_urls?.[0].local_url ?? saleko_green}
                 className="confirm_negotiation_item_image"
               />
 
@@ -160,7 +164,7 @@ const CustomModal = ({
                       margin: 0,
                     }}
                   >
-                    ₦{formatPrice(item?.price ?? 0)}
+                    ₦{formatPrice(Number(item?.price) || 0)}
                   </p>
                   <p style={{ color: "red", margin: 0 }}>₦650,000</p>
                 </div>

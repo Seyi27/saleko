@@ -66,7 +66,7 @@ const ForgotPasswordRequest = ({
       // to check if the input is phone number
       thisSelectedValue = "phone";
     } else {
-      console.log("it is");
+      // console.log("it is");
     }
 
     try {

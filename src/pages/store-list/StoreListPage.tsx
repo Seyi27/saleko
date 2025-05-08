@@ -10,6 +10,7 @@ import saleko_img7 from "../../assets/images/all_Images/saleko_img7.png";
 import { storelistdata } from "../../helpers/Data";
 import Pagination from "../../components/pagination/Pagination";
 import StoreListCard from "../../components/store-list-card/StoreListCard";
+import PageWrapper from "../../components/page-wrapper/PageWrapper";
 
 const StoreListPage = () => {
   const [storeSearch, setStoreSearch] = useState("");
@@ -24,59 +25,47 @@ const StoreListPage = () => {
   );
 
   return (
-    <div>
-      <NavHeader />
-
-      <NavHeaderSearch />
-
-      <SearchFilterNav />
-
-      <div className="body_container">
-        <div className="body_second_container store_list_main_container">
-          <div>
-            <img src={seller_list_img} className="store_list_img" />
-          </div>
-
-          {/* Search input container */}
-          <div className="store_list_search_input_container">
-            <BsSearch size={15} />
-            <input
-              value={storeSearch}
-              onChange={(e) => setStoreSearch(e.target.value)}
-              className="store_list_search_input"
-              placeholder="Search for products or store name"
-            />
-          </div>
-
-          {/* Search cardlist */}
-          <div className="store_cardlist_section">
-            {currentData.map((item, index) => (
-              <div key={index}>
-                <StoreListCard item={item} />
-              </div>
-            ))}
-          </div>
-
-          {/* Pagination */}
-          <div>
-            <Pagination
-              itemsPerPage={itemsPerPage}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              data={storelistdata}
-            />
-          </div>
-
-          <div style={{ padding: "20px" }} />
-
-          <div className="store_list_img2_container">
-            <img src={saleko_img7} className="store_list_img2" />
-          </div>
-        </div>
+    <PageWrapper classname="store_list_main_container">
+      <div>
+        <img src={seller_list_img} className="store_list_img" />
       </div>
 
-      <Footer />
-    </div>
+      {/* Search input container */}
+      <div className="store_list_search_input_container">
+        <BsSearch size={15} />
+        <input
+          value={storeSearch}
+          onChange={(e) => setStoreSearch(e.target.value)}
+          className="store_list_search_input"
+          placeholder="Search for products or store name"
+        />
+      </div>
+
+      {/* Search cardlist */}
+      <div className="store_cardlist_section">
+        {currentData.map((item, index) => (
+          <div key={index}>
+            <StoreListCard item={item} />
+          </div>
+        ))}
+      </div>
+
+      {/* Pagination */}
+      <div>
+        <Pagination
+          itemsPerPage={itemsPerPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          data={storelistdata}
+        />
+      </div>
+
+      <div style={{ padding: "20px" }} />
+
+      <div className="store_list_img2_container">
+        <img src={saleko_img7} className="store_list_img2" />
+      </div>
+    </PageWrapper>
   );
 };
 

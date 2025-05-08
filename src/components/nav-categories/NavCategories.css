@@ -1,5 +1,5 @@
 .nav_categories_container {
-  background-color: #24a681;
+  background-color: #F4AF47;
   height: 40px;
 
   /* for fixed position */
@@ -26,7 +26,6 @@
 
 .categories_icon_container > p {
   font-size: 14px;
-  color: #ffffff;
 }
 
 .categories_items_container {
@@ -38,7 +37,6 @@
 
 .categories_items_container > p {
   font-size: 13px;
-  color: #ffffff;
   cursor: pointer;
 }
 
@@ -130,15 +128,11 @@
 /* For phones */
 @media only screen and (max-width: 600px) {
   .nav_categories_container {
-    top: 80px;
+    top: 110px;
     height: 50px;
+    z-index: 1;  /* so search can overlap on mobile */
   }
-
-  .categories_icon_container > p {
-    font-size: 14px;
-    color: #ffffff;
-  }
-
+  
   .categories_icon_container{
     display: none;
   }
@@ -146,9 +140,10 @@
   .categories_items_container {
     display: flex;
     align-items: center;
-    gap: 10px; /* Adjust spacing */
+    gap: 15px; /* Adjust spacing */
     overflow-x: auto; /* Enable horizontal scrolling */
     white-space: nowrap; /* Prevents items from wrapping */
+    padding: 0 20px;
   }
   
   /* Hide scrollbar for a cleaner UI */
@@ -159,8 +154,6 @@
   .categories_items_container p {
     flex-shrink: 0; /* Prevents items from shrinking */
     font-size: 13px;
-    color: #ffffff;
     cursor: pointer;
-    padding: 5px 10px;
   }
 }

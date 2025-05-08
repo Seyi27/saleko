@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "./ImageSlider.css";
 import { BsCaretLeftFill, BsCaretRightFill } from "react-icons/bs";
+import saleko_green from "../../assets/images/svg/saleko_green.svg";
+import { ProductImage, ProductImageProp } from "../../types/productTypes";
 
-const ImageSlider = ({ images }: any) => {
+const ImageSlider = ({ images }: ProductImageProp) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
@@ -21,7 +23,7 @@ const ImageSlider = ({ images }: any) => {
     <div className="slider_container">
       <div className="slider">
         <img
-          src={images[currentIndex].large_image_url}
+          src={images[currentIndex].local_url ?? saleko_green}
           alt={`Slide ${currentIndex}`}
           className="slider_image"
         />

@@ -22,15 +22,15 @@ const ProfileSetup = ({
 }: AuthModalScreenProps) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [phoneNo, setPhoneNo] = useState("");
-  const [email, setEmail] = useState("");
+  // const [phoneNo, setPhoneNo] = useState("");
+  // const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const [firstNameError, setFirstNameError] = useState("");
   const [lastNameError, setLastNameError] = useState("");
-  const [phoneNoError, setPhoneNoError] = useState("");
-  const [emailError, setEmailError] = useState("");
+  // const [phoneNoError, setPhoneNoError] = useState("");
+  // const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [selectedCode, setSelectedCode] = useState("+234");
@@ -46,6 +46,10 @@ const ProfileSetup = ({
     (state: RootState) => state.authValue.selectedDropdownValue
   );
 
+  const emailPhonenumberText = useSelector(
+    (state: RootState) => state.authValue.emailPhonenumberText
+  );
+
   // const [selectedDropdownValue, setselectedDropdownValue] = useState("phone")
 
   const [completeSetup, { isLoading }] = useCompleteSignupMutation();
@@ -53,6 +57,8 @@ const ProfileSetup = ({
   const handleCheckboxChange = () => {
     setTermsChecked(!termsChecked);
   };
+
+  console.log("selectedDropdownValue", selectedDropdownValue)
 
   const handleTextInput = (key: string, e: string) => {
     switch (key) {
@@ -78,29 +84,29 @@ const ProfileSetup = ({
           setLastNameError("");
         }
         break;
-      case "phone":
-        if (!e.trim()) {
-          setPhoneNo("");
-          setPhoneNoError("Phone Number cannot be empty");
-        } else if (/^\d+$/.test(e.trim())) {
-          // takes only numbers
-          setPhoneNo(e.trim());
-          setPhoneNoError("");
-        } else {
-          setPhoneNoError("");
-        }
-        break;
-      case "email":
-        setEmail(e.trim());
-        if (!e.trim()) {
-          setEmailError("Email cannot be empty");
-        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.trim())) {
-          // if email is not valid
-          setEmailError("Email is not valid");
-        } else {
-          setEmailError("");
-        }
-        break;
+      // case "phone":
+      //   if (!e.trim()) {
+      //     setPhoneNo("");
+      //     setPhoneNoError("Phone Number cannot be empty");
+      //   } else if (/^\d+$/.test(e.trim())) {
+      //     // takes only numbers
+      //     setPhoneNo(e.trim());
+      //     setPhoneNoError("");
+      //   } else {
+      //     setPhoneNoError("");
+      //   }
+      //   break;
+      // case "email":
+      //   setEmail(e.trim());
+      //   if (!e.trim()) {
+      //     setEmailError("Email cannot be empty");
+      //   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.trim())) {
+      //     // if email is not valid
+      //     setEmailError("Email is not valid");
+      //   } else {
+      //     setEmailError("");
+      //   }
+      //   break;
       case "password":
         setPassword(e.trim());
         if (!e.trim()) {
@@ -129,14 +135,13 @@ const ProfileSetup = ({
     if (
       firstName &&
       lastName &&
-      // phoneNo &&
-      (email || phoneNo) &&
+      // (email || phoneNo) &&
       confirmPassword &&
       password &&
       !firstNameError &&
       !lastNameError &&
-      !phoneNoError &&
-      !emailError &&
+      // !phoneNoError &&
+      // !emailError &&
       !passwordError &&
       !confirmPasswordError &&
       termsChecked
@@ -153,13 +158,13 @@ const ProfileSetup = ({
   }, [
     firstName,
     lastName,
-    phoneNo,
-    email,
+    // phoneNo,
+    // email,
     password,
     firstNameError,
     lastNameError,
-    phoneNoError,
-    emailError,
+    // phoneNoError,
+    // emailError,
     passwordError,
     termsChecked,
     confirmPassword,
@@ -170,13 +175,14 @@ const ProfileSetup = ({
     e.preventDefault();
 
     try {
-      const phoneNoWithCountryCode = selectedCode + phoneNo;
+      // const phoneNoWithCountryCode = selectedCode + phoneNo;
 
       const response = await completeSetup({
         first_name: firstName,
         last_name: lastName,
-        username:
-          selectedDropdownValue == "email" ? phoneNoWithCountryCode : email,
+        // username:
+        //   selectedDropdownValue == "email" ? phoneNoWithCountryCode : email,
+        username: emailPhonenumberText,
         password: password,
         password_confirmation: confirmPassword,
         accept_terms: termsChecked,
@@ -196,8 +202,8 @@ const ProfileSetup = ({
 
         setFirstName("");
         setLastName("");
-        setPhoneNo("");
-        setEmail("");
+        // setPhoneNo("");
+        // setEmail("");
         setPassword("");
         setConfirmPassword("");
         setTermsChecked(false);
@@ -239,7 +245,7 @@ const ProfileSetup = ({
             handleTextInput={handleTextInput}
           />
 
-          {selectedDropdownValue == "email" ? (
+          {/* {selectedDropdownValue == "email" ? (
             // Phone Number
             <CustomTextInput
               type={"phoneNo"}
@@ -266,7 +272,7 @@ const ProfileSetup = ({
               idAndHtmlFor={"email"}
               handleTextInput={handleTextInput}
             />
-          )}
+          )} */}
 
           {/* Password */}
           <CustomTextInput

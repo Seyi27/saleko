@@ -71,8 +71,8 @@ const SearchFilterNav = () => {
 
   return (
     <>
-      <div className="body_container search_filter_nav_container">
-        <div className="body_second_container search_filter_nav_second_container">
+      <div className="body_container">
+        <div className="body_second_container search_filter_nav_container">
           <div className="search_filter_nav_item_wrapper">
             <div
               className="search_item_container"
@@ -198,6 +198,7 @@ const SearchFilterNav = () => {
           )}
         </div>
       </div>
+
 
       <Filter
         isOpen={openFilterModal}

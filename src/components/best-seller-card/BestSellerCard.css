@@ -2,6 +2,7 @@
   display: flex;
   width: 370px;
   gap: 15px;
+  padding-top: 10px;
 }
 
 .best_seller_image_card {
@@ -109,15 +110,31 @@
   color: #084c3f;
 }
 
-.best_seller_button:hover{
-    background-color: #084c3f;
-    color: white;
+.best_seller_button:hover {
+  background-color: #084c3f;
+  color: white;
 }
 
-.best_seller_button_cart_icon{
-    color: #084c3f;
+.best_seller_button_cart_icon {
+  color: #084c3f;
 }
-  
-.best_seller_button:hover .best_seller_button_cart_icon{
-    color: white;
+
+.best_seller_button:hover .best_seller_button_cart_icon {
+  color: white;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .best_seller_card_container {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .best_seller_image_card{
+    width: 35vw;
+  }
+
+  .best_seller_image{
+    width: 30vw;
+  }
 }

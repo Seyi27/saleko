@@ -82,6 +82,6 @@
 /* For phones */
 @media only screen and (max-width: 600px) {
   .negotiation_modal_content {
-    width: 350px;
+    width: 80vw;
   }
 }

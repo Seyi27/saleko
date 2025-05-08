@@ -30,9 +30,9 @@ const AuthModal = ({
 
   const handleOverlayClick = (e: any) => {
     // Close the modal when the overlay is clicked
-    if (e.target === e.currentTarget) {
-      handleCloseModal();
-    }
+    // if (e.target === e.currentTarget) {
+    //   handleCloseModal();
+    // }
   };
 
   const handleAuthNavigate = (screen: string) => {

@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./HomeCarouselComponent.css";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import saleko_img1 from '../../assets/images/all_Images/saleko_img1.jpg'
-import saleko_img2 from '../../assets/images/all_Images/saleko_img2.jpg'
-import saleko_img3 from '../../assets/images/all_Images/saleko_img3.jpg'
-import saleko_img4 from '../../assets/images/all_Images/saleko_img4.jpg'
+import saleko_img1 from "../../assets/images/all_Images/saleko_img1.jpg";
+import saleko_img2 from "../../assets/images/all_Images/saleko_img2.jpg";
+import saleko_img3 from "../../assets/images/all_Images/saleko_img3.jpg";
+import saleko_img4 from "../../assets/images/all_Images/saleko_img4.jpg";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import { useFetchBannerQuery } from "../../services/appApi";
+import { SliderItem } from "../../types/appTypes";
 
 const HomeCarouselComponent = () => {
-  const slides = [
+  const altSlides = [
     {
       image: saleko_img1,
     },
@@ -23,6 +25,16 @@ const HomeCarouselComponent = () => {
       image: saleko_img4,
     },
   ];
+
+  const [bannerSlides, setBannerSlides] = useState<SliderItem[]>([]);
+
+  const { data, isSuccess } = useFetchBannerQuery("slider");
+
+  useEffect(() => {
+    if (isSuccess) {
+      setBannerSlides(data.data);
+    }
+  }, [data, isSuccess]);
 
   return (
     <div className="home_carousel_container">
@@ -51,15 +63,25 @@ const HomeCarouselComponent = () => {
           )
         }
       >
-        {slides.map((slide, index) => (
-          <div key={index}>
-            <img
-              src={slide.image}
-              alt={`Slide ${index + 1}`}
-              // className="image_slides"
-            />
-          </div>
-        ))}
+        {bannerSlides
+          ? bannerSlides.map((slide, index) => (
+              <div key={index}>
+                <img
+                  src={slide.image_url}
+                  alt={`Slide ${index + 1}`}
+                  // className="image_slides"
+                />
+              </div>
+            ))
+          : altSlides.map((slide, index) => (
+              <div key={index}>
+                <img
+                  src={slide.image}
+                  alt={`Slide ${index + 1}`}
+                  // className="image_slides"
+                />
+              </div>
+            ))}
       </Carousel>
     </div>
   );

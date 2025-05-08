@@ -1,12 +1,13 @@
 import React from "react";
-import "./HowToShopOnSaleko.css";
+import "./HowToShopOnSalekoPage.css";
 import NavHeader from "../../../components/nav-header/NavHeader";
 import NavHeaderSearch from "../../../components/nav-header-search/NavHeaderSearch";
 import NavCategories from "../../../components/nav-categories/NavCategories";
 import Footer from "../../../components/footer/Footer";
 import footer_home_img from "../../../assets/images/svg/footer_home_img.svg";
+import PageWrapper from "../../../components/page-wrapper/PageWrapper";
 
-const HowToShopOnSaleko = () => {
+const HowToShopOnSalekoPage = () => {
   const sellerSteps = [
     {
       step: "Step 1",
@@ -52,72 +53,55 @@ const HowToShopOnSaleko = () => {
   ];
 
   return (
-    <>
-      <NavHeader />
+    <PageWrapper classname="shop_saleko_container">
+      <p className="shop_saleko_title">Shop on Saleko</p>
 
-      <NavHeaderSearch />
+      <div style={{ padding: "5px" }} />
 
-      <NavCategories />
+      <div className="shop_saleko_body_wrapper">
+        <p className="shop_saleko_text">
+          Welcome to Saleko, the ultimate shopping destination, where
+          convenience meets excitement! Are you ready to take your shopping game
+          to the next level? Look no further because our Saleko is here to
+          satisfy your every need. Here's your guide on how to shop like a pro
+          on Saleko, tailored specifically for our Nigerian shoppers:
+        </p>
 
-      <div className="body_container">
-        <div className="body_second_container shop_saleko_container">
-          <p className="shop_saleko_title">Shop on Saleko</p>
+        <div style={{ padding: "10px" }} />
 
-          <div style={{ padding: "5px" }} />
-
-          <div className="shop_saleko_body_wrapper">
-            <p className="shop_saleko_text">
-              Welcome to Saleko, the ultimate shopping destination, where
-              convenience meets excitement! Are you ready to take your shopping
-              game to the next level? Look no further because our Saleko is here
-              to satisfy your every need. Here's your guide on how to shop like
-              a pro on Saleko, tailored specifically for our Nigerian shoppers:
-            </p>
-
+        {sellerSteps.map((stepItem, index) => (
+          <>
             <div style={{ padding: "10px" }} />
 
-            {sellerSteps.map((stepItem, index) => (
-              <>
-                <div style={{ padding: "10px" }} />
+            <div
+              className={`shop_saleko_item_section ${
+                index % 2 !== 0 ? "shop_saleko_section_reverse" : ""
+              }`}
+              key={index}
+            >
+              <div className="shop_saleko_text_container">
+                <p className="shop_saleko_step">{stepItem.step}</p>
 
-                <div
-                  className={`shop_saleko_item_section ${
-                    index % 2 !== 0 ? "shop_saleko_section_reverse" : ""
-                  }`}
-                  key={index}
-                >
-                  <div className="shop_saleko_text_container">
-                    <p className="shop_saleko_step">{stepItem.step}</p>
+                <p className="shop_saleko_text">{stepItem.description}</p>
+              </div>
 
-                    <p className="shop_saleko_text">
-                      {stepItem.description}
-                    </p>
-                  </div>
+              <img src={stepItem.imageUrl} className="shop_saleko_item_image" />
+            </div>
 
-                  <img
-                    src={stepItem.imageUrl}
-                    className="shop_saleko_item_image"
-                  />
-                </div>
+            <div className="shop_saleko_underline" />
+          </>
+        ))}
 
-                <div className="shop_saleko_underline" />
-              </>
-            ))}
-
-            <p className="shop_saleko_last_text">
-              From Lagos Island to Lagos Mainland, and everywhere in between,
-              we've got you covered. Shop with us today and experience the
-              ultimate shopping high, Nigerian style!
-            </p>
-          </div>
-
-          <div style={{ padding: "15px" }} />
-        </div>
+        <p className="shop_saleko_last_text">
+          From Lagos Island to Lagos Mainland, and everywhere in between, we've
+          got you covered. Shop with us today and experience the ultimate
+          shopping high, Nigerian style!
+        </p>
       </div>
 
-      <Footer />
-    </>
+      <div style={{ padding: "15px" }} />
+    </PageWrapper>
   );
 };
 
-export default HowToShopOnSaleko;
+export default HowToShopOnSalekoPage;

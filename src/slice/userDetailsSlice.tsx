@@ -5,7 +5,9 @@ interface UserType {
   user_type: string;
   email: string;
   first_name:string;
-  last_name:string
+  last_name:string;
+  phone_number: string | null;
+  old_user_id: number
 }
 
 interface UserDetailsType {

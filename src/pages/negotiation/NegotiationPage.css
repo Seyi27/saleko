@@ -1,6 +1,5 @@
 .negotiation_main_container {
   padding-top: 180px;
-  padding-bottom: 100px;
 }
 
 .negotiation_back_button_container {
@@ -102,8 +101,8 @@
 }
 
 .cancel_button {
-  background-color: #DADADA;
-  color: #6B6B6B;
+  background-color: #dadada;
+  color: #6b6b6b;
   border: 0;
   outline: 0;
   width: 90px;
@@ -150,7 +149,49 @@
   color: #4b4b4b;
 }
 
-.negotiated_expiry_text{
+.negotiated_expiry_text {
+  font-size: 12px;
+  color: #4f4f4f;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .negotiation_main_container {
+    padding: 180px 20px 0;
+  }
+
+  .negotiation_body_container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .negotiation_chat_container {
+    width: 91%;
+  }
+
+  .negotiation_chatbody_bottom_container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .bid_price_container {
+    width: 100%;
+  }
+
+  .bid_price_container p {
     font-size: 12px;
-    color: #4F4F4F;
+    font-weight: bold;
+  }
+
+  .bid_price_input{
+    width: 50%;
+  }
+
+  .accept_offer_button {
+    width: 100%;
+  }
+
+  .negotiation_product_details_container {
+    width: 91%;
+  }
 }

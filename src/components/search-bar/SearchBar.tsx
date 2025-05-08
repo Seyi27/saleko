@@ -4,6 +4,8 @@ import { BsSearch } from "react-icons/bs";
 import { FaTrashAlt } from "react-icons/fa";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useLazyGetAllProductsByNameWithoutPaginationQuery } from "../../services/productsApi";
+import { Product } from "../../types/productTypes";
 
 const SearchBar = () => {
   const navigate = useNavigate();
@@ -11,9 +13,11 @@ const SearchBar = () => {
   const [searchValue, setSearchValue] = useState(""); // Tracks the search input
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
-  const [apiSuggestedSearch, setApiSuggestedSearch] = useState<any[]>([]);
+  const [apiSuggestedSearch, setApiSuggestedSearch] = useState<Product[]>([]);
 
   const searchBarRef = useRef<HTMLDivElement | null>(null); // Explicitly type the ref
+  const [getAllProductsByNameWithoutPagination] =
+    useLazyGetAllProductsByNameWithoutPaginationQuery();
 
   const suggestedproducts = [
     {
@@ -51,18 +55,21 @@ const SearchBar = () => {
     },
   ];
 
-
-
-  const fetchData = async (value: string) => {
-    await fetch(`http://api.tvmaze.com/search/shows?q=${value}`)
-      .then((res) => res.json())
-      .then((data) => setApiSuggestedSearch(data));
+  const fetchAllProductsByName = async (value: string) => {
+    try {
+      const res = await getAllProductsByNameWithoutPagination(value).unwrap();
+      if (res) {
+        setApiSuggestedSearch(res.data.products);
+      }
+    } catch (error) {
+      // console.log("error");
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
     setShowSuggestions(true); // Show suggestions as user types
-    fetchData(e.target.value);
+    fetchAllProductsByName(e.target.value);
   };
 
   const handleInputSubmit = (e: React.FormEvent) => {
@@ -102,9 +109,12 @@ const SearchBar = () => {
     const query = searchParams.get("q");
 
     if (query) {
-      setSearchValue(query);
+      if (location.pathname.startsWith("/search")) {
+        // i.e if the path is /search
+        setSearchValue(query);
+      }
     }
-  }, [location.search]);
+  }, [location]);
 
   return (
     <div className="search_bar_container" ref={searchBarRef}>
@@ -196,10 +206,10 @@ const SearchBar = () => {
                 <div
                   key={index}
                   className="search_suggestion_item"
-                  onClick={() => handleSuggestionClick(data.show.name)}
+                  onClick={() => handleSuggestionClick(data.name)}
                 >
                   <BsSearch />
-                  {data.show.name}
+                  {data.name}
                 </div>
               ))}
             </div>

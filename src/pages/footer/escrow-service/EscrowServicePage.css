@@ -48,7 +48,7 @@
 /* For phones */
 @media only screen and (max-width: 600px) {
   .escrow_container {
-    padding: 150px 20px 0;
+    padding: 180px 20px 0;
   }
 
   .escrow_content_wrapper {

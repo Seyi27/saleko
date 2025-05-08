@@ -1,5 +1,9 @@
 .product_section_container {
-  padding-top: 50px;
+  padding-top: 20px;
+}
+
+.extra_space {
+  padding-top: 40px;
 }
 
 .name_container {
@@ -77,7 +81,8 @@
 
 /* For phones */
 @media only screen and (max-width: 600px) {
-  .product_section_row {
+  .product_section_row,
+  .product_section_row_to_remove_space {
     /* grid-template-columns: repeat(2, 1fr); */ /* Force 2 items per row on mobile */
     display: flex;
     flex-wrap: wrap;
@@ -89,16 +94,16 @@
   }
 
   /* Single vertical divider between the two columns */
-  .product_card_container:nth-child(odd)::after {
+  /* .product_card_container:nth-child(odd)::after {
     content: "";
     position: absolute;
-    right: -10px; /* Adjust as needed */
+    right: -10px; 
     top: 0;
     bottom: 0;
     width: 1px;
     height: 100%;
-    background-color: #e5e7eb; /* Divider color */
-  }
+    background-color: #e5e7eb; 
+  } */
 
   .product_divider {
     display: none;

@@ -1,0 +1,27 @@
+.wishlist_header_left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wishlist_header_text {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.wishlist_header_item {
+  font-size: 10px;
+  background-color: #fac515;
+  padding: 5px;
+  border-radius: 20px;
+}
+
+.wishlist_header_right {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.wishlist_header_sort {
+  font-size: 14px;
+}

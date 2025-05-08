@@ -1,0 +1,18 @@
+.pagewrapper_searchbar {
+  display: none;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .pagewrapper_searchbar {
+    background-color: #084c3f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    position: fixed;
+    top: 60px;
+    width: 100%;
+    z-index: 2;
+  }
+}

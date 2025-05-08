@@ -1,13 +1,13 @@
 @font-face {
-  font-family: 'SourceCodePro';
-  src: url('./assets/fonts/SourceCodePro-Regular.ttf') format('ttf');
+  font-family: "SourceCodePro";
+  src: url("./assets/fonts/SourceCodePro-Regular.ttf") format("ttf");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'SourceSerif4';
-  src: url('./assets/fonts/SourceSerif4-Regular.ttf') format('ttf');
+  font-family: "SourceSerif4";
+  src: url("./assets/fonts/SourceSerif4-Regular.ttf") format("ttf");
   font-weight: normal;
   font-style: normal;
 }
@@ -57,9 +57,73 @@
   color: red;
 }
 
+.loader_container {
+  display: flex;
+  justify-content: center;
+  padding-top: 30px;
+}
+
+.skeleton_main_container {
+  width: 180px;
+  height: 380px;
+}
+
+.skeleton_wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.view_more_buton {
+  width: 120px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 30px;
+  background-color: #084c3f;
+  color: white;
+  gap: 5px;
+  margin: 20px auto;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+/* profile outlet */
+.profile_outlet_wrapper {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0px 1px 3px 0px #0000001a;
+}
+
+.profile_outlet_header_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 20px;
+}
+
+.profile_outlet_header_text {
+  font-size: 16px;
+  font-weight: bold;
+}
+
 /* For phones */
 @media only screen and (max-width: 600px) {
   .body_second_container {
+    width: 100%;
+  }
+
+  .skeleton_main_container {
+    width: 39vw;
+    height: 380px;
+    padding-bottom: 15px;
+  }
+
+  .skeleton_wrapper {
+    flex-wrap: wrap;
     width: 100%;
   }
 }

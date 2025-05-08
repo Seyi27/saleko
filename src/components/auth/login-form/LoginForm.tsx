@@ -19,8 +19,15 @@ import { showCustomToast } from "../../custom-toast/CustomToast";
 import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import AppleLogin from "react-apple-login";
 import AppleSignin from "react-apple-signin-auth";
-import { getAuth, signInWithPopup, OAuthProvider, signInWithRedirect } from "firebase/auth";
-import { firebaseApp } from "../../../firebase";
+import {
+  getAuth,
+  signInWithPopup,
+  OAuthProvider,
+  signInWithRedirect,
+  getRedirectResult,
+  onAuthStateChanged,
+} from "firebase/auth";
+import { auth, firebaseApp } from "../../../firebase";
 
 const LoginForm = ({
   handleCloseModal,
@@ -162,31 +169,31 @@ const LoginForm = ({
   };
 
   const handleAppleSignIn = async () => {
-    const auth = getAuth(firebaseApp);
     const provider = new OAuthProvider("apple.com");
 
     try {
       const result = await signInWithPopup(auth, provider);
 
-      // Retrieve the accessToken
-      const credential = OAuthProvider.credentialFromResult(result);
-      const idToken = credential?.idToken; // Use this for backend verification
+      if (result) {
+        // Retrieve the accessToken
+        const credential = OAuthProvider.credentialFromResult(result);
+        const idToken = credential?.idToken; // Use this for backend verification
 
-      if (idToken) {
-        const appleCallbackBody = {
-          channel: "web",
-          token: idToken,
-        };
+        if (idToken) {
+          const appleCallbackBody = {
+            channel: "web",
+            token: idToken,
+          };
 
-        const res = await appleAuthCallback(appleCallbackBody).unwrap();
+          const res = await appleAuthCallback(appleCallbackBody).unwrap();
 
-        if (res) {
-          dispatch(addUser(res.data));
-          handleCloseModal();
+          if (res) {
+            dispatch(addUser(res.data));
+            handleCloseModal();
+          }
         }
       }
     } catch (error) {
-      console.error("error from firebase", error)
       showCustomToast({
         message: "Error! Please check your network connection and try again..",
         type: "error",

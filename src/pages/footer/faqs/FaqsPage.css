@@ -1,0 +1,90 @@
+.faqs_container {
+  padding-top: 200px;
+}
+
+.faqs_header_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.faqs_title {
+  font-size: 20px;
+  margin: 0 0 5px 0;
+  font-weight: 700;
+}
+
+.faqs_search_input_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* width: 100%; */
+  width: 400px;
+  padding: 10px 10px 10px 25px;
+  border: 1.15px solid #e7e9ea;
+  border-radius: 20px;
+}
+
+.faqs_search_input {
+  flex: 1;
+  border: 0;
+  outline: 0;
+  color: #606b6b;
+  width: 100%;
+}
+
+/************* accordion  **************/
+
+.faq_accordion_container {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.faq_accordion_header {
+  padding: 25px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.3s ease-in-out;
+}
+
+.faq_accordion_content {
+  max-height: 0;
+  overflow: hidden;
+  font-size: 14px;
+  transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out;
+  padding: 0 20px;
+  line-height: 20px;
+}
+
+.faq_accordion_content.open {
+  max-height: 200px;
+  padding: 10px 20px;
+}
+
+
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .faqs_container {
+    padding: 180px 20px 0;
+  }
+
+  .faqs_header_container {
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+  }
+
+  .faqs_search_input_container {
+    width: 90%;
+  }
+
+  .faq_accordion_content.open {
+    max-height: 400px;
+  }
+}

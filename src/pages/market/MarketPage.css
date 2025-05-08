@@ -1,0 +1,94 @@
+.market_content_wrapper {
+  padding-top: 200px;
+}
+
+.market_header_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+}
+
+.market_header_container p {
+  font-size: 20px;
+  font-weight: bold;
+  color: #084c3f;
+}
+
+.market_image {
+  width: 230px;
+  height: 230px;
+  object-fit: contain;
+  border-radius: 100%;
+  background-color: black;
+}
+
+.market_divider {
+  background-color: #e5e7eb;
+  height: 25px;
+  width: 2px;
+}
+
+/************* market details *************/
+
+.market_details_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+}
+
+.market_details_second_container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.market_details_second_container p {
+  text-align: center;
+  font-weight: 600;
+}
+
+/************* Search input *************/
+
+.market_search_input_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* width: 100%; */
+  flex: 1;
+  /* width: 400px; */
+  padding: 10px 10px 10px 25px;
+  border: 1.15px solid #e7e9ea;
+  border-radius: 20px;
+}
+
+.market_search_input {
+  flex: 1;
+  border: 0;
+  outline: 0;
+  color: #606b6b;
+  width: 100%;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .market_content_wrapper {
+    padding: 180px 20px 0;
+  }
+
+  .market_details_container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .market_details_second_container{
+    gap: 30px;
+  }
+
+  .market_search_input_container {
+    width: 90%;
+  }
+}

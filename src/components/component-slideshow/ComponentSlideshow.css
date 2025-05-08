@@ -1,0 +1,122 @@
+.component_slideshow_wrapper {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.component_header_text {
+  color: #084c3f;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.component_item_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 17px;
+  margin-top: 10px;
+}
+
+.component_item {
+  width: 9vw;
+  text-align: center;
+  cursor: pointer;
+}
+
+.component_item_image {
+  width: 70%;
+  height: 90px;
+  object-fit: contain;
+  border-radius: 50px;
+  background-color: whitesmoke;
+}
+
+.component_item p {
+  font-size: 11px;
+}
+
+/******************* component slider ****************/
+
+.component_slider_button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: 18px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.component_slider_button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.component_slider_button.button_left {
+  left: 10px;
+}
+
+.component_slider_button.button_right {
+  right: 10px;
+}
+
+/**************** indicator dot ************/
+
+.indicator_dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin: 5px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.dot.active {
+  width: 30px;
+  height: 10px;
+  border-radius: 10px;
+  background-color: #084c3f;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .component_slideshow_wrapper{
+    height: auto;
+    margin-bottom: 10px;
+  }
+  .component_item {
+    width: 19vw;
+  }
+
+  .component_item_image {
+    width: 90%;
+    height: 70px;
+  }
+
+  .component_slider_button {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 390px) {
+  .component_item_wrapper {
+    gap: 20px;
+  }
+
+  .component_item {
+    width: 18vw;
+  }
+}

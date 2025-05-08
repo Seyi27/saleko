@@ -33,21 +33,21 @@ const SocialShareModal = ({ isOpen, closeModal }: any) => {
           <hr style={{ border: "0.5px solid #C1C7DE" }} />
 
           <div className="social_share_logo_links_container">
-            <div>
+            <a href="">
               <img src={logos_whatsapp} />
-            </div>
-            <div>
+            </a>
+            <a href="https://www.facebook.com/saleko.com.ng">
               <img src={logos_facebook} />
-            </div>
-            <div>
+            </a>
+            <a href="https://x.com/Saleko_ng">
               <img src={logos_twitter} />
-            </div>
-            <div>
+            </a>
+            <a href="https://www.instagram.com/saleko.ng/">
               <img src={logos_instagram} />
-            </div>
-            <div>
+            </a>
+            <a>
               <img src={logos_mail} />
-            </div>
+            </a>
           </div>
 
           <div className="social_share_copy_link_container">

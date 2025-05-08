@@ -13,16 +13,16 @@
 
 /* Default dot styles */
 .custom_carousel .carousel .control-dots .dot {
-  background-color: #E3E3E3;
+  background-color: #e3e3e3;
   width: 10px;
   height: 10px;
   border-radius: 50%;
   margin: 0 4px; /* Adjust the spacing between dots */
-} 
+}
 
 /* Active dot styles */
 .custom_carousel .carousel .control-dots .dot.selected {
-  background-color: #26A37C; /* Highlight color */
+  background-color: #26a37c; /* Highlight color */
 }
 
 /* .image_slides{
@@ -58,4 +58,17 @@
 
 .custom-arrow:hover {
   background: rgba(0, 0, 0, 0.8);
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .custom-arrow {
+    width: 20px;
+    height: 20px;
+  }
+
+  .custom_carousel .carousel .control-dots .dot {
+    width: 6px;
+    height: 6px;
+  }
 }

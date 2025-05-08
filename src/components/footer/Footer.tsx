@@ -60,18 +60,18 @@ const Footer = () => {
             <div className="follow_socials_container">
               <span>Follow us on social media:</span>
               <div className="social_media_icon_container">
-                <div className="social_media_icon">
+                <a href="https://www.facebook.com/saleko.com.ng" className="social_media_icon">
                   <FacebookIcon />
-                </div>
-                <div className="social_media_icon_twitter">
+                </a>
+                <a href="https://x.com/Saleko_ng" className="social_media_icon_twitter">
                   <TwitterXIcon />
-                </div>
-                <div className="social_media_icon">
+                </a>
+                <a href="https://www.instagram.com/saleko.ng/" className="social_media_icon">
                   <InstagramIcon />
-                </div>
-                <div className="social_media_icon">
+                </a>
+                <a href="https://www.linkedin.com/company/saleko-nigeria/" className="social_media_icon">
                   <LinkedinIcon />
-                </div>
+                </a>
               </div>
             </div>
           </div>
@@ -96,16 +96,16 @@ const Footer = () => {
             </div>
 
             <div className="footer_info_section">
-              <Link to={"/"} className="footer_info_item">
+              <Link to={"/saleko-markets"} className="footer_info_item">
                 Markets
               </Link>
-              <Link to={"/"} className="footer_info_item">
+              <Link to={"/create-buyer-profile"} className="footer_info_item">
                 Create buyer profile{" "}
               </Link>
               <Link to={"/how-to-shop-on-saleko"} className="footer_info_item">
                 How to shop on saleko{" "}
               </Link>
-              <Link to={"/"} className="footer_info_item">
+              <Link to={"/track-my-order"} className="footer_info_item">
                 Track my order{" "}
               </Link>
             </div>
@@ -114,19 +114,19 @@ const Footer = () => {
               <Link to={"/become-a-seller"} className="footer_info_item">
                 Become a Seller
               </Link>
-              <Link to={"/"} className="footer_info_item">
+              <Link to={"/seller-guide"} className="footer_info_item">
                 Seller guide{" "}
               </Link>
-              <Link to={"/"} className="footer_info_item">
+              <Link to={"/advertise-with-us-page"} className="footer_info_item">
                 Advertise with us{" "}
               </Link>
-              <Link to={"/"} className="footer_info_item">
+              <Link to={"/apply-for-a-loan"} className="footer_info_item">
                 Apply for a loan{" "}
               </Link>{" "}
             </div>
 
             <div className="footer_info_section">
-              <Link to={"/"} className="footer_info_item">
+              <Link to={"/faqs"} className="footer_info_item">
                 FAQs
               </Link>
               <Link to={"/disputes"} className="footer_info_item">
@@ -135,7 +135,7 @@ const Footer = () => {
               <Link to={"/escrow-service"} className="footer_info_item">
                 Escrow Service{" "}
               </Link>
-              <Link to={"/"} className="footer_info_item">
+              <Link to={"/pick-up-locations"} className="footer_info_item">
                 Pickup Locations{" "}
               </Link>{" "}
             </div>
@@ -146,7 +146,8 @@ const Footer = () => {
               <PhoneIcon />
               <div>
                 <p>Monday-Friday: 08am-9pm</p>
-                <h3>0 800 300-353</h3>
+                <h3>02018891693</h3>
+                <h3>07002255725</h3>
               </div>
             </div>
 
@@ -155,7 +156,7 @@ const Footer = () => {
 
               <div>
                 <p>Need help with your order?</p>
-                <h4>info@example.com</h4>
+                <h4>support@saleko.ng</h4>
               </div>
             </div>
           </div>
@@ -173,7 +174,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <p>©2021–2024. All rights </p>
+            <p>©2021–2025. All rights </p>
           </div>
         </div>
       </div>

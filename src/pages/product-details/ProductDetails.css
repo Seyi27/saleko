@@ -169,6 +169,7 @@
   font-weight: 600;
   margin: 0;
   font-family: "SourceCodePro", sans-serif;
+  color: #084c3f;
 }
 
 .product_details_former_price {
@@ -400,26 +401,10 @@ input[type="radio"] {
   margin-top: 12px;
 }
 
-.view_more_buton {
-  width: 150px;
-  height: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 0;
-  border-radius: 30px;
-  background-color: #084c3f;
-  color: white;
-  gap: 5px;
-  margin: 20px auto;
-  cursor: pointer;
-  font-weight: 700;
-}
-
 /* For phones */
 @media only screen and (max-width: 600px) {
   .product_details_container {
-    padding: 150px 20px 0 ;
+    padding: 180px 20px 0 ;
   }
 
   .breadcrumbs_container {

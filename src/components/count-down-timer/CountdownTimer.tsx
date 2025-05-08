@@ -2,27 +2,28 @@ import React, { useState, useEffect } from "react";
 import "./CountdownTimer.css";
 
 interface CountdownTimerProps {
-  targetDate: string; // Target date in ISO format (e.g., "2024-12-31T23:59:59")
+  // dateFrom: string;
+  dateTo: string | null;
 }
 
-const CountdownTimer = ({ targetDate }: CountdownTimerProps) => {
-  const calculateTimeLeft = () => {
-    const difference = new Date(targetDate).getTime() - new Date().getTime();
+const CountdownTimer = ({ dateTo }: CountdownTimerProps) => {
+  const parseLocalDate = (dateStr: string) => {
+    const [year, month, day] = dateStr.split("-").map(Number);
+    return new Date(year, month - 1, day); // Local time
+  };
 
-    if (difference > 0) {
-      return {
-        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((difference / (1000 * 60)) % 60),
-        seconds: Math.floor((difference / 1000) % 60),
-      };
-    }
+  const calculateTimeLeft = () => {
+    if (!dateTo) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+
+    const now = new Date().getTime();
+    const targetDate = parseLocalDate(dateTo).getTime();
+    const difference = Math.max(targetDate - now, 0);
 
     return {
-      days: 0,
-      hours: 0,
-      minutes: 0,
-      seconds: 0,
+      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((difference / (1000 * 60)) % 60),
+      seconds: Math.floor((difference / 1000) % 60),
     };
   };
 
@@ -33,16 +34,15 @@ const CountdownTimer = ({ targetDate }: CountdownTimerProps) => {
       setTimeLeft(calculateTimeLeft());
     }, 1000);
 
-    return () => clearInterval(timer); // Cleanup on component unmount
-  }, [targetDate]);
+    return () => clearInterval(timer);
+  }, [dateTo]);
 
   return (
     <div className="timer_container">
-      <div className="timer">{timeLeft.days}</div>
-      <div className="timer">{timeLeft.hours}</div>
-      <div className="timer">{timeLeft.minutes}</div>
-      <div>:</div>
-      <div className="timer">{timeLeft.seconds}</div>
+      <div className="timer">{timeLeft.days}d</div>
+      <div className="timer">{timeLeft.hours}h</div>
+      <div className="timer">{timeLeft.minutes}m</div>
+      <div className="timer">{timeLeft.seconds}s</div>
       <p>Remains until the end of the offer</p>
     </div>
   );

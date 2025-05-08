@@ -1,0 +1,44 @@
+.address_item_wrapper {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #e5e7eb;
+  padding: 12px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.address_street_wrapper p {
+  font-size: 14px;
+  margin: 0;
+}
+
+.address_street_wrapper p:first-child {
+  font-weight: 700;
+  padding-bottom: 5px;
+}
+
+.address_icon_container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.address_icon {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.address_icon p {
+  font-size: 14px;
+  margin: 0;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .address_item_wrapper {
+    flex-direction: column;
+    gap: 15px;
+  }
+}

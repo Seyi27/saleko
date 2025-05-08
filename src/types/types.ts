@@ -79,7 +79,9 @@ export type ProductSectionProps = {
     visibleRows?: number;
     setVisibleRows?: Dispatch<SetStateAction<number>>;
     setRowData?: Dispatch<SetStateAction<Product[] | undefined>>;
-    viewAll?: boolean
+    viewAll?: string | boolean;
+    nameContainer?: boolean
+    sectionLoader?: boolean
 }
 
 export type ProductCardProp = {
@@ -102,48 +104,107 @@ export type ProductCardProp = {
 //     bestseller: boolean;
 // }
 
-export type BestSellerSectionProps = {
-    name: string;
-    data: BestSeller[];
-}
+// export type BestSellerSectionProps = {
+//     name: string;
+//     data: BestSeller[];
+// }
 
-export type BestSellerProp = {
-    item: BestSeller;
-}
+// export type BestSellerProp = {
+//     item: BestSeller;
+// }
 
-export type BestSeller = {
-    id: number,
-    name: string;
-    rating: number;
-    description: string;
-    price: string;
-    image: string;
-    former_price: string,
-    targetDate: string
-}
+// export type BestSeller = {
+//     id: number,
+//     name: string;
+//     rating: number;
+//     description: string;
+//     price: string;
+//     image: string;
+//     former_price: string,
+//     targetDate: string
+// }
 
 export type TopStoreSectionProps = {
     name: string;
-    data: {
-        name: string,
-        orders: string
-    }[];
+    data?: StoreType[];
+    sectionLoader?: boolean,
+}
+
+export type StoreType = {
+    id: number;
+    merchant_id: string;
+    url: string;
+    is_approved: number;
+    is_disabled: number;
+    shop_title: string;
+    description: string | null;
+    banner: string | null;
+    logo: string | null;
+    tax_vat: string | null;
+    meta_title: string | null;
+    meta_description: string | null;
+    meta_keywords: string | null;
+    address1: string | null;
+    address2: string | null;
+    phone: string | null;
+    state: string;
+    city: string;
+    country: string | null;
+    drop_off: string;
+    representative_id: number | null;
+    postcode: string | null;
+    return_policy: string | null;
+    shipping_policy: string | null;
+    privacy_policy: string | null;
+    twitter: string | null;
+    facebook: string | null;
+    youtube: string | null;
+    instagram: string | null;
+    skype: string | null;
+    linked_in: string | null;
+    pinterest: string | null;
+    customer_id: number;
+    created_at: string;
+    updated_at: string;
+    commission_enable: number;
+    commission_percentage: string;
+    min_order_amount: string;
+    google_analytics_id: string | null;
+    business_address: string;
+    commodities: number;
+    market: string;
+    bvn: string;
+    home_address: string;
+    business_name: string;
+    identity_document_number: string;
+    bankName: string | null;
+    accountNumber: string | null;
+    account_created_at: string | null;
+    identity_document_number_type: number;
+    is_mro_assigned: number;
+    orders_count: number;
+    logo_image_url: string;
+    banner_image_url: string;
+    market_info: MarketInfo;
+}
+
+export type MarketInfo = {
+    id: number;
+    name: string;
+    image: string;
+    image_url: string;
 }
 
 export type TopStoreCardProp = {
-    item: {
-        name: string,
-        orders: string
-    };
+    item: StoreType;
 }
 
 /*************** Market Place data ******************* */
 
 export type MarketplaceDataProps = {
-    marketId: number;
+    id: number;
     name: string;
     image: string;
-    description: string;
 }
 
 /************ Negotiation Modal Prop ***************** */
@@ -167,12 +228,18 @@ export type TransactionPinModalProp = {
 export type CategoryDataProp = {
     id: number;
     name: string;
-    imageUrl: string;
-    slug: string;
-    position: number;
-    parentId: number | null;
-    status: boolean;
-    children: CategoryDataProp[]; // Recursive type to represent nested categories
+    image: string;
+    children: CategoryDataChildrenProp[]
+};
+
+export type CategoryDataChildrenProp = {
+    id: number;
+    name: string;
+    image: string;
+}
+
+export type CategoryDataPropType = {
+    data: CategoryDataProp
 };
 
 /************ Seller Card Prop ****************** */
@@ -200,4 +267,19 @@ export type ReviewMessageProp = {
     review: string,
     date: string,
     person: string,
+}
+
+/**************** Page Wrapper Prop **************** */
+
+export type PageWrapperPropType = {
+    classname: string;
+    children: React.ReactNode;
+    filterNav?: boolean
+}
+
+/******************************* */
+
+export type MenuSidebarProps = {
+    isOpen?: boolean,
+    closeModal: () => void,
 }

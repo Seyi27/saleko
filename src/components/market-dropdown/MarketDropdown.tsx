@@ -5,6 +5,7 @@ import { BsCaretDown, BsChevronDown } from "react-icons/bs";
 import { MarketplaceDataProps } from "../../types/types";
 import { useMarketplaceApiQuery } from "../../services/appApi";
 import saleko_green from "../../assets/images/svg/saleko_green.svg";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const MarketDropdown = () => {
   const [showMarketDropdown, setShowMarketDropdown] = useState(false);
@@ -13,6 +14,8 @@ const MarketDropdown = () => {
     MarketplaceDataProps[] | undefined
   >();
   const { data, isSuccess } = useMarketplaceApiQuery({});
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (isSuccess) {
@@ -21,9 +24,23 @@ const MarketDropdown = () => {
     // singleMarketplaceApi(7)
   }, [data, isSuccess]);
 
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const query = searchParams.get("q");
+
+    if (query) {
+      if (location.pathname.startsWith("/market")) {
+        // i.e if the path is /market
+        setSelectedMarket(query);
+      }
+    }
+  }, [location]);
+
   const handleSelectedMarket = (marketname: string) => {
     setSelectedMarket(marketname);
     setShowMarketDropdown(false);
+
+    navigate(`/market?q=${encodeURIComponent(marketname)}`);
   };
 
   return (
@@ -40,7 +57,10 @@ const MarketDropdown = () => {
         onClick={() => setShowMarketDropdown(!showMarketDropdown)}
       >
         <StoreIconLogo />
-        <p>{selectedMarket}</p>
+        <p>
+          {selectedMarket.charAt(0).toUpperCase() +
+            selectedMarket.slice(1).toLowerCase()}
+        </p>
         <BsChevronDown size={12} />
       </div>
 
@@ -56,7 +76,7 @@ const MarketDropdown = () => {
                 onClick={() => handleSelectedMarket(market.name)}
               >
                 <img
-                  src={saleko_green}
+                  src={market.image ?? saleko_green}
                   className="market_dropdown_item_image"
                 />
                 <p className="market_dropdown_item_name">

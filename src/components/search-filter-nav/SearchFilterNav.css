@@ -3,13 +3,10 @@
   position: fixed; /* for fixed position */
   background-color: white;
   top: 130px;
-  width: 100%;
   z-index: 2;
   border-bottom: 0.5px solid #cbcbcb;
-}
-
-.search_filter_nav_second_container {
   display: flex;
+  justify-content: center;
 }
 
 .search_filter_nav_item_wrapper{
@@ -106,8 +103,8 @@
 /* For phones */
 @media only screen and (max-width: 600px) {
   .search_filter_nav_container {
-    top: 80px;
-    padding: 0 10px;
+    top: 110px;
+    z-index: 1; /* so search can overlap on mobile */
   }
 
   .search_filter_nav_item_wrapper {
@@ -115,6 +112,7 @@
     overflow-x: auto; /* Enable horizontal scrolling */
     white-space: nowrap; /* Prevents items from wrapping */
     justify-content: flex-start;
+    padding: 0 20px;
   }
 
   /* Hide scrollbar for a cleaner UI */

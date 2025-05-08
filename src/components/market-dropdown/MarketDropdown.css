@@ -39,6 +39,8 @@
 }
 
 .market_dropdown_title {
+  margin: 0;
+  padding-bottom: 25px;
   color: #084c3f;
   font-weight: bold;
   font-size: 20px;
@@ -58,8 +60,8 @@
 .market_dropdown_item_image {
   width: 80px;
   height: 80px;
-  object-fit: contain;
-  border-radius: 20px;
+  object-fit: cover;
+  border-radius: 50px;
 }
 
 .market_dropdown_item_name {
@@ -70,11 +72,11 @@
 
 /* For phones */
 @media only screen and (max-width: 600px) {
-  .select_dropdown_container {
+  /* .select_dropdown_container {
     display: none;
   }
 
   .market_dropdown_main_container{
     display: none;
-  }
+  } */
 }

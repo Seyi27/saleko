@@ -1,0 +1,80 @@
+.pickup_location_container {
+  padding-top: 200px;
+}
+
+.pickup_location_title {
+  font-size: 20px;
+  margin: 0 0 5px 0;
+  font-weight: 700;
+}
+
+.pickup_location_body_wrapper {
+  box-shadow: 0px 2px 15.9px 0px #69696926;
+  padding: 15px 30px;
+  border-radius: 10px;
+}
+
+.pickup_location_text {
+  font-size: 14px;
+  color: #4b4b4b;
+  line-height: 20px;
+}
+
+.pickup_location_section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pickup_location_section_reverse {
+  flex-direction: row-reverse;
+}
+
+.pickup_location_text_container {
+  max-width: 500px;
+}
+
+.pickup_location_image {
+  width: 400px;
+  height: 300px;
+}
+
+.pickup_location_text a {
+  color: #084c3f;
+  font-weight: bold;
+}
+
+.pickup_location_step {
+  background-color: #d1fae5;
+  width: 150px;
+  padding: 10px;
+  text-align: center;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #065f46;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .pickup_location_container {
+    padding: 180px 20px 0;
+  }
+
+  .pickup_location_body_wrapper {
+    padding: 15px 20px;
+  }
+
+  .pickup_location_section {
+    flex-direction: column;
+  }
+
+  .pickup_location_text_container {
+    width: 100%;
+  }
+
+  .pickup_location_image {
+    width: 100%;
+    height: 200px;
+  }
+}

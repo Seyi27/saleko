@@ -3,23 +3,29 @@ import "./NavCategories.css";
 import { BsChevronDown, BsChevronRight, BsFire, BsGrid } from "react-icons/bs";
 import CategoriesIcon from "../../assets/images/svg/CategoriesIcon";
 import { CategoryDataProp } from "../../types/types";
-import { useFetchCategoriesQuery } from "../../services/appApi";
 import saleko_green from "../../assets/images/svg/saleko_green.svg";
+import { useNavigate } from "react-router-dom";
+import { useFetchCategoriesQuery } from "../../services/appApi";
 
 const NavCategories = () => {
   const [visibleDropdown, setVisibleDropdown] = useState(false);
   const [categoryData, setCategoryData] = useState<CategoryDataProp[]>([]);
   const [hoveredCategory, setHoveredCategory] = useState<CategoryDataProp>();
+  const navigate = useNavigate();
 
-  const { data, isSuccess, isError, error, isLoading } =
-    useFetchCategoriesQuery({});
+  const { data, isSuccess } = useFetchCategoriesQuery({});
 
   useEffect(() => {
-    if (data?.data?.[0]?.children) {
-      setCategoryData(data.data[0].children);
-      setHoveredCategory(data.data[0].children[0]);
+    if (isSuccess) {
+      setCategoryData(data.data);
+      setHoveredCategory(data.data[0]);
     }
   }, [data]);
+
+  const handleClickedCategory = () => {
+    const categoryName = hoveredCategory?.name ?? "";
+    navigate(`/category?q=${encodeURIComponent(categoryName)}`);
+  };
 
   return (
     <div>
@@ -34,17 +40,24 @@ const NavCategories = () => {
             onMouseEnter={() => setVisibleDropdown(true)}
             onMouseLeave={() => setVisibleDropdown(false)}
           >
-            <BsGrid color="#FFFFFF" size={20} />
+            <BsGrid size={20} />
             <p>Categories</p>
-            <BsChevronDown color="#FFFFFF" size={15} />
+            <BsChevronDown size={15} />
           </div>
 
           <div className="categories_items_container">
             <p>
               <BsFire color="red" /> Hot Deals
             </p>
-            {categoryData.slice(0,7).map((item, index) => (
-              <p>{item.name}</p>
+            {categoryData.slice(0, 7).map((item, index) => (
+              <p
+                key={index}
+                onClick={() =>
+                  navigate(`/category?q=${encodeURIComponent(item.name)}`)
+                }
+              >
+                {item.name}
+              </p>
             ))}
           </div>
 
@@ -82,9 +95,10 @@ const NavCategories = () => {
                     <div
                       className="category_dropdown_right_column_item_inner_container"
                       key={index}
+                      onClick={handleClickedCategory}
                     >
                       <img
-                        src={saleko_green}
+                        src={item.image ?? saleko_green}
                         className="category_dropdown_right_item_image"
                       />
                       <p>{item.name}</p>

@@ -40,7 +40,7 @@
 /* For phones */
 @media only screen and (max-width: 600px) {
   .store_list_main_container {
-    padding: 150px 20px 0;
+    padding: 180px 20px 0;
   }
 
   .store_list_search_input_container {

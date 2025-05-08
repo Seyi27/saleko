@@ -1,13 +1,5 @@
-.group_header {
-  position: fixed;
-  width: 100%; /* Ensure it spans the entire width */
-  z-index: 1000;
-}
-
-.frame_container_right {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.home_body_container {
+  padding-top: 200px;
 }
 
 .frame_image {
@@ -40,16 +32,10 @@
   width: 100%;
 }
 
-.loader_container {
-  display: flex;
-  justify-content: center;
-  padding-top: 30px;
-}
-
 /* For phones */
 @media only screen and (max-width: 600px) {
   .home_body_container {
-    padding: 0 20px 0 20px;
+    padding: 180px 20px 0;
   }
 
   .homeframe5_img,
@@ -67,7 +53,6 @@
   }
 
   .alt_carousel_image {
-    padding-top: 150px;
     width: 100%;
   }
 }

@@ -10,17 +10,6 @@
   padding: 20px;
 }
 
-.store_card_container > p {
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.store_card_container > span {
-  font-size: 19px;
-  margin-top: -15px;
-  margin-bottom: 30px;
-}
-
 .store_image_placeholder {
   width: 116px;
   height: 116px;
@@ -31,10 +20,30 @@
   justify-content: center;
 }
 
+.store_card_container > p {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.store_card_container > span {
+  font-size: 19px;
+  padding-bottom: 20px;
+}
+
+
+
 /* For phones */
 @media only screen and (max-width: 600px) {
   .store_card_container {
-    width: 32vw;
+    width: 30vw;
     height: 250px;
+  }
+
+  .store_card_container > p {
+    font-size: 18px;
+  }
+  
+  .store_card_container > span {
+    font-size: 16px;
   }
 }

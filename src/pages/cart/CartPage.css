@@ -104,3 +104,18 @@
   font-size: 12px;
   margin: 0;
 }
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .cart_main_container {
+    padding: 180px 20px 0;
+  }
+
+  .cart_body_container {
+    flex-direction: column;
+  }
+
+  .cart_summary{
+    width: 95%;
+  }
+}

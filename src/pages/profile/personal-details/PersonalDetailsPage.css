@@ -1,0 +1,160 @@
+/*********** Psersonal Details styles **********/
+.pd_form_row_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: 5px;
+}
+
+.pd_form_label {
+  font-size: 14px;
+  color: #111827;
+  font-weight: 600;
+}
+
+.pd_form_input {
+  height: 35px;
+  outline: #084c3f;
+  border-radius: 5px;
+  border: 1px solid #d1d5db;
+  margin-top: 5px;
+  width: 96%;
+  padding-left: 10px;
+  background-color: #f9fafb;
+}
+
+.pd_form_input_row_container {
+  height: 35px;
+  border-radius: 5px;
+  border: 1px solid #d1d5db;
+  margin-top: 5px;
+  width: 94%;
+  padding-inline: 10px;
+  background-color: #f9fafb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pd_form_input_row_container input {
+  border: 0;
+  outline: 0;
+  background-color: #f9fafb;
+}
+
+.verified_style {
+  font-size: 12px;
+  color: #084c3f;
+  background-color: #dcfce7;
+  padding: 5px;
+  border-radius: 10px;
+  width: 45px;
+}
+
+/************ Edit profile ***************/
+
+.edit_profile_header_container {
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.edit_profile_username_container{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.edit_profile_username_avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50px;
+  background-color: #084c3f;
+}
+
+.edit_profile_username_verified {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.edit_profile_username_verified > p {
+  margin: 0;
+  font-weight: 700;
+}
+
+.edit_profile_username_container span {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.edit_profile_checkbox_container {
+  margin-top: 15px;
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.edit_profile_checkbox_text1 {
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.edit_profile_checkbox_text2 {
+  color: #6b7280;
+  font-size: 12px;
+  margin: 0;
+  padding-top: 3px;
+}
+
+.edit_profile_button_container {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+/************ Account security **********/
+
+.account_security_item_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.account_security_item_text1 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.account_security_item_text2 {
+  margin: 0;
+  font-size: 12px;
+  padding-top: 5px;
+  color: #6b7280;
+}
+
+.account_security_button_container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .pd_form_row_container {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  /************ Account security **********/
+  .account_security_item_wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+}

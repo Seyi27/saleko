@@ -26,6 +26,7 @@ import { Rating } from "react-simple-star-rating";
 import CustomProgressBar from "../../components/custom-progress-bar/CustomProgressBar";
 import ReviewMessage from "../../components/review-message/ReviewMessage";
 import SocialShareModal from "../../components/social-share-modal/SocialShareModal";
+import PageWrapper from "../../components/page-wrapper/PageWrapper";
 
 const StoreDetailsPage = () => {
   const { storeId } = useParams();
@@ -96,193 +97,178 @@ const StoreDetailsPage = () => {
 
   return (
     <>
-      <div>
-        <NavHeader />
+      <PageWrapper classname="store_details_body_container">
+        {/*  Banner container  */}
+        <div className="store_details_banner_container">
+          {/* Left image container */}
+          <div className="store_details_banner_left_container">
+            <div className="store_details_banner_left_header_container">
+              <img
+                src={saleko_green}
+                className="store_details_banner_left_img"
+              />
 
-        <NavHeaderSearch />
+              <div className="store_details_banner_left_header_body">
+                <p className="store_details_name">
+                  {filteredStoreData?.store_name}
+                </p>
 
-        <NavCategories />
+                <p className="store_details_quantity">18K+ Sold</p>
 
-        <div className="body_container">
-          <div className="body_second_container store_details_body_container">
-            {/*  Banner container  */}
-            <div className="store_details_banner_container">
-              {/* Left image container */}
-              <div className="store_details_banner_left_container">
-                <div className="store_details_banner_left_header_container">
-                  <img
-                    src={saleko_green}
-                    className="store_details_banner_left_img"
-                  />
+                <div className="banner_divider" />
 
-                  <div className="store_details_banner_left_header_body">
-                    <p className="store_details_name">
-                      {filteredStoreData?.store_name}
-                    </p>
+                <p className="store_details_market">
+                  <BsGeoAltFill /> {filteredStoreData?.store_market}
+                </p>
+              </div>
+            </div>
 
-                    <p className="store_details_quantity">18K+ Sold</p>
+            <div
+              className="store_details_share_button"
+              onClick={() => setOpenSocialModal(true)}
+            >
+              Share
+              <img src={share_ic} className="store_details_share_ic" />
+            </div>
 
-                    <div className="banner_divider"/>
+            <p className="store_details_date">Member since 20 Jan 2023</p>
+          </div>
 
-                    <p className="store_details_market">
-                      <BsGeoAltFill /> {filteredStoreData?.store_market}
-                    </p>
-                  </div>
-                </div>
+          {/* Right image container */}
+          <div className="store_details_banner_right_container">
+            <img src={saleko_green} className="store_details_right_img" />
+          </div>
+        </div>
 
+        <div style={{ padding: "20px" }} />
+
+        {/* Tab top header */}
+        <div className="store_details_tab_header_wrapper">
+          {/* Product and review tab */}
+          <div className="store_details_tab">
+            <p
+              className={`store_details_tab_item ${
+                activeTab === "products" ? "active_tab_item" : ""
+              }`}
+              onClick={() => handleActiveState("products")}
+            >
+              Products (30)
+            </p>
+            <p
+              className={`store_details_tab_item ${
+                activeTab === "reviews" ? "active_tab_item" : ""
+              }`}
+              onClick={() => handleActiveState("reviews")}
+            >
+              Reviews (4.5)
+            </p>
+          </div>
+
+          {/* Search and Sort By Container */}
+          <div className="store_details_search_and_sort_wrapper">
+            {/* Search input container */}
+            <div className="store_details_search_input_container">
+              <BsSearch size={15} />
+              <input
+                value={productSearch}
+                onChange={(e) => setProductSearch(e.target.value)}
+                className="store_details_search_input"
+                placeholder="Search for products"
+              />
+            </div>
+
+            {/* Sort By container */}
+            <div className="store_details_sort_wrapper">
+              <div
+                className="store_details_sort_container"
+                onClick={handleDropdownState}
+                ref={buttonRef}
+              >
+                <p>Sort by</p>
+                <BsChevronDown size={12} />
+              </div>
+
+              {showSortByDropdown && (
                 <div
-                  className="store_details_share_button"
-                  onClick={() => setOpenSocialModal(true)}
+                  className="store_details_sort_dropdown_container"
+                  ref={dropdownRef}
                 >
-                  Share
-                  <img
-                    src={share_ic}
-                    className="store_details_share_ic"
-                  />
-                </div>
-
-                <p className="store_details_date">Member since 20 Jan 2023</p>
-              </div>
-
-              {/* Right image container */}
-              <div className="store_details_banner_right_container">
-                <img src={saleko_green} className="store_details_right_img" />
-              </div>
-            </div>
-
-            <div style={{ padding: "20px" }} />
-
-            {/* Tab top header */}
-            <div className="store_details_tab_header_wrapper">
-              {/* Product and review tab */}
-              <div className="store_details_tab">
-                <p
-                  className={`store_details_tab_item ${
-                    activeTab === "products" ? "active_tab_item" : ""
-                  }`}
-                  onClick={() => handleActiveState("products")}
-                >
-                  Products (30)
-                </p>
-                <p
-                  className={`store_details_tab_item ${
-                    activeTab === "reviews" ? "active_tab_item" : ""
-                  }`}
-                  onClick={() => handleActiveState("reviews")}
-                >
-                  Reviews (4.5)
-                </p>
-              </div>
-
-              {/* Search and Sort By Container */}
-              <div className="store_details_search_and_sort_wrapper">
-                {/* Search input container */}
-                <div className="store_details_search_input_container">
-                  <BsSearch size={15} />
-                  <input
-                    value={productSearch}
-                    onChange={(e) => setProductSearch(e.target.value)}
-                    className="store_details_search_input"
-                    placeholder="Search for products"
-                  />
-                </div>
-
-                {/* Sort By container */}
-                <div className="store_details_sort_wrapper">
-                  <div
-                    className="store_details_sort_container"
-                    onClick={handleDropdownState}
-                    ref={buttonRef}
-                  >
-                    <p>Sort by</p>
-                    <BsChevronDown size={12} />
-                  </div>
-
-                  {showSortByDropdown && (
-                    <div
-                      className="store_details_sort_dropdown_container"
-                      ref={dropdownRef}
+                  {sortByOptions.map((item, index) => (
+                    <p
+                      className="store_details_sort_dropdown_item"
+                      onClick={() => setShowSortByDropdown(false)}
                     >
-                      {sortByOptions.map((item, index) => (
-                        <p
-                          className="store_details_sort_dropdown_item"
-                          onClick={() => setShowSortByDropdown(false)}
-                        >
-                          {item}
-                        </p>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <div>
-              {/* Tab: products */}
-              {activeTab === "products" && (
-                <ProductSection data={productData} type="search" />
-              )}
-
-              {/* Tab: reviews */}
-              {activeTab === "reviews" && (
-                <div>
-                  <div className="store_details_reviews_container">
-                    <h2>Verified Customer Reviews</h2>
-
-                    <div className="store_details_reviews_breakdown_container">
-                      <div className="store_details_reviews_left_side">
-                        <p className="store_details_reviews_rating">3/5</p>
-                        <Rating readonly initialValue={3} size={30} />
-                        <p className="store_details_verified_reviews">
-                          (24 verified reviews)
-                        </p>
-                      </div>
-
-                      <hr className="store_details_reviews_vertical_divider" />
-
-                      <hr className="store_details_reviews_horizontal_divider" />
-
-                      <div>
-                        {ratingReview
-                          .slice() // creates a copy of the ratingReview array
-                          .reverse() // order of the array
-                          .sort((a, b) => b - a) // Sort rating in descending order
-                          .map((rating, index) => (
-                            <div
-                              key={index}
-                              className="store_details_rating_review_item"
-                            >
-                              <BsStarFill size={12} color={"#FFB119"} />
-                              {ratingReview.length - index}
-                              <CustomProgressBar progress={`${rating}`} />
-                              {rating}
-                            </div>
-                          ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style={{ paddingTop: "50px" }}>
-                    {productReviews.map((review, index) => (
-                      <React.Fragment key={index}>
-                        <ReviewMessage item={review} />
-                      </React.Fragment>
-                    ))}
-                  </div>
+                      {item}
+                    </p>
+                  ))}
                 </div>
               )}
-            </div>
-
-            <div style={{ padding: "20px" }} />
-
-            <div className="store_details_img_container">
-              <img src={saleko_img7} className="store_details_img" />
             </div>
           </div>
         </div>
 
-        <Footer />
-      </div>
+        <div>
+          {/* Tab: products */}
+          {activeTab === "products" && (
+            <ProductSection data={productData} type="related" />
+          )}
+
+          {/* Tab: reviews */}
+          {activeTab === "reviews" && (
+            <div>
+              <div className="store_details_reviews_container">
+                <h2>Verified Customer Reviews</h2>
+
+                <div className="store_details_reviews_breakdown_container">
+                  <div className="store_details_reviews_left_side">
+                    <p className="store_details_reviews_rating">3/5</p>
+                    <Rating readonly initialValue={3} size={30} />
+                    <p className="store_details_verified_reviews">
+                      (24 verified reviews)
+                    </p>
+                  </div>
+
+                  <hr className="store_details_reviews_vertical_divider" />
+
+                  <hr className="store_details_reviews_horizontal_divider" />
+
+                  <div>
+                    {ratingReview
+                      .slice() // creates a copy of the ratingReview array
+                      .reverse() // order of the array
+                      .sort((a, b) => b - a) // Sort rating in descending order
+                      .map((rating, index) => (
+                        <div
+                          key={index}
+                          className="store_details_rating_review_item"
+                        >
+                          <BsStarFill size={12} color={"#FFB119"} />
+                          {ratingReview.length - index}
+                          <CustomProgressBar progress={`${rating}`} />
+                          {rating}
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ paddingTop: "50px" }}>
+                {productReviews.map((review, index) => (
+                  <React.Fragment key={index}>
+                    <ReviewMessage item={review} />
+                  </React.Fragment>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div style={{ padding: "20px" }} />
+
+        <div className="store_details_img_container">
+          <img src={saleko_img7} className="store_details_img" />
+        </div>
+      </PageWrapper>
 
       <SocialShareModal
         isOpen={openSocialModal}

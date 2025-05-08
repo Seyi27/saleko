@@ -26,7 +26,12 @@ import { showCustomToast } from "../../custom-toast/CustomToast";
 import { RootState } from "../../../store/store";
 import { useGoogleLogin } from "@react-oauth/google";
 import { addUser } from "../../../slice/userDetailsSlice";
-import { getAuth, OAuthProvider, signInWithPopup, signInWithRedirect } from "firebase/auth";
+import {
+  getAuth,
+  OAuthProvider,
+  signInWithPopup,
+  signInWithRedirect,
+} from "firebase/auth";
 import { firebaseApp } from "../../../firebase";
 
 const CreateAccount = ({
@@ -186,21 +191,23 @@ const CreateAccount = ({
     try {
       const result = await signInWithPopup(auth, provider);
 
-      // Retrieve the accessToken
-      const credential = OAuthProvider.credentialFromResult(result);
-      const idToken = credential?.idToken; // Use this for backend verification
+      if (result) {
+        // Retrieve the accessToken
+        const credential = OAuthProvider.credentialFromResult(result);
+        const idToken = credential?.idToken; // Use this for backend verification
 
-      if (idToken) {
-        const appleCallbackBody = {
-          channel: "web",
-          token: idToken,
-        };
+        if (idToken) {
+          const appleCallbackBody = {
+            channel: "web",
+            token: idToken,
+          };
 
-        const res = await appleAuthCallback(appleCallbackBody).unwrap();
+          const res = await appleAuthCallback(appleCallbackBody).unwrap();
 
-        if (res) {
-          dispatch(addUser(res.data));
-          handleCloseModal();
+          if (res) {
+            dispatch(addUser(res.data));
+            handleCloseModal();
+          }
         }
       }
     } catch (error) {

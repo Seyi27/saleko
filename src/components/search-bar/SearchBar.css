@@ -120,10 +120,19 @@
 /* For phones */
 @media only screen and (max-width: 600px) {
   .search_container {
-    width: 150px;
+    width: 86vw;
+    height: 35px;
   }
 
-  .search_textinput{
-    width: 100px;
+  .search_textinput {
+    width: 100%;
+  }
+
+  .search_suggestion_container {
+    width: 90vw;
+  }
+
+  .suggestion_container {
+    width: 81vw;
   }
 }

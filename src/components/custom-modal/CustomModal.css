@@ -138,3 +138,10 @@
   align-items: center;
   gap: 10px;
 }
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .modal-content {
+    width: 80vw;
+  }
+}

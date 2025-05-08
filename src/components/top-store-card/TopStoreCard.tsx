@@ -4,17 +4,15 @@ import { TopStoreCardProp } from "../../types/types";
 import StoreIconWhite from "../../assets/images/svg/StoreIconWhite";
 import CustomButton from "../custom-button/CustomButton";
 import StoreIconGreen from "../../assets/images/svg/StoreIconGreen";
+import saleko_green from '../../assets/images/svg/saleko_green.svg'
 
 const TopStoreCard = ({ item }: TopStoreCardProp) => {
   return (
     <div className="store_card_container">
-      {/* <img src={StoreIconGreen} /> */}
-      <div className="store_image_placeholder">
-        <StoreIconGreen width="50" height="46"/>
-      </div>
+      <img src={item?.logo_image_url ?? saleko_green} className="store_image_placeholder"/>
       
-      <p>{item.name}</p>
-      <span>{item.orders} Orders</span>
+      <p>{item?.shop_title}</p>
+      <span>{item?.orders_count} Orders</span>
 
       <CustomButton
         label="View Store"

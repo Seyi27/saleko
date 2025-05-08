@@ -1,3 +1,16 @@
 .search_content_wrapper {
   padding-top: 200px;
 }
+
+.no_results_text{
+  text-align: center;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+  .search_content_wrapper{
+    padding: 160px 20px 0;
+  }
+}

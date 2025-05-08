@@ -7,7 +7,7 @@
 }
 
 .checkout_cart_item_image {
-  width: 180px;
+  width: 150px;
   height: 100%;
   object-fit: contain;
   border: 1px solid #e7e9eb;
@@ -24,4 +24,12 @@
 .checkout_cart_item_body_container p {
   margin: 0;
   font-size: 14px;
+}
+
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+.checkout_cart_item_image{
+  width: 120px;
+}
 }
