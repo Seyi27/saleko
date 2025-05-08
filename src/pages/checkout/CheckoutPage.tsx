@@ -439,7 +439,7 @@ const CheckoutPage = () => {
                   </div>
 
                   {/* Monnify */}
-                  {/* <div
+                  <div
                     className="payment_radio_input_container"
                     style={{ marginTop: "30px" }}
                   >
@@ -450,7 +450,7 @@ const CheckoutPage = () => {
                       onChange={(e) => setSelectedPayment(e.target.value)}
                     />
                     <img src={payment_monnify_ic} />
-                  </div> */}
+                  </div>
 
                   {/* Paystack */}
                   <div
@@ -467,7 +467,7 @@ const CheckoutPage = () => {
                   </div>
 
                   {/* Blusalt */}
-                  {/* <div
+                  <div
                     className="payment_radio_input_container"
                     style={{ marginTop: "30px" }}
                   >
@@ -478,7 +478,7 @@ const CheckoutPage = () => {
                       onChange={(e) => setSelectedPayment(e.target.value)}
                     />
                     <img src={blusalt} />
-                  </div> */}
+                  </div>
                 </div>
               </div>
             </div>

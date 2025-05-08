@@ -507,13 +507,13 @@ const ProductDetails = () => {
                             <p>Choose a Color</p>
 
                             <div className="choose_color_container">
-                              {[
-                                ...new Set( // to avoid duplicates using set
+                              {Array.from(
+                                new Set( // to avoid duplicates using set
                                   productDetailsData.variants.map(
                                     (variant) => variant.color
                                   )
-                                ),
-                              ]
+                                )
+                              )
                                 .filter((color) => color) // remove undefined/null sizes
                                 .map((color, index) => (
                                   <div
@@ -551,13 +551,13 @@ const ProductDetails = () => {
                           <p>Choose a Size</p>
 
                           <div className="choose_color_container">
-                            {[
-                              ...new Set( // to avoid duplicates using set
+                            {Array.from(
+                              new Set( // to avoid duplicates using set
                                 productDetailsData.variants.map(
                                   (variant) => variant.size
                                 )
-                              ),
-                            ]
+                              )
+                            )
                               .filter((size) => size) // remove undefined/null sizes
                               .map((size, index) => (
                                 <div

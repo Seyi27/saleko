@@ -158,7 +158,7 @@ const NavHeaderSearch = () => {
           getCartRefresh();
           localStorage.removeItem("guest_id");
         }
-      } catch (error:any) {
+      } catch (error) {
         // showCustomToast({
         //   message:
         //     "Error! Please check your network connection and try again..",
