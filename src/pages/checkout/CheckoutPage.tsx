@@ -93,6 +93,7 @@ const CheckoutPage = () => {
 
   const { showTooltip, isVisible, content } = useTooltip();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleDoorDelivery = () => {
     if (user) {
@@ -488,7 +489,8 @@ const CheckoutPage = () => {
               <div className="checkout_cart_header_container">
                 <p className="checkout_cart_summary_text">Cart Summary</p>
 
-                <div className="checkout_modify_cart_container">
+                <div className="checkout_modify_cart_container"                   onClick={() => navigate("/cart")}
+                >
                   <p>Modify Cart</p>
                   <BsChevronRight color="#084C3F" />
                 </div>
