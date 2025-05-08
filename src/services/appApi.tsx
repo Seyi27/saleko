@@ -39,7 +39,7 @@ export const appApi = createApi({
       }),
     }),
 
-    fetchCategories: builder.query({
+    fetchAllCategories: builder.query({
       query: () => ({
         url: "/api/main-svc-v2/public/products/categories/tree",
       }),
@@ -83,5 +83,5 @@ export const {
   useFetchPickupLocationQuery,
   useLazyFetchCustomerAddressQuery,
   useAddCustomerAddressMutation,
-  useFetchCategoriesQuery
+  useFetchAllCategoriesQuery
 } = appApi;

@@ -14,7 +14,7 @@ import {
 } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import {
-  useFetchCategoriesQuery,
+  useFetchAllCategoriesQuery,
   useMarketplaceApiQuery,
 } from "../../services/appApi";
 import logout_ic from "../../assets/images/svg/logout_ic.svg";
@@ -37,7 +37,7 @@ const MenuSidebar = ({ isOpen, closeModal }: MenuSidebarProps) => {
   const dispatch = useDispatch();
 
   const { data: fetchedCategoryData, isSuccess: fetchedCategorySuccess } =
-    useFetchCategoriesQuery({});
+  useFetchAllCategoriesQuery({});
 
   const { data: fetchedMarketData, isSuccess: fetchedMarketSuccess } =
     useMarketplaceApiQuery({});

@@ -4,7 +4,7 @@ import PageWrapper from "../../components/page-wrapper/PageWrapper";
 import { useLocation, useNavigate } from "react-router-dom";
 import ProductSection from "../../components/product-section/ProductSection";
 import { productData } from "../../helpers/Data";
-import { useFetchCategoriesQuery } from "../../services/appApi";
+import { useFetchAllCategoriesQuery } from "../../services/appApi";
 import { CategoryDataProp } from "../../types/types";
 import ComponentSlideshow from "../../components/component-slideshow/ComponentSlideshow";
 import { useLazyGetAllProductsByCategoryQuery } from "../../services/productsApi";
@@ -26,7 +26,7 @@ const CategoryPage = () => {
     useState<number>(12);
   const [viewMoreLoader, setViewMoreLoader] = useState(false);
 
-  const { data, isSuccess } = useFetchCategoriesQuery({});
+  const { data, isSuccess } = useFetchAllCategoriesQuery({});
   const [getAllProductsByCategory, { isLoading: categoryLoader }] =
     useLazyGetAllProductsByCategoryQuery();
 

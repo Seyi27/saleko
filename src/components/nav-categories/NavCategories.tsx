@@ -5,7 +5,7 @@ import CategoriesIcon from "../../assets/images/svg/CategoriesIcon";
 import { CategoryDataProp } from "../../types/types";
 import saleko_green from "../../assets/images/svg/saleko_green.svg";
 import { useNavigate } from "react-router-dom";
-import { useFetchCategoriesQuery } from "../../services/appApi";
+import { useFetchAllCategoriesQuery } from "../../services/appApi";
 
 const NavCategories = () => {
   const [visibleDropdown, setVisibleDropdown] = useState(false);
@@ -13,7 +13,7 @@ const NavCategories = () => {
   const [hoveredCategory, setHoveredCategory] = useState<CategoryDataProp>();
   const navigate = useNavigate();
 
-  const { data, isSuccess } = useFetchCategoriesQuery({});
+  const { data, isSuccess } = useFetchAllCategoriesQuery({});
 
   useEffect(() => {
     if (isSuccess) {
@@ -21,6 +21,8 @@ const NavCategories = () => {
       setHoveredCategory(data.data[0]);
     }
   }, [data]);
+
+  console.log("data data", data)
 
   const handleClickedCategory = () => {
     const categoryName = hoveredCategory?.name ?? "";
